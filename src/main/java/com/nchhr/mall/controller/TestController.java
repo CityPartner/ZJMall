@@ -7,9 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("")
-public class TestController {
 
-    // TODO 此控制类仅用作测试静态资源 切勿在此添加代码逻辑
+// TODO 此控制类仅用作测试静态资源 切勿在此添加代码逻辑
+public class TestController {
 
     @RequestMapping(value = "/{resourseName}")
     public ModelAndView index(@PathVariable("resourseName") String resourseName) {
