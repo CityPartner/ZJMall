@@ -1,7 +1,7 @@
-package com.nchhr.mall.service;
+package com.nchhr.mall.Service;
 
-import com.nchhr.mall.dao.CommodityDao;
-import com.nchhr.mall.entity.CommodityEntity;
+import com.nchhr.mall.Dao.CommodityDao;
+import com.nchhr.mall.Entity.CommodityEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
