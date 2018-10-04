@@ -4,6 +4,8 @@ server:
     path: /mall
 
 spring:
+  messages:
+    encoding: UTF-8
   datasource:
     name: test
     url: jdbc:mysql://47.94.81.127:3306/hyzj
