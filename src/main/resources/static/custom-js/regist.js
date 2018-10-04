@@ -74,7 +74,7 @@ $(document).ready(function () {
              */
             var temp = {};
             temp.phone = $("#userPhone").val();
-            alert(temp.phone);
+            // alert(temp.phone);
             $.ajax({
                 async: false,
                 type: "POST",
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
     //获取验证码
     $("#getCode").click(function (e) {
-        alert("123");
+        // alert("123");
 
         var count = 60; //间隔函数，1秒执行
         curCount = count;
