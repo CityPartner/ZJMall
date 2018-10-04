@@ -862,7 +862,7 @@ button.weui-form-preview__btn {
   color: #3CC51F;
 }
 button.weui-vcode-btn {
-  background-color: transparent;
+  /*background-color: transparent;*/
   border-top: 0;
   border-right: 0;
   border-bottom: 0;
