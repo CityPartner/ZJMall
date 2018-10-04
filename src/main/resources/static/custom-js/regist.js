@@ -78,7 +78,7 @@ $(document).ready(function () {
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "../MallUser/deleteCode",//注意路径
+                url: "MallUser/deleteCode",//注意路径
                 data: temp,
                 dataType: "json",
                 success: function (data) {
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
     //获取验证码
     $("#getCode").click(function (e) {
-        // alert("123");
+        alert("123");
 
         var count = 60; //间隔函数，1秒执行
         curCount = count;
@@ -147,7 +147,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "../MallUser/MallUserRegistered",//注意路径
+            url: "MallUser/MallUserRegistered",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -232,7 +232,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "../MallUser/RegistLogin",//注意路径
+            url: "MallUser/RegistLogin",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -246,7 +246,8 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         html: true
                     });
-                    window.location.href="../index.html";
+                    window.location.href="index.html";
+                    return;
 
                 }
                 if (item == "2") {
