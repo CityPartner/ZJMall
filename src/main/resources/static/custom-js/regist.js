@@ -211,7 +211,7 @@ $(document).ready(function () {
 
     //注册登录
     $("#but_regist").click(function () {
-        var params = {};
+       var params = {};
         params.userPhone = $("#userPhone").val();
         params.code = $("#code").val();
         params.pwd = $("#pwd").val();
@@ -229,6 +229,7 @@ $(document).ready(function () {
             return;
         }
         // console.log(JSON.stringify(params,null,4));
+
         $.ajax({
             async: false,
             type: "POST",
@@ -246,7 +247,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         html: true
                     });
-                    window.location.href="index.html";
+                    window.location.href="index";
                     return;
 
                 }

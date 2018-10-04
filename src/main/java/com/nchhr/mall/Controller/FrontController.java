@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("")
-public class TestController {
+public class FrontController {
 
     @Autowired
     private CommodityService commodityService;
@@ -28,7 +28,6 @@ public class TestController {
     private ShopCartService shopCartService;
 
     @RequestMapping("/index")
-    @ResponseBody
     public ModelAndView toIndexPage(Model model) {
         model.addAttribute("coList",commodityService.findAllCommodity());
         return new ModelAndView("index","coListModel",model);
