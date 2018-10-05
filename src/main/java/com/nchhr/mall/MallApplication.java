@@ -17,6 +17,7 @@ public class MallApplication extends SpringBootServletInitializer implements Web
     }
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+
         return builder.sources(MallApplication.class);
     }
 }
