@@ -4,7 +4,7 @@ public class CodeUtils {
 
     public  String createRandom(boolean numberFlag, int length){
         String retStr = "";
-        String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
+        String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWSYZ";
         int len = strTable.length();
         boolean bDone = true;
         do {
