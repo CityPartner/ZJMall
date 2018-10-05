@@ -22,7 +22,7 @@ public class MallUserController {
     MallUserService mallUserService;
 
     /**
-     * 获取验证码
+     * 注册获取验证码
      *
      * @param phone
      * @param session
@@ -64,6 +64,29 @@ public class MallUserController {
     @ResponseBody
     public R_data deleteCode(String phone, HttpSession session) {
         return ResultUtils.success(mallUserService.deleteCode(phone, session), ExceptionEnum.SUCCESS);
+    }
+
+    /**
+     * 重置密码需要的code
+     * @param phone
+     * @param session
+     * @return
+     */
+    @RequestMapping("/ResetPassword")
+    @ResponseBody
+    public R_data ResetGetCode(String phone, HttpSession session) {
+        System.out.println(phone);
+
+        return ResultUtils.success(mallUserService.ResetGetCode(phone, session), ExceptionEnum.SUCCESS);
+
+    }
+    @RequestMapping("/ChangePassword")
+    @ResponseBody
+    public R_data ChangePassword(String newpwd,String code,String newphone,HttpSession session){
+
+        System.out.println(newphone+":"+code+":"+newpwd);
+
+        return ResultUtils.success(mallUserService.ChangePassword(newpwd,code,newphone,session),ExceptionEnum.SUCCESS);
     }
 
 

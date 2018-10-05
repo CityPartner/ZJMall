@@ -28,5 +28,7 @@ public interface MallUserDao {
     @Update("update mall_user set SC_id = #{1} where M_id = #{0}")
     boolean updateSCat(@Param("0") String mid, @Param("1") String sid);
 
-
+    //更新用户密码
+    @Update("update mall_user set password = #{1} where M_id = #{0} ")
+    boolean updatePwd(@Param("0") String m_id, @Param("1") String newpwd);
 }
