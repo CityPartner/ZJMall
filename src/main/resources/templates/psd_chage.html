@@ -9,31 +9,41 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+
+  <link href="custom-css/sweetalert.css" rel="stylesheet">
 </head>
 <body ontouchstart>
 <!--主体-->
 <header class="wy-header">
-  <div class="wy-header-icon-back"><span></span></div>
+  <a href="login.html" ><div class="wy-header-icon-back"><span></span></div></a>
   <div class="wy-header-title">密码修改</div>
 </header>
 <div class="weui-content">
   <div class="weui-cells weui-cells_form wy-address-edit">
     <div class="weui-cell">
       <div class="weui-cell__hd"><label class="weui-label wy-lab">新密码</label></div>
-      <div class="weui-cell__bd"><input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入新密码"></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="newpwd" type="password" pattern="[0-9]*" placeholder="请输入新密码,不能全是数字或字母"></div>
+    </div>
+    <div class="weui-cell weui-cell_vcode" style="height: 44px;color: red;background-color: antiquewhite;display: none" id="format_pwd">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab"></label></div>
+      <div class="weui-cell__bd"><label class="" id="regExpPwd">新密码格式错误</label></div>
     </div>
     <div class="weui-cell weui-cell_vcode">
       <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
-      <div class="weui-cell__bd"><input class="weui-input" type="tel" placeholder="请输入手机号"></div>
-      <div class="weui-cell__ft"><button class="weui-vcode-btn">获取验证码</button></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="newphone" type="numble" placeholder="请输入手机号"></div>
+      <div class="weui-cell__ft"><button class="weui-vcode-btn" id="getCode">获取验证码</button></div>
     </div>
-    <div class="weui-cell weui-cell_vcode">
+    <div class="weui-cell weui-cell_vcode" style="height: 44px;display: none;color: red;background-color: antiquewhite" id="format_phone">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab"></label></div>
+      <div class="weui-cell__bd"><label class="">电话号码格式错误</label></div>
+    </div>
+    <div class="weui-cell weui-cell_vcode" style="height: 44px">
       <div class="weui-cell__hd"><label class="weui-label wy-lab">验证码</label></div>
-      <div class="weui-cell__bd"><input class="weui-input" type="number" placeholder="请输入验证码"></div>
-      <div class="weui-cell__ft"><img class="weui-vcode-img" src="./images/vcode.jpg"></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="code" type="number" placeholder="请输入验证码"></div>
+      <!--<div class="weui-cell__ft"><img class="weui-vcode-img" src="./images/vcode.jpg"></div>-->
     </div>
   </div>
-  <div class="weui-btn-area"><a href="javascript:;" class="weui-btn weui-btn_primary">确认修改</a></div>
+  <button class="weui-btn-area" id="btn_chage" style="width: 100%;margin: auto;"><a class="weui-btn weui-btn_primary " id="change">确认修改</a></button>
 </div>
 
 <script src="lib/jquery-2.1.4.js"></script> 
@@ -46,5 +56,8 @@
 </script>
 
 <script src="js/jquery-weui.js"></script>
+<script src="custom-js/sweetalert.min.js"></script>
+<script type="text/javascript" src="custom-js/psd_chage.js"></script>
+
 </body>
 </html>

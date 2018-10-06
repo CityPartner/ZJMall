@@ -1,67 +1,47 @@
 $(document).ready(function () {
 
-    // alert("123")
-
-    //失去焦点的时候，掩藏样式
-    // $('#userPhone').blur(function () {
-    //     $("#format_phone").hide();
-    // });
-    // $('#repwd').blur(function () {
-    //     $("#checkPwd").hide();
-    // });
-    //
-    //校验手机号格式
-
-    $("#userPhone").on('input', function (e) {
+    //手机号格式判断
+    $("#newphone").on('input', function (e) {
         var pattern = /^1[34578]\d{9}$/;
-        var b = pattern.test($("#userPhone").val());
+        var b = pattern.test($("#newphone").val());
         if (b == false) {
             $("#format_phone").show();
             $("#getCode").attr('disabled', true);
             $("#getCode").css("background-color", "#ececec");
+
+            $("#btn_chage").attr('disabled', true);
+            $("#change").css("background-color", "#ececec");
         }
         if (b == true) {
-            console.log("123");
+            // console.log("123");
             $("#format_phone").hide();
             $("#getCode").attr('disabled', false);
             $("#getCode").css("background-color", "transparent");
-        }
-    });
-    //判断第二次密码输入的正确性
-    $("#repwd").on('input', function (e) {
-        var params = {};
-        params.pwd = $("#pwd").val();
-        params.repwd = $("#repwd").val();
-        if (params.pwd == params.repwd) {
-            $("#regExpPwd").text("第二次密码输入错误");
-            $("#checkPwd").hide();
-            $("#regist_login").attr('disabled', false);
-            $("#regist_login").css("background-color", "#e64340");
 
-        }
-        if (params.pwd != params.repwd) {
-            // console.log("123");
-            $("#regExpPwd").text("第二次密码输入错误");
-            $("#checkPwd").show();
-            $("#regist_login").attr('disabled', true);
-            $("#regist_login").css("background-color", "#999");
+            $("#btn_chage").attr('disabled', false);
+            $("#change").css("background-color", "#1aad19");
 
         }
     });
-
-    //校验密码是否6位
-    $("#pwd").on('input', function (e) {
+    //校验密码是否6位，不能全是数字或者字母
+    $("#newpwd").on('input', function (e) {
         var regExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/;
-        var b = regExp.test($("#pwd").val());
+        var b = regExp.test($("#newpwd").val());
         if (b == false) {
-            $("#regExpPwd").text("密码格式不对");
-            $("#checkPwd").show();
+            $("#regExpPwd").text("新密码格式不对");
+            $("#format_pwd").show();
+
+            $("#btn_chage").attr('disabled', true);
+            $("#change").css("background-color", "#ececec");
         }
         if (b == true) {
-            $("#checkPwd").hide();
+            $("#format_pwd").hide();
+            $("#btn_chage").attr('disabled', false);
+            $("#change").css("background-color", "#1aad19");
         }
 
     });
+    //清除code
     var curCount;//当前剩余秒数
     var InterValObj; //timer变量，控制时间
     function SetRemainTime() {
@@ -83,9 +63,11 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     var itemb = data.data;
+                    //1代表成功
                     if (itemb == "1") {
 
                     }
+                    //2代表有异常
                     if (itemb == "2") {
                         swal({
                             title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
@@ -116,7 +98,6 @@ $(document).ready(function () {
         }
 
     }
-
     //获取验证码
     $("#getCode").click(function (e) {
         // alert("123");
@@ -124,7 +105,7 @@ $(document).ready(function () {
         var count = 60; //间隔函数，1秒执行
         curCount = count;
         var params = {};
-        params.phone = $("#userPhone").val();
+        params.phone = $("#newphone").val();
         if (params.phone == "") {
 
             swal({
@@ -147,7 +128,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "MallUser/MallUserRegistered",//注意路径
+            url: "MallUser/ResetPassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -166,7 +147,7 @@ $(document).ready(function () {
                 }
                 if (itm == "2") {
                     swal({
-                        title: "<span style='color:#f6d224;font-size: 26px'>该手机号已被注册！<span>",
+                        title: "<span style='color:#f6d224;font-size: 26px'>手机号未被注册，请先注册！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
                         showConfirmButton: false,
@@ -208,16 +189,24 @@ $(document).ready(function () {
 
     });
 
-
-    //注册登录
-    $("#but_regist").click(function () {
-       var params = {};
-        params.userPhone = $("#userPhone").val();
+    //修改密码
+    $("#btn_chage").click(function () {
+        var params = {};
+        params.newpwd = $("#newpwd").val();
         params.code = $("#code").val();
-        params.pwd = $("#pwd").val();
-        params.repwd = $("#repwd").val();
+        params.newphone = $("#newphone").val();
         // alert(JSON.stringify(params));
-        if (params.userPhone == "" || params.code == "" || params.pwd == "" || params.repwd == "") {
+        if (params.newpwd ==''){
+            swal({
+                title: "<span style='color:#f6d224;font-size: 26px'>新密码不能为空！<span>",
+                text: "2秒后自动关闭。",
+                timer: 2000,
+                showConfirmButton: true,
+                html: true
+            });
+            return;
+        }
+        if (params.newpwd == "" || params.code == "" || params.newphone == "" ) {
 
             swal({
                 title: "<span style='color:#f6d224;font-size: 26px'>验证码不能为空！<span>",
@@ -228,12 +217,13 @@ $(document).ready(function () {
             });
             return;
         }
-        // console.log(JSON.stringify(params,null,4));
+
+        console.log(JSON.stringify(params,null,4));
 
         $.ajax({
             async: false,
             type: "POST",
-            url: "MallUser/RegistLogin",//注意路径
+            url: "MallUser/ChangePassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -241,19 +231,19 @@ $(document).ready(function () {
                 if (item == "1") {
 
                     swal({
-                        title: "<span style='color:#6ddb8d;font-size: 26px'>注册成功！<span>",
+                        title: "<span style='color:#6ddb8d;font-size: 26px'>修改成功！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         html: true
                     });
-                    window.location.href="index";
+                    window.location.href="login.html";
                     return;
 
                 }
                 if (item == "2") {
                     swal({
-                        title: "<span style='color:#ef3737;font-size: 26px'>手机号错误！<span>",
+                        title: "<span style='color:#f6d224;font-size: 26px'>手机未被注册！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
                         showConfirmButton: false,
@@ -289,7 +279,7 @@ $(document).ready(function () {
                 }
                 if (item == "6") {
                     swal({
-                        title: "<span style='color:#f6d224;font-size: 26px'>该手机号已被注册！<span>",
+                        title: "<span style='color:#ef3737;font-size: 26px'>手机号有误！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
                         showConfirmButton: false,
@@ -299,7 +289,7 @@ $(document).ready(function () {
             },
             error: function (data) {
                 swal({
-                    title: "<span style='color:#ef3737;font-size: 26px'>注册失败！<span>",
+                    title: "<span style='color:#ef3737;font-size: 26px'>修改失败！<span>",
                     text: "2秒后自动关闭。",
                     timer: 2000,
                     showConfirmButton: true,
@@ -309,4 +299,5 @@ $(document).ready(function () {
         });
 
     });
+
 });
