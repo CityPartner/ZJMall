@@ -3,37 +3,23 @@ package com.nchhr.mall.entity;
 
 import java.sql.Timestamp;
 
+//优惠券实体（多表）
 public class CouponEntity {
 
+    //优惠券具体信息
     private String OFid;
     private String offe_user;
     private String Receiver;
-    private String COid;
     private Timestamp pickTime;
     private String state;
     private Timestamp useTime;
+    //优惠券类型信息
+    private String amount;
+    private String discount;
+    private String condition_use;
+    private String type;
 
-    public CouponEntity(String OFid, String offe_user, String receiver, String COid, Timestamp pickTime, String state, Timestamp useTime) {
-        this.OFid = OFid;
-        this.offe_user = offe_user;
-        Receiver = receiver;
-        this.COid = COid;
-        this.pickTime = pickTime;
-        this.state = state;
-        this.useTime = useTime;
-    }
-
-    public CouponEntity(String OFid, String offe_user, String COid) {
-        this.OFid = OFid;
-        this.offe_user = offe_user;
-        this.COid = COid;
-    }
-
-    public CouponEntity(String OFid, String receiver, Timestamp pickTime, String state) {
-        this.OFid = OFid;
-        Receiver = receiver;
-        this.pickTime = pickTime;
-        this.state = state;
+    public CouponEntity() {
     }
 
     public String getOFid() {
@@ -60,14 +46,6 @@ public class CouponEntity {
         Receiver = receiver;
     }
 
-    public String getCOid() {
-        return COid;
-    }
-
-    public void setCOid(String COid) {
-        this.COid = COid;
-    }
-
     public Timestamp getPickTime() {
         return pickTime;
     }
@@ -92,16 +70,51 @@ public class CouponEntity {
         this.useTime = useTime;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getCondition_use() {
+        return condition_use;
+    }
+
+    public void setCondition_use(String condition_use) {
+        this.condition_use = condition_use;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "Coupon{" +
+        return "CouponEntity{" +
                 "OFid='" + OFid + '\'' +
                 ", offe_user='" + offe_user + '\'' +
                 ", Receiver='" + Receiver + '\'' +
-                ", COid='" + COid + '\'' +
                 ", pickTime=" + pickTime +
                 ", state='" + state + '\'' +
                 ", useTime=" + useTime +
+                ", amount='" + amount + '\'' +
+                ", discount='" + discount + '\'' +
+                ", condition_use='" + condition_use + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
