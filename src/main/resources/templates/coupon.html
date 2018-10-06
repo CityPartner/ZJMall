@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的优惠券</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <link href="css/coupon.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-1.js"></script>
+    <script type="text/javascript" src="js/coupon.js"></script>
+</head>
+<body>
+<section class="aui-flexView">
+    <header class="aui-navBar aui-navBar-fixed">
+        <a href="javascript:;" class="aui-navBar-item">
+            <i class="icon icon-return"></i>
+        </a>
+        <div class="aui-center">
+            <span class="aui-center-title">我的优惠券</span>
+        </div>
+        <a href="javascript:;" class="aui-navBar-item">
+            <i class="icon icon-sys"></i>优惠券说明
+        </a>
+    </header>
+    <section class="aui-scrollView">
+        <div class="aui-tab" data-ydui-tab="">
+            <ul class="tab-nav">
+                <li class="tab-nav-item tab-active">
+                    <a href="javascript:;">未使用
+                    </a>
+                </li>
+                <li class="tab-nav-item">
+                    <a href="javascript:;">已使用
+                    </a>
+                </li>
+                <li class="tab-nav-item">
+                    <a href="javascript:;">已过期
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-panel">
+                <div class="tab-panel-item tab-active">
+                    <div class="tab-item">
+                        <div class="aui-coupon-box">
+                            <div class="aui-coupon-list" th:each="unusedCoupon:${unusedCoupons}">
+                                <!--打折券-->
+                                <div class="aui-coupon-list-flex" th:if="${unusedCoupon.getType()}=='1'">
+                                    <div class="aui-coupon-list-flex-hd">
+                                        <h2 th:utext="'<i>&nbsp;</i>'+${unusedCoupon.getDiscount()}+'&nbsp;折'"></h2>
+                                        <p>全场通用</p>
+                                    </div>
+                                    <div class="aui-coupon-list-flex-bd">
+                                        <h3 th:utext="'<em>打折券</em>&nbsp;全场商品'+${unusedCoupon.getDiscount()}+'折优惠券'"></h3>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue"
+                                                                            th:onclick="'useCoupon(\''+${unusedCoupon.getOFid()}+'\')'">&nbsp;使用&nbsp;</em>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--现金券-->
+                                <div class="aui-coupon-list-flex" th:unless="${unusedCoupon.getType()}=='1'">
+                                    <div class="aui-coupon-list-flex-hd">
+                                        <h2 th:utext="'<i>￥</i>'+${unusedCoupon.getAmount()}"></h2>
+                                        <p>限定满减</p>
+                                    </div>
+                                    <div class="aui-coupon-list-flex-bd">
+                                        <h3 th:utext="'<em>现金券</em>&nbsp;限定商品'+${unusedCoupon.getAmount()}+'元现金券'"></h3>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue"
+                                                                            th:onclick="'useCoupon(\''+${unusedCoupon.getOFid()}+'\')'">&nbsp;使用&nbsp;</em>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--用券说明-->
+                                <div class="aui-show-content">
+                                    <a href="javascript:;" class="aui-coupon-list-flex-bt btn-slide">用券详细说明
+                                        <i class="icon icon-dow"></i>
+                                    </a>
+                                    <div class="aui-show" style="display:none">
+                                        <p>优惠券使用说明</p>
+                                        <p>使用限定：全场商品 </p>
+                                        <p>使用方式：任何价位均可使用该券</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel-item -active">
+                    <div class="tab-item tab-item-two">
+                        <div class="aui-coupon-box">
+                            <div class="aui-coupon-list" th:each="usedCoupon:${usedCoupons}">
+                                <!--打折券-->
+                                <div class="aui-coupon-list-flex" th:if="${usedCoupon.getType()}=='1'">
+                                    <div class="aui-coupon-list-flex-hd">
+                                        <h2 th:utext="'<i>&nbsp;</i>'+${usedCoupon.getDiscount()}+'&nbsp;折'"></h2>
+                                        <p>全场通用</p>
+                                    </div>
+                                    <div class="aui-coupon-list-flex-bd">
+                                        <h3 th:utext="'<em>打折券</em>&nbsp;全场商品'+${usedCoupon.getDiscount()}+'折优惠券'"></h3>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--现金券-->
+                                <div class="aui-coupon-list-flex" th:unless="${usedCoupon.getType()}=='1'">
+                                    <div class="aui-coupon-list-flex-hd">
+                                        <h2 th:utext="'<i>￥</i>'+${usedCoupon.getAmount()}"></h2>
+                                        <p>限定满减</p>
+                                    </div>
+                                    <div class="aui-coupon-list-flex-bd">
+                                        <h3 th:utext="'<em>现金券</em>&nbsp;限定商品'+${usedCoupon.getAmount()}+'元现金券'"></h3>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--用券说明-->
+                                <div class="aui-show-content">
+                                    <a href="javascript:;" class="aui-coupon-list-flex-bt btn-slide">用券详细说明
+                                        <i class="icon icon-dow"></i>
+                                    </a>
+                                    <div class="aui-show" id="" style="display:none">
+                                        <p>优惠券使用说明</p>
+                                        <p>使用限定：全场商品 </p>
+                                        <p>使用方式：任何价位均可使用该券</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel-item ">
+                    <div class="tab-item tab-item-two">
+                        <div class="aui-coupon-box">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+<script>
+    function useCoupon(couponId) {
+        $.ajax({
+            type: "get",
+            url: "/mall/coupon/choose",
+            data: "couponId="+couponId,
+            dataType: "text",
+            success: function (data) {
+                history.go(-1);
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+</script>
+</html>
