@@ -12,7 +12,6 @@ public class CommodityEntity
     private String comment;//评论
     private float purchase_price;//进价
     private String stock; //库存
-    private String addTime;//商品加入的时间
     private String add_time;//商品加入的时间
     private String production_date;
     private String shelf_date;
@@ -98,14 +97,6 @@ public class CommodityEntity
 
     public void setStock(String stock) {
         this.stock = stock;
-    }
-
-    public String getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(String addTime) {
-        this.addTime = addTime;
     }
 
     public String getAdd_time() {
