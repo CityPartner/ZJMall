@@ -143,12 +143,11 @@
 <script>
     function useCoupon(couponId) {
         $.ajax({
-            type: "get",
+            type: "post",
             url: "/mall/coupon/choose",
             data: "couponId="+couponId,
-            dataType: "text",
             success: function (data) {
-                history.go(-1);
+                window.location.href="/mall/orderConfirmPage";
             },
             error: function () {
                 alert("error");

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<title>地址管理</title>
+<title>可选优惠券</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -16,27 +16,35 @@
 <!--主体-->
 <header class="wy-header">
   <div class="wy-header-icon-back"><span></span></div>
-  <div class="wy-header-title">地址管理</div>
+  <div class="wy-header-title">可用优惠券</div>
 </header>
 <div class="weui-content">
 
   <div class="weui-panel address-box">
-    <div class="weui-panel__bd" th:each="address : ${addressListModel.AddList}">
-      <div class="weui-media-box weui-media-box_text address-list-box">
-        <a th:href="@{/mall/EditAddress?Re_id=}+${address.Re_id}" class="address-edit"></a>
-        <h4 class="weui-media-box__title"><span th:text="${address.name}"></span><span th:text="${address.phone}"></span></h4>
-        <p class="weui-media-box__desc address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></p>
-        <span style="background-color: #9598a5" th:if="${address.acquiescence} eq 是">默认地址</span>
-        <span class="default-add" th:if="${address.acquiescence} eq 否">设为默认地址</span>
-        <input type="hidden" th:value="${address.Re_id}"/>
-      </div>
-    </div>
 
-    
+
+    <a th:each="coupon : ${CouponPageModel.Coupons}" th:href="@{/mall/SetCoupon?Co_id=}+${coupon.Co_id}">
+      <div class="weui-panel__bd" >
+        <div class="weui-media-box weui-media-box_text address-list-box">
+          <!--<a th:href="@{/mall/EditAddress?Re_id=}+${coupon.Co_id}" class="address-edit"></a>-->
+          <h4 class="weui-media-box__title">
+            <!--<span th:text="${coupon.amount}"></span>-->
+            <div class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${coupon.amount}">296.00</em></div>
+          </h4>
+          <div>
+            <span>使用条件：满</span><span th:text="${coupon.condition_use}+可用"></span>
+          </div>
+          <div>
+            <p class="weui-media-box__desc address-txt" th:text="有效日期：+${coupon.starting_time}+至+${coupon.end_time}"></p>
+          </div>
+        </div>
+      </div>
+    </a>
+
   </div>
-  <div class="weui-btn-area">
-    <a class="weui-btn weui-btn_primary" href="address_add.html" id="showTooltips">添加收货地址</a>
-  </div>
+  <!--<div class="weui-btn-area">-->
+    <!--<a class="weui-btn weui-btn_primary" href="address_add.html" id="showTooltips">添加收货地址</a>-->
+  <!--</div>-->
 </div>
 
 <script src="lib/jquery-2.1.4.js"></script> 

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <title>会员中心</title>
 <meta charset="utf-8">
@@ -131,7 +131,7 @@
                 </div>
                 <span class="weui-cell__ft"></span>
               </a>
-              <a class="weui-cell weui-cell_access" href="address_list.html">
+              <a class="weui-cell weui-cell_access" th:href="@{/mall/addressList}">
                 <div class="weui-cell__hd"><img src="images/center-icon-dz.png" alt="" class="center-list-icon"></div>
                 <div class="weui-cell__bd weui-cell_primary">
                   <p class="center-list-txt">地址管理</p>
