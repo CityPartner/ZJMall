@@ -5,13 +5,13 @@ Created by Jacy 2018/10/05
 Serving coupon functions
  */
 
-import com.nchhr.mall.service.CouponService;
+import com.nchhr.mall.Service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -32,10 +32,11 @@ public class CouponController {
 
     @RequestMapping("/choose")
     @ResponseBody
-    public String chooseCoupon(HttpSession httpSession, String couponId) {
+    public String chooseCoupon(HttpServletRequest request, String couponId) {
         //此处为从优惠券页面传上来选择的优惠券
-        System.out.println(couponId);
-        httpSession.setAttribute("coupon", couponId);
+//        System.out.println(couponId);
+        request.getSession().setAttribute("OFid", couponId);
+//        System.out.println(request.getSession().getAttribute("OFid").toString());
         return "-OK-";
     }
 }

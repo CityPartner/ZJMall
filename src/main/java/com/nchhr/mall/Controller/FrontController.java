@@ -24,8 +24,6 @@ public class FrontController {
     @Autowired
     private CommodityService commodityService;
 
-    @Autowired
-    private ShopCartService shopCartService;
 
     @RequestMapping("/index")
     public ModelAndView toIndexPage(Model model) {
@@ -49,60 +47,9 @@ public class FrontController {
         return new ModelAndView("pro_info","pro_infoModel",model);
     }
 
-    /*
-     *添加购物车
-     * 如果购物车已存在该商品，则更新数量
-     * 不存在则添加一条新纪录
-     */
-    @RequestMapping("/addToCart")
-    @ResponseBody
-    public int addToCart(@RequestParam(value = "BuyCount",required = true,defaultValue = "1") int BuyCount,
-                         @RequestParam(value = "C_id",required = true,defaultValue = "0001") String C_id,
-                         HttpServletRequest request){
-//        HttpSession session=request.getSession();
-////        String SC_id=session.getAttribute("U_id").toString();
-        int result=1;
-        String SC_id="xs01";
-        ShopCartEntity newCart=new ShopCartEntity();
-        newCart.setSC_id(SC_id);
-        newCart.setC_id(C_id);
-        newCart.setNumber(BuyCount);
-        newCart.setAdd_time(null);
-        ShopCartEntity oldCart=shopCartService.findBySCidAndCid(SC_id,C_id);
-//        shoppingcart_commodity shoppingcart_commodity=cartDao.findById(shopCartKey).get();
-        if(null==oldCart){
-            shopCartService.save(newCart);
-        }else
-        {
-            newCart.setNumber(oldCart.getNumber()+newCart.getNumber());
-            shopCartService.update(newCart);
-        }
 
-        return result;
-    }
 
-    @RequestMapping("/shopcart")
-    public ModelAndView toShopcartPage(Model model, HttpServletRequest request){
-//        Object SC_id=request.getSession().getAttribute("SC_id");
 
-//        if(SC_id==null){
-//            return new ModelAndView("login","loginModel",model);
-//        }
-        //测试！
-        String SC_id="xs01";
-//        System.out.println(SC_id);
-        CommodityEntity commodityEntity;
-//        String temp;
-        List<ShopCartEntity> carts=shopCartService.findBySCid(SC_id);
-        List<CommodityEntity> commodities=new ArrayList<>();
-        for (ShopCartEntity cart : carts) {
-            commodityEntity=commodityService.findCommodityById(cart.getC_id());
-            commodityEntity.setAdd_time((new Integer(cart.getNumber())).toString());
-            commodities.add(commodityService.findCommodityById(cart.getC_id()));
-        }
-        model.addAttribute("commodities",commodities);
-        return new ModelAndView("shopcart","shopcartModel",model);
-    }
 
 
 
