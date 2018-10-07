@@ -1,7 +1,7 @@
-package com.nchhr.mall.service;
+package com.nchhr.mall.Service;
 
-import com.nchhr.mall.dao.CouponDao;
-import com.nchhr.mall.entity.CouponEntity;
+import com.nchhr.mall.Dao.CouponDao;
+import com.nchhr.mall.Entity.CouponEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,5 +15,9 @@ public class CouponService {
 
     public List<CouponEntity> getCoupons(String userId, String state) {
         return couponDao.getCoupons(userId, state);
+    }
+
+    public CouponEntity getCouponByOfid(String OFid){
+        return couponDao.getCouponById(OFid);
     }
 }

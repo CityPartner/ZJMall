@@ -27,4 +27,8 @@ public class ShopCartService {
     public void update(ShopCartEntity shopCartEntity){
         shopCartDao.update(shopCartEntity);
     }
+
+    public void deleteBySCidAndCid(String SC_id,String C_id){
+        shopCartDao.delete(SC_id, C_id);
+    }
 }
