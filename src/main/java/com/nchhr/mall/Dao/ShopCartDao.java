@@ -1,10 +1,7 @@
 package com.nchhr.mall.Dao;
 
 import com.nchhr.mall.Entity.ShopCartEntity;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,4 +18,8 @@ public interface ShopCartDao {
 
     @Update("update shoppingcart_commodity set number=#{number} , add_time=#{add_time} where SC_id=#{SC_id} and C_id = #{C_id}")
     void update(ShopCartEntity shopCartEntity);
+
+    @Delete("delete from shoppingcart_commodity where SC_id=#{SC_id} and C_id=#{C_id}")
+    void delete(@Param("SC_id")String SC_id,@Param("C_id")String C_id);
+
 }

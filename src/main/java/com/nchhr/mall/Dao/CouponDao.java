@@ -1,6 +1,6 @@
-package com.nchhr.mall.dao;
+package com.nchhr.mall.Dao;
 
-import com.nchhr.mall.entity.CouponEntity;
+import com.nchhr.mall.Entity.CouponEntity;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
