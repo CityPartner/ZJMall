@@ -8,9 +8,9 @@ public class MallUserEntity {
     private String nickname;
     private String ID_card;
     private String name;
-    private String WX_id; // 登录标识
-    private String paaword;
-
+    private String openid; // 登录标识
+    private String password;
+    private String addTime;
     public String getM_id() {
         return M_id;
     }
@@ -67,25 +67,33 @@ public class MallUserEntity {
         this.name = name;
     }
 
-    public String getWX_id() {
-        return WX_id;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setWX_id(String WX_id) {
-        this.WX_id = WX_id;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
-    public String getPaaword() {
-        return paaword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPaaword(String paaword) {
-        this.paaword = paaword;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
     }
 
     @Override
     public String toString() {
-        return "MallUser{" +
+        return "MallUserEntity{" +
                 "M_id='" + M_id + '\'' +
                 ", R_id='" + R_id + '\'' +
                 ", SC_id='" + SC_id + '\'' +
@@ -93,8 +101,9 @@ public class MallUserEntity {
                 ", nickname='" + nickname + '\'' +
                 ", ID_card='" + ID_card + '\'' +
                 ", name='" + name + '\'' +
-                ", WX_id='" + WX_id + '\'' +
-                ", paaword='" + paaword + '\'' +
+                ", openid='" + openid + '\'' +
+                ", password='" + password + '\'' +
+                ", addTime='" + addTime + '\'' +
                 '}';
     }
 }
