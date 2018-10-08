@@ -61,7 +61,7 @@ $(document).ready(function () {
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "MallUser/deleteCode",//注意路径
+                url: "deleteCode",//注意路径
                 data: temp,
                 dataType: "json",
                 success: function (data) {
@@ -131,7 +131,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "MallUser/ResetPassword",//注意路径
+            url: "ResetPassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -226,7 +226,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "MallUser/ChangePassword",//注意路径
+            url: "ChangePassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
