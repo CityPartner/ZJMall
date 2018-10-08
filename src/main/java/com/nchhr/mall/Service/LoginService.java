@@ -98,4 +98,12 @@ public class LoginService {
         }
 
     }
+
+    public boolean loginByOpenid(String openid) {
+
+        if (mallUserDao.loadByOpenid(openid) != null){
+            return true;
+        }
+        return false;
+    }
 }

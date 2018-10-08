@@ -1,10 +1,10 @@
-package com.nchhr.mall.service;
+package com.nchhr.mall.Service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.nchhr.mall.dao.WeChatUserDao;
+import com.nchhr.mall.Entity.WeChatUserEntity;
+import com.nchhr.mall.Dao.WeChatUserDao;
 import com.nchhr.mall.entity.WeChatOAuth2Token;
-import com.nchhr.mall.entity.WeChatUserEntity;
 import com.nchhr.mall.util.JSONUtil;
 import com.nchhr.mall.util.WeChatUtil;
 import org.springframework.stereotype.Service;

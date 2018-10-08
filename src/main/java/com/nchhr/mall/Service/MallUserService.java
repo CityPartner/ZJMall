@@ -10,8 +10,10 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.nchhr.mall.Dao.MallUserDao;
+import com.nchhr.mall.Dao.WeChatUserDao;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.PhoneCodeEntity;
+import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Enum.CodeEnum;
 import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.Exception.MDException;
@@ -19,10 +21,13 @@ import com.nchhr.mall.Utils.CodeUtils;
 import com.nchhr.mall.Utils.MD5Utils;
 import com.nchhr.mall.Utils.PhoneCodeUtils;
 import com.nchhr.mall.Utils.TimeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service
@@ -30,6 +35,12 @@ public class MallUserService {
 
     @Resource
     MallUserDao mallUserDao;
+
+    @Resource
+    WeChatUserDao weChatUserDao;
+
+    @Autowired
+    CookiesService cookiesService;
 
     public String getCode(String phone, HttpSession session) {
         MallUserEntity mallUser = mallUserDao.loadByID(phone);
@@ -112,10 +123,12 @@ public class MallUserService {
      * @param code
      * @param pwd
      * @param session
+     * @param response
+     * @param request
      * @return
      */
     @Transactional
-    public String RegistLogin(String userPhone, String code, String pwd, HttpSession session) {
+    public String RegistLogin(String userPhone, String code, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         MD5Utils md5Utils = new MD5Utils();
         //再次判断注册手机号已被注册（是否）
         MallUserEntity loadByPhone = mallUserDao.loadByID(userPhone);
@@ -138,11 +151,15 @@ public class MallUserService {
                     //1成功
                     //添加商城用户
                     CodeUtils codeUtils = new CodeUtils();
+                    //获取微信id
+                    WeChatUserEntity weChatUserEntity = (WeChatUserEntity)session.getAttribute("weChatUser");
+
+                    weChatUserDao.addWeCharUser(weChatUserEntity);
 
                     String Mid = "M" + codeUtils.createRandom(false, 16);
                     System.out.println(Mid);
 
-                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd,TimeUtils.getTime());
+                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd,TimeUtils.getTime(),weChatUserEntity.getOpenid());
                     System.out.println(b);
                     if (b == true) {
                         String Sid = "S" + codeUtils.createRandom(false, 12);
@@ -150,6 +167,8 @@ public class MallUserService {
                         if (mallUserDao.addShop(Sid)) {
                             if (mallUserDao.updateSCat(Mid, Sid)) {
                                 MallUserEntity mallUser = mallUserDao.loadByMid(Mid);
+                                //保存cookies
+                                cookiesService.saveCookies(Mid,response,request);
                                 session.setAttribute("MallUserInfo", mallUser);
                                 //1代表成功
                                 return "1";
