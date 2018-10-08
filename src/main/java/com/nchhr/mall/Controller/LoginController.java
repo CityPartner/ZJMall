@@ -22,6 +22,17 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @RequestMapping("")
+    public String index() {
+
+        //有cookie cookie保存了很多信息
+            // return "index"
+
+        //没有cookie
+                return "redirect:"+"/mall/wechatuser";
+
+    }
+
 
     @RequestMapping("login")
     @ResponseBody

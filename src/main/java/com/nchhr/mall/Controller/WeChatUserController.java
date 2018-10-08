@@ -26,16 +26,18 @@ public class WeChatUserController {
     }
 
     @RequestMapping("/wechat_redirect")
-    @ResponseBody
     public String weChatRedirect(String code, String state) {
         weChatUserService.getWeChatOAuth2Token(code, state);
-
 
         //获取用户微信openid
         String openid = weChatUserService.getOpenid();
         //获取用户微信信息
         WeChatUserEntity weChatUser = weChatUserService.getUser();
 
-        return "USER-TEST";
+            //微信id存在 有账号 return“login”
+            return "login";
+            //不存在 没有账号 return “register”
+//            return "register";
+
     }
 }
