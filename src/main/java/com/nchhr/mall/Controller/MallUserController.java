@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("MallUser")
+@RequestMapping("")
 public class MallUserController {
 
 
@@ -47,10 +49,10 @@ public class MallUserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/RegistLogin")
+    @RequestMapping("RegistLogin")
     @ResponseBody
-    public R_data RegistLogin(String userPhone, String code, String pwd, HttpSession session) throws Exception {
-        return ResultUtils.success(mallUserService.RegistLogin(userPhone, code, pwd, session), ExceptionEnum.SUCCESS);
+    public R_data RegistLogin(String userPhone, String code, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        return ResultUtils.success(mallUserService.RegistLogin(userPhone, code, pwd, session,response,request), ExceptionEnum.SUCCESS);
     }
 
     /**
@@ -60,7 +62,7 @@ public class MallUserController {
      * @param session
      * @return
      */
-    @RequestMapping("/deleteCode")
+    @RequestMapping("deleteCode")
     @ResponseBody
     public R_data deleteCode(String phone, HttpSession session) {
         return ResultUtils.success(mallUserService.deleteCode(phone, session), ExceptionEnum.SUCCESS);
@@ -72,7 +74,7 @@ public class MallUserController {
      * @param session
      * @return
      */
-    @RequestMapping("/ResetPassword")
+    @RequestMapping("ResetPassword")
     @ResponseBody
     public R_data ResetGetCode(String phone, HttpSession session) {
         System.out.println(phone);
@@ -80,7 +82,7 @@ public class MallUserController {
         return ResultUtils.success(mallUserService.ResetGetCode(phone, session), ExceptionEnum.SUCCESS);
 
     }
-    @RequestMapping("/ChangePassword")
+    @RequestMapping("ChangePassword")
     @ResponseBody
     public R_data ChangePassword(String newpwd,String code,String newphone,HttpSession session){
 
