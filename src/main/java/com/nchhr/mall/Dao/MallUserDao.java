@@ -17,8 +17,8 @@ public interface MallUserDao {
     MallUserEntity loadByMid(@Param("0") String mid);
 
     //插入用户
-    @Insert("insert into mall_user(M_id,R_id,phone,password,nickname,addTime) values(#{0},'3',#{1},#{2},'商城用户',#{3})")
-    boolean RegistLogin( @Param("0") String mid, @Param("1") String userPhone, @Param("2") String pwd,@Param("3") String addtime);
+    @Insert("insert into mall_user(M_id,R_id,phone,password,nickname,addTime,openid) values(#{0},'3',#{1},#{2},'商城用户',#{3},#{4})")
+    boolean RegistLogin( @Param("0") String mid, @Param("1") String userPhone, @Param("2") String pwd, @Param("3") String addtime,@Param("4") String openid);
 
     //插入购物车
     @Insert("insert into shopping_cart values(#{0})")
@@ -31,4 +31,8 @@ public interface MallUserDao {
     //更新用户密码
     @Update("update mall_user set password = #{1} where M_id = #{0} ")
     boolean updatePwd(@Param("0") String m_id, @Param("1") String newpwd);
+
+    //通过openid查找用户
+    @Select("select * from mall_user where openid = #{0}")
+    MallUserEntity loadByOpenid(@Param("0") String openid);
 }
