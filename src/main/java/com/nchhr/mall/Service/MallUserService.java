@@ -18,6 +18,7 @@ import com.nchhr.mall.Exception.MDException;
 import com.nchhr.mall.Utils.CodeUtils;
 import com.nchhr.mall.Utils.MD5Utils;
 import com.nchhr.mall.Utils.PhoneCodeUtils;
+import com.nchhr.mall.Utils.TimeUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -141,7 +142,7 @@ public class MallUserService {
                     String Mid = "M" + codeUtils.createRandom(false, 16);
                     System.out.println(Mid);
 
-                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd);
+                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd,TimeUtils.getTime());
                     System.out.println(b);
                     if (b == true) {
                         String Sid = "S" + codeUtils.createRandom(false, 12);
@@ -336,4 +337,6 @@ public class MallUserService {
             }
         }
     }
+
+
 }
