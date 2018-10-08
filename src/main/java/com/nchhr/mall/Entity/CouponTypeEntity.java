@@ -1,4 +1,4 @@
-package com.nchhr.mall.entity;
+package com.nchhr.mall.Entity;
 
 public class CouponTypeEntity {
 }
