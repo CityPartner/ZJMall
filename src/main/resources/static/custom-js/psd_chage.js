@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+
+
+
     //手机号格式判断
     $("#newphone").on('input', function (e) {
         var pattern = /^1[34578]\d{9}$/;
@@ -237,7 +240,18 @@ $(document).ready(function () {
                         showConfirmButton: true,
                         html: true
                     });
-                    window.location.href="login.html";
+                    function jump(count) {
+                        window.setTimeout(function(){
+                            count--;
+                            if(count > 0) {
+                                $('#num').attr('innerHTML', count);
+                                jump(count);
+                            } else {
+                                window.location.href="login.html";
+                            }
+                        }, 1000);
+                    }
+                    jump(2);
                     return;
 
                 }
