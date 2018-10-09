@@ -20,4 +20,15 @@ public class CouponService {
     public CouponEntity getCouponByOfid(String OFid){
         return couponDao.getCouponById(OFid);
     }
+
+    /*
+     *使用一个优惠券
+     * HWG
+     */
+    public void useCoupon(String OFid){
+        CouponEntity couponEntity=new CouponEntity();
+        couponEntity.setOffe_user(OFid);
+        couponEntity.setState("已用");
+        couponDao.updateCouponUsageInfo(couponEntity);
+    }
 }

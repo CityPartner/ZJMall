@@ -7,12 +7,12 @@ import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.RsultModel.R_data;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Utils.ResultUtils;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("")
 public class LoginController {
 
     @Autowired
@@ -29,6 +30,13 @@ public class LoginController {
     @Resource
     MallUserDao mallUserDao;
 
+    //测试用 请勿使用该控制器
+    @RequestMapping("/MP_verify_6NRD3VognOOIx0WG.txt")
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView("MP_verify_6NRD3VognOOIx0WG.txt");
+        return modelAndView;
+    }
+
     @RequestMapping("")
     public String index(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
@@ -36,6 +44,7 @@ public class LoginController {
         // return "index"
 
         //没有cookie
+        System.out.println("++++++++++++++++++++_+_+_+_+_+_+_+");
 
         Cookie[] cookies = request.getCookies();
         String ss = "";
@@ -55,6 +64,7 @@ public class LoginController {
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
+            System.out.println(mallUser.toString());
             session.setAttribute("MallUserInfo",mallUser);
 
             return "redirect:/mall/index";
@@ -64,7 +74,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping("login")
+    @RequestMapping("/login")
     @ResponseBody
     public R_data login(String phone, String pwd, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception{
 

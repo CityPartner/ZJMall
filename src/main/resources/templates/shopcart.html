@@ -15,12 +15,12 @@
   <script src="lib/jquery-2.1.4.js"></script>
   <script src="lib/fastclick.js"></script>
   <script type="text/javascript" src="js/jquery.Spinner.js"></script>
-
+  <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
 <header class="wy-header">
-  <div class="wy-header-icon-back"><span></span></div>
+  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
   <div class="wy-header-title">购物车</div>
 </header>
 <div class="weui-content">
@@ -201,7 +201,7 @@
             $.confirm("您确定要把此商品从购物车删除吗?", "确认删除?", function() {
                 // alert(C_id);
                 $.ajax({
-                        url:"/mall/removeFromCart",
+                        url:"/mall/shopCart/removeFromCart",
                         data:"C_id="+C_id,
                         type:"post",
                         success:function (data) {

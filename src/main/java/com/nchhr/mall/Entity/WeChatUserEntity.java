@@ -1,15 +1,16 @@
 package com.nchhr.mall.Entity;
 
-    public class WeChatUserEntity {
-        private String openid;
-        private String nickname;
-        private String sex;
-        private String language;
-        private String city;
-        private String province;
-        private String country;
-        private String headimgurl;
-        private String privilege;
+public class WeChatUserEntity {
+    private String openid;
+    private String nickname;
+    private String sex;
+    private String language;
+    private String city;
+    private String province;
+    private String country;
+    private String headimgurl;
+    private String privilege;
+    private String unionid;
 
     public WeChatUserEntity() {
     }
@@ -96,6 +97,14 @@ package com.nchhr.mall.Entity;
 
     public void setPrivilege(String privilege) {
         this.privilege = privilege;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
     }
 
     @Override

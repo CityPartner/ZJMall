@@ -2,10 +2,7 @@ package com.nchhr.mall.Service;
 
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
-import com.nchhr.mall.Entity.CommodityEntity;
-import com.nchhr.mall.Entity.OrderCommodityEntity;
 import com.nchhr.mall.Utils.Generate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,12 +20,20 @@ public class OrdersService {
     @Resource
     private OrderCommodityDao orderCommodityDao;
 
+    @Resource
+    private CommodityService commodityService;
 
-    public boolean insertOrder(HttpServletRequest request) {
+    @Resource
+    private CouponService couponService;
+
+    public int insertOrder(HttpServletRequest request) {
 
         try{
 
 //            产生订单号
+            Object re_id1 = request.getSession().getAttribute("Re_id");
+            if(re_id1==null)
+                return 2;
             String re_id = request.getSession().getAttribute("Re_id").toString();
 //            String m_id = request.getSession().getAttribute("M_id").toString();
             String m_id="#123";
@@ -59,19 +64,27 @@ public class OrdersService {
                         String[] temp = codata.split(":");
 //                        b2 = orderCommodityDao.save(new OrderCommodityEntity(o_id, temp[0], Integer.parseInt(temp[1])));
                         System.out.println(o_id+" "+temp[0]+"  "+temp[1]);
+                        commodityService.buyCommodity(temp[0],temp[1]);
                         orderCommodityDao.saveByHand(o_id,temp[0],Integer.parseInt(temp[1]));
                     }
                 }
             }catch (Exception e){
                 e.printStackTrace();
-                return false;
+                return 3;
+            }
+
+//            使用优惠券
+            if(OFid!=null){
+                couponService.useCoupon(OFid);
             }
 
 
-            return true;
+
+
+            return 1;
         }catch(Exception e){
             e.printStackTrace();
-            return  false;
+            return  4;
         }
 
     }

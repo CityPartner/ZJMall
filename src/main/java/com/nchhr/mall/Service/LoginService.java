@@ -9,9 +9,6 @@ import com.nchhr.mall.Entity.MenuEntity;
 import com.nchhr.mall.Entity.RoleEntity;
 import com.nchhr.mall.EntityVo.MenuVo;
 import com.nchhr.mall.EntityVo.UserVo;
-import com.nchhr.mall.Utils.MD5Utils;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,6 +81,7 @@ public class LoginService {
 
                 uvo.setMenuVos(menuVos);
                 session.setAttribute("UserVo",uvo);
+                session.setAttribute("MallUserInfo", mallUserEntity);
                 //1登录成功
                 return "1";
             }

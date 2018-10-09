@@ -47,21 +47,4 @@ public class FrontController {
         return new ModelAndView("pro_info","pro_infoModel",model);
     }
 
-
-
-
-
-
-
-
-    // TODO 此控制类仅用作测试静态资源 切勿在此添加代码逻辑
-
-
-
-    @RequestMapping(value = "/{resourseName}")
-    public ModelAndView index(@PathVariable("resourseName") String resourseName) {
-        ModelAndView modelAndView = new ModelAndView(resourseName);
-        return modelAndView;
-    }
-
 }

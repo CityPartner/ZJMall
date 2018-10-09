@@ -10,11 +10,13 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+
+  <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
 <header class="wy-header">
-  <div class="wy-header-icon-back"><span></span></div>
+  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
   <div class="wy-header-title">订单详情</div>
 </header>
 <div class="weui-content">
@@ -26,8 +28,14 @@
       <div class="weui-media-box__bd">
         <!-- 跳转到收货地址选择页面 -->
         <a href="/mall/AddressChoose" class="weui-cell_access">
-          <h4 class="address-name"><span th:text="${OrderModel.address.name}"></span><span th:text="${OrderModel.address.phone}"></span></h4>
-          <div class="address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></div>
+          <div th:unless="${OrderModel.address} eq NoAdd">
+            <h4 class="address-name"><span th:text="${OrderModel.address.name}"></span><span th:text="${OrderModel.address.phone}"></span></h4>
+            <div class="address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></div>
+          </div>
+          <div th:if="${OrderModel.address} eq NoAdd">
+            <h4 class="address-name">请选择收货地址</span></h4>
+            <!--<div class="address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></div>-->
+          </div>
         </a>
       </div>
       <!--<div class="weui-media-box__hd proinfo-txt-l" style="width:16px;"><div class="weui-cell_access"><span class="weui-cell__ft"></span></div></div>-->
@@ -135,13 +143,21 @@ function PayByWeChat() {
         url:"/mall/GenerateOrder",
         type:"post",
         success:function (data) {
-            alert(data);
+            if(data==1){
+                $.toast("购买成功");
+            }else if(data==2){
+                $.toast("请先选择收货人","text");
+            }else if(data==3){
+                $.toast("添加商品失败","forbiden");
+            }else
+            {
+                $.toast("E:3920 订单产生失败","forbiddeb");
+            }
         }
     });
 }
 </script>
 <script src="js/jquery-weui.js"></script>
-
 
 </body>
 </html>
