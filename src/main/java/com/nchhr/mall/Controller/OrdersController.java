@@ -39,9 +39,18 @@ public class OrdersController {
     private CouponService couponService;
 
     MallUserEntity mallUserEntity=null;
+
+    /*
+     *产生订单号
+     * 返回1代表成功
+     * 2表示没有选择收货人
+     * 3订单产生成功，商品购买出错
+     * 4订单产生出错
+     */
+
     @RequestMapping("/GenerateOrder")
     @ResponseBody
-    public boolean insertOrder(HttpServletRequest request){
+    public int insertOrder(HttpServletRequest request){
         return ordersService.insertOrder(request);
     }
 
@@ -93,14 +102,23 @@ public class OrdersController {
 //        读取地址信息
         String Re_id=null;
         AddressEntity add=null;
-        Object re_id = request.getSession().getAttribute("Re_id");
-        if(re_id!=null){
-            add = addressService.getByReid(re_id.toString());
-        }else{
+        Object re_id1 = request.getSession().getAttribute("Re_id");
+        if(re_id1==null){
             add = addressService.getDafaultAdd(M_id);
+        }else{
+            add=addressService.getByReid(re_id1.toString());
         }
 
-        request.getSession().setAttribute("Re_id",add.getRe_id());
+
+
+        if(add==null){
+            request.getSession().setAttribute("Re_id",null);
+            model.addAttribute("address","NoAdd");
+        }else{
+            request.getSession().setAttribute("Re_id",add.getRe_id());
+            model.addAttribute("address",add);
+        }
+
 
 //        读取优惠券信息
         String OFid=null;
@@ -126,7 +144,6 @@ public class OrdersController {
 
         request.getSession().setAttribute("totalAmount",totalAmount);
         model.addAttribute("commoditys",coms);
-        model.addAttribute("address",add);
         model.addAttribute("totalAmount",totalAmount);
         return new ModelAndView("order_info2","OrderModel",model);
     }

@@ -23,6 +23,14 @@ public class CommodityService {
     public void updateStock(CommodityEntity commodityEntity){
         commodityDao.updateStock(commodityEntity);
     }
+    public int buyCommodity(String C_id,String Stock){
+        CommodityEntity commodityEntity=commodityDao.findById(C_id);
+
+        Integer stock=((Integer.parseInt(commodityEntity.getStock()))-(Integer.parseInt(Stock)));
+        commodityEntity.setStock(stock.toString());
+        updateStock(commodityEntity);
+        return Integer.parseInt(Stock);
+    }
 
     public List<CommodityEntity> findCommodityByYid(String Y_id){
         return commodityDao.findByYid(Y_id);

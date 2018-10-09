@@ -7,8 +7,6 @@ import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.RsultModel.R_data;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Utils.ResultUtils;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,6 +64,7 @@ public class LoginController {
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
+            System.out.println(mallUser.toString());
             session.setAttribute("MallUserInfo",mallUser);
 
             return "redirect:/mall/index";

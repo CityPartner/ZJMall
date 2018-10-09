@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.lang.String;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("")
@@ -28,24 +30,27 @@ public class AddressController {
     MallUserEntity mallUserEntity=null;
 
     @RequestMapping("/addressList")
-    public ModelAndView toAddressListPage(Model model, HttpServletRequest request){
-        mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
+    public ModelAndView toAddressListPage(Model model, HttpServletRequest request,HttpSession session){
+        mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
+//        mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
+        System.out.println(mallUserEntity.toString());
         String M_id=mallUserEntity.getM_id();
 //        String M_id="#123";
 
         model.addAttribute("AddList",addressService.getAllAddressByMid(M_id));
-
         return new ModelAndView("address_list","addressListModel",model);
     }
 
     @RequestMapping("/AddressChoose")
-    public ModelAndView toAddressChoosePage(Model model, HttpServletRequest request){
-        mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
+    public ModelAndView toAddressChoosePage(Model model, HttpServletRequest request, HttpServletResponse response,HttpSession session){
+        mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
         String M_id=mallUserEntity.getM_id();
-//        String M_id="#123";
-
-        model.addAttribute("AddList",addressService.getAllAddressByMid(M_id));
-
+        List<AddressEntity> allAddress = addressService.getAllAddressByMid(M_id);
+        System.out.println("——————————————————————————");
+        System.out.println(allAddress.isEmpty());
+        if(allAddress.isEmpty())
+            return new ModelAndView("address_add","Model",model);
+        model.addAttribute("AddList",allAddress);
         return new ModelAndView("address_choose","Model",model);
     }
 
