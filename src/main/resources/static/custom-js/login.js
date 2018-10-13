@@ -15,9 +15,23 @@ $(document).ready(function () {
         }
         if (b == true) {
             // console.log("123");
+
+            var regExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/;
+            var ba = regExp.test($("#pwd").val());
+            if (ba == false) {
+                $("#format_pwd").text("密码格式不对");
+                $("#format_pwd").show();
+
+                $("#login").attr('disabled', true);
+                $("#login").css("background-color", "#ececec");
+            }
+            if (ba == true) {
+                
+                $("#login").attr('disabled', false);
+                $("#login").css("background-color", "#e21323");
+            }
             $("#format_phone").hide();
-            $("#login").attr('disabled', false);
-            $("#login").css("background-color", "#e21323");
+
 
         }
     });
@@ -34,9 +48,28 @@ $(document).ready(function () {
             $("#login").css("background-color", "#ececec");
         }
         if (b == true) {
+
+            var pattern = /^1[34578]\d{9}$/;
+            var ba = pattern.test($("#loginPhone").val());
+            if (ba == false) {
+
+                $("#format_phone").text("手机格式错误");
+                $("#format_phone").show();
+                $("#login").attr('disabled', true);
+                $("#login").css("background-color", "#ececec");
+
+            }
+            if (ba == true) {
+                // console.log("123");
+                $("#format_phone").hide();
+                $("#login").attr('disabled', false);
+                $("#login").css("background-color", "#e21323");
+
+            }
+
             $("#format_pwd").hide();
-            $("#format_pwd").attr('disabled', false);
-            $("#login").css("background-color", "#e21323");
+            // $("#login").attr('disabled', false);
+            // $("#login").css("background-color", "#e21323");
         }
 
     });
