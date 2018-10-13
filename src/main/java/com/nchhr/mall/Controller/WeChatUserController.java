@@ -3,7 +3,7 @@ package com.nchhr.mall.Controller;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Service.WeChatUserService;
-import com.nchhr.mall.entity.WeChatOAuth2Token;
+import com.nchhr.mall.Entity.WeChatOAuth2Token;
 import com.nchhr.mall.util.WeChatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,10 +44,10 @@ public class WeChatUserController {
         session.setAttribute("weChatUser",weChatUser);
 
         if (loginService.loginByOpenid(openid)){
-            return "redirect:/mall/login.html";
+            return "redirect:/login.html";
         }
         else {
-            return "redirect:/mall/regist.html";
+            return "redirect:/regist.html";
         }
 
             //微信id存在 有账号 return“login”

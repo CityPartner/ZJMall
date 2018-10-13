@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     // alert("123")
 
+    var pathName=window.document.location.pathname;
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
     //失去焦点的时候，掩藏样式
     // $('#userPhone').blur(function () {
     //     $("#format_phone").hide();
@@ -11,6 +13,8 @@ $(document).ready(function () {
     // });
     //
     //校验手机号格式
+
+
 
     $("#userPhone").on('input', function (e) {
         var pattern = /^1[34578]\d{9}$/;
@@ -78,7 +82,7 @@ $(document).ready(function () {
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "deleteCode",//注意路径
+                url: projectName+"/deleteCode",//注意路径
                 data: temp,
                 dataType: "json",
                 success: function (data) {
@@ -147,7 +151,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "MallUserRegistered",//注意路径
+            url: projectName+"/MallUserRegistered",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -233,7 +237,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "RegistLogin",//注意路径
+            url: projectName+"/RegistLogin",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {

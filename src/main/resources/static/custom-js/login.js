@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+    var pathName=window.document.location.pathname;
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
 //手机号格式判断
     $("#loginPhone").on('input', function (e) {
         var pattern = /^1[34578]\d{9}$/;
@@ -63,7 +64,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "login",//注意路径
+            url: projectName+"/login",//注意路径
             data: param,
             dataType: "json",
             success: function (data) {
@@ -88,7 +89,7 @@ $(document).ready(function () {
                                 $('#num').attr('innerHTML', count);
                                 jump(count);
                             } else {
-                                window.location.href="index";
+                                window.location.href=projectName+"/index";
                             }
                         }, 1000);
                     }

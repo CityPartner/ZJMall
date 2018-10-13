@@ -50,7 +50,7 @@ public class LoginController {
         String ss = "";
 
         if (cookies == null){
-            return "redirect:"+"/mall/wechatuser";
+            return "redirect:"+"/wechatuser";
         }
         for (Cookie cookie : cookies) {
             System.out.println(cookie.toString());
@@ -60,14 +60,14 @@ public class LoginController {
             }
         }
         if (ss == ""){
-            return "redirect:"+"/mall/wechatuser";
+            return "redirect:"+"/wechatuser";
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
             System.out.println(mallUser.toString());
             session.setAttribute("MallUserInfo",mallUser);
 
-            return "redirect:/mall/index";
+            return "redirect:/index";
         }
 
 
