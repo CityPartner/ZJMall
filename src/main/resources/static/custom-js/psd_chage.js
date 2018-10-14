@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
 
-
+    var pathName=window.document.location.pathname;
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
 
     //手机号格式判断
     $("#newphone").on('input', function (e) {
@@ -61,7 +62,7 @@ $(document).ready(function () {
             $.ajax({
                 async: false,
                 type: "POST",
-                url: "deleteCode",//注意路径
+                url: projectName+"/deleteCode",//注意路径
                 data: temp,
                 dataType: "json",
                 success: function (data) {
@@ -131,7 +132,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "ResetPassword",//注意路径
+            url: projectName+"/ResetPassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -226,7 +227,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: "ChangePassword",//注意路径
+            url: projectName+"/ChangePassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {

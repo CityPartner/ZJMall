@@ -30,7 +30,7 @@ public class MallUserController {
      * @param session
      * @return
      */
-    @RequestMapping("/MallUserRegistered")
+    @RequestMapping("MallUserRegistered")
     @ResponseBody
     public R_data GetCode(String phone, HttpSession session) {
         System.out.println(phone);
