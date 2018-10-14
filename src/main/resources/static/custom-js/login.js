@@ -108,7 +108,7 @@ $(document).ready(function () {
                 if (itm == "1") {
                     $("#loading_login").css("display","none");
                     swal({
-                        title: "<span style='color:#6ddb8d;font-size: 26px'>登陆成功，正在跳转！<span>",
+                        title: "<span style='color:#6ddb8d;font-size: 26px'>登录成功，正在跳转！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
                         showConfirmButton: false,

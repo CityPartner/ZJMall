@@ -58,6 +58,7 @@ $(document).ready(function () {
             $("#checkPwd").show();
         }
         if (b == true) {
+
             $("#checkPwd").hide();
         }
 
@@ -228,6 +229,10 @@ $(document).ready(function () {
             });
             return;
         }
+
+       
+
+
         // console.log(JSON.stringify(params,null,4));
 
         $.ajax({
