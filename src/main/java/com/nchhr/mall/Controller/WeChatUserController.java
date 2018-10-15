@@ -3,7 +3,6 @@ package com.nchhr.mall.Controller;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Service.WeChatUserService;
-import com.nchhr.mall.Entity.WeChatOAuth2Token;
 import com.nchhr.mall.util.WeChatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +43,9 @@ public class WeChatUserController {
         session.setAttribute("weChatUser",weChatUser);
 
         if (loginService.loginByOpenid(openid)){
+
+
+
             return "redirect:/login.html";
         }
         else {

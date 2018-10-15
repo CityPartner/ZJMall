@@ -80,6 +80,7 @@ public class LoginService {
                 }
 
                 uvo.setMenuVos(menuVos);
+                cookiesService.saveCookies(mallUserEntity.getM_id(),response,request);
                 session.setAttribute("UserVo",uvo);
                 session.setAttribute("MallUserInfo", mallUserEntity);
                 //1登录成功
