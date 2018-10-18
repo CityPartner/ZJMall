@@ -19,16 +19,23 @@
   <!--<script src="lib/fastclick.js"></script>-->
 
   <script src="js/pro_info.js"></script>
+  <script type="text/javascript" src="js/base.js"></script>
 
 </head>
 <body ontouchstart>
 <!--主体-->
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    产品详情
+  </div>
+</div>
 <div class="weui-content">
   <!--产品详情-->
   <input type="hidden" th:value="${pro_infoModel.commodity.C_id}" id="C_id"/>
   <input type="hidden" th:value="${pro_infoModel.commodity.stock}" id="stock" />
   <div class="weui-tab">
-    <div class="weui-navbar" style="position:fixed; top:0; left:0; right:0; height:44px;">
+    <div class="weui-navbar" style="position:relative; top:44px; left:0; right:0; height:44px;">
       <a class="weui-navbar__item proinfo-tab-tit weui-bar__item--on" href="#tab1">商品</a>
       <a class="weui-navbar__item proinfo-tab-tit" href="#tab2">详情</a>
       <a class="weui-navbar__item proinfo-tab-tit" href="#tab3">评价</a>
@@ -38,11 +45,11 @@
         <!--主图轮播-->
         <div class="swiper-container swiper-zhutu">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${pro_infoModel.commodity.image}" /></div>
           </div>
           <div class="swiper-pagination swiper-zhutu-pagination"></div>
         </div>
@@ -119,8 +126,7 @@
     <div class="weui-tabbar__icon promotion-foot-menu-collection"></div>
     <p class="weui-tabbar__label">收藏</p>
   </a>
-  <a th:href="@{/mall/shopCart}" class="promotion-foot-menu-items">
-    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+  <a th:href="@{/shopCart}" class="promotion-foot-menu-items">
     <div class="weui-tabbar__icon promotion-foot-menu-cart"></div>
     <p class="weui-tabbar__label">购物车</p>
   </a>
@@ -144,7 +150,7 @@
         </div>
         <div class="weui-msg__opr-area">
           <p class="weui-btn-area">
-            <a  th:href="@{/mall/shopCart}" class="weui-btn weui-btn_primary">去购物车结算</a>
+            <a  th:href="@{/shopCart}" class="weui-btn weui-btn_primary">去购物车结算</a>
             <a id="NoISeeMore" href="javascript:;" class="weui-btn weui-btn_default close-popup">不，我再看看</a>
           </p>
         </div>

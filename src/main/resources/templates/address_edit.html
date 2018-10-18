@@ -10,14 +10,19 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css">
   <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
-  <div class="wy-header-title">编辑地址</div>
-</header>
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    编辑收货地址
+  </div>
+</div>
+
+
 <div class="weui-content">
   <div class="weui-cells weui-cells_form wy-address-edit">
     <input type="hidden" th:value="${EditModel.Address.Re_id}" id="Re_id"/>

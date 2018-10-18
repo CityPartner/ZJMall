@@ -109,8 +109,8 @@
         <div class="wy-Module-con">
             <ul class="wy-pro-list clear">
                 <li th:each="commodity : ${coListModel.coList}">
-                    <a th:href="@{/mall/pro_info?id=}+ ${commodity.C_id}">
-                        <div class="proimg"><img th:attr="src=${commodity.image}"></div>
+                    <a th:href="@{/pro_info?id=}+ ${commodity.C_id}">
+                        <div class="proimg"><img th:attr="src='/mall/goods/'+${commodity.image}"></div>
                         <div class="protxt">
                             <div class="name" th:text="${commodity.name}">洋河蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食白酒2瓶装包邮</div>
                             <div class="wy-pro-pri">¥<span th:text="${commodity.price}">296.00</span></div>
@@ -122,24 +122,23 @@
         </div>
     </div>
 </div>
-
 <!--底部导航-->
 <div class="foot-black"></div>
 <div class="weui-tabbar wy-foot-menu">
-    <a th:href="@{/mall/index}" class="weui-tabbar__item weui-bar__item--on">
+    <a th:href="@{/index}" class="weui-tabbar__item weui-bar__item--on">
         <div class="weui-tabbar__icon foot-menu-home"></div>
         <p class="weui-tabbar__label">首页</p>
     </a>
-    <a th:href="@{/mall/classify}" class="weui-tabbar__item">
+    <a th:href="@{/classify}" class="weui-tabbar__item">
         <div class="weui-tabbar__icon foot-menu-list"></div>
         <p class="weui-tabbar__label">分类</p>
     </a>
-    <a th:href="@{/mall/shopCart}" class="weui-tabbar__item">
-        <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+    <a th:href="@{/shopCart}" class="weui-tabbar__item">
+        <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>-->
         <div class="weui-tabbar__icon foot-menu-cart"></div>
         <p class="weui-tabbar__label">购物车</p>
     </a>
-    <a href="mine.html" class="weui-tabbar__item">
+    <a th:href="@{/mine}" class="weui-tabbar__item">
         <div class="weui-tabbar__icon foot-menu-member"></div>
         <p class="weui-tabbar__label">我的</p>
     </a>

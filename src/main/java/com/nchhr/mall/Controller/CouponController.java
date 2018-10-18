@@ -5,6 +5,7 @@ Created by Jacy 2018/10/05
 Serving coupon functions
  */
 
+import com.nchhr.mall.Entity.CouponEntity;
 import com.nchhr.mall.Service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,10 +34,41 @@ public class CouponController {
     @RequestMapping("/choose")
     @ResponseBody
     public String chooseCoupon(HttpServletRequest request, String couponId) {
-        //此处为从优惠券页面传上来选择的优惠券
+
+        try{
+
+            //此处为从优惠券页面传上来选择的优惠券
 //        System.out.println(couponId);
-        request.getSession().setAttribute("OFid", couponId);
-//        System.out.println(request.getSession().getAttribute("OFid").toString());
-        return "-OK-";
+            request.getSession().setAttribute("OFid", couponId);
+
+            System.out.println("OFid:" + request.getSession().getAttribute("OFid").toString());
+            String OF_id = request.getSession().getAttribute("OFid").toString();
+            CouponEntity couponEntity = couponService.getCouponByOfid(OF_id);
+
+            System.out.println("totalAmount:" + request.getSession().getAttribute("totalAmount").toString());
+            String totalAmount = request.getSession().getAttribute("totalAmount").toString();
+
+            Float f_Condition_use = Float.parseFloat(couponEntity.getCondition_use());
+            Float f_totalAmount = Float.parseFloat(totalAmount);
+
+            //type == 1  折扣 ; type == 2  满减
+            if (couponEntity.getType() == "1"){
+                return "-OK-";
+
+            }else if (couponEntity.getType() == "2"){
+                if (f_totalAmount > f_Condition_use){
+                    return "-OK-";
+                }else {
+                    return "-Error-";
+                }
+            }else {
+                System.out.println("error: coupon type !!!");
+                return "-Error-";
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 }

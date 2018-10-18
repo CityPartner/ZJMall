@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>我的优惠券</title>
@@ -8,22 +8,39 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
     <link href="css/coupon.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery-1.js"></script>
-    <script type="text/javascript" src="js/coupon.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <script type="text/javascript" src="lib/jquery-2.1.4.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/jquery.Spinner.js"></script>
+    <script>
+        function useCoupon(couponId) {
+            // $.toast("bel");
+            $.ajax({
+                type: "post",
+                url: "/mall/coupon/choose",
+                data: "couponId="+couponId,
+                success: function (data) {
+                    if (data == "-OK-"){
+                        window.history.back();
+                    }else if (data == "-Error-"){
+                        // $.toast("该优惠券未达到使用条件");
+                        alert("该优惠券未达到使用条件");
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
+<div class="NC-back-model">
+    <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+    <div class="nc-header-title">
+        优惠券列表
+    </div>
+</div>
+
 <section class="aui-flexView">
-    <header class="aui-navBar aui-navBar-fixed">
-        <a href="javascript:;" class="aui-navBar-item">
-            <i class="icon icon-return"></i>
-        </a>
-        <div class="aui-center">
-            <span class="aui-center-title">我的优惠券</span>
-        </div>
-        <a href="javascript:;" class="aui-navBar-item">
-            <i class="icon icon-sys"></i>优惠券说明
-        </a>
-    </header>
     <section class="aui-scrollView">
         <div class="aui-tab" data-ydui-tab="">
             <ul class="tab-nav">
@@ -140,19 +157,5 @@
     </section>
 </section>
 </body>
-<script>
-    function useCoupon(couponId) {
-        $.ajax({
-            type: "post",
-            url: "/mall/coupon/choose",
-            data: "couponId="+couponId,
-            success: function (data) {
-                window.location.href="/mall/orderConfirmPage";
-            },
-            error: function () {
-                alert("error");
-            }
-        });
-    }
-</script>
+
 </html>

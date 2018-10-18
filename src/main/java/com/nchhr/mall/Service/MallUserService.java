@@ -66,8 +66,8 @@ public class MallUserService {
                 return "4";
             }
             //初始化ascClient,暂时不支持多region（请勿修改）
-            IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId,
-                    accessKeySecret);
+            IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", CodeEnum.AccessId.getValue(),
+                    CodeEnum.AccessKeySecre.getValue());
             try {
                 DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
             } catch (ClientException e) {

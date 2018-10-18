@@ -10,15 +10,19 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css"/>
 
   <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
-  <div class="wy-header-title">订单详情</div>
-</header>
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    订单详情
+  </div>
+</div>
+
 <div class="weui-content">
 
   <!--收货地址-->
@@ -27,7 +31,7 @@
       <div class="weui-media-box__hd proinfo-txt-l" style="width:20px;"><span class="promotion-label-tit"><img src="images/icon_nav_city.png" /></span></div>
       <div class="weui-media-box__bd">
         <!-- 跳转到收货地址选择页面 -->
-        <a href="/mall/AddressChoose" class="weui-cell_access">
+        <a th:href="@{/AddressChoose}" class="weui-cell_access">
           <div th:unless="${OrderModel.address} eq NoAdd">
             <h4 class="address-name"><span th:text="${OrderModel.address.name}"></span><span th:text="${OrderModel.address.phone}"></span></h4>
             <div class="address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></div>
@@ -48,9 +52,9 @@
     <div class="weui-media-box__bd">
 
      <div class="weui-media-box_appmsg ord-pro-list" th:each="commodity : ${OrderModel.commoditys}">
-        <div class="weui-media-box__hd"><a th:href="@{/mall/pro_info?id=}+${commodity.C_id}"><img class="weui-media-box__thumb" th:attr="src=${commodity.image}" alt=""></a></div>
+        <div class="weui-media-box__hd"><a th:href="@{/pro_info?id=}+${commodity.C_id}"><img class="weui-media-box__thumb" th:attr="src='/mall/goods/'+${commodity.image}" alt=""></a></div>
         <div class="weui-media-box__bd">
-          <h1 class="weui-media-box__desc"><a th:href="@{/mall/pro_info?id=}+${commodity.C_id}" th:text="${commodity.name}" class="ord-pro-link"></a></h1>
+          <h1 class="weui-media-box__desc"><a th:href="@{/pro_info?id=}+${commodity.C_id}" th:text="${commodity.name}" class="ord-pro-link"></a></h1>
           <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
           <div class="clear mg-t-10">
             <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${commodity.price}"></em></div>
@@ -81,7 +85,7 @@
   <!--配送方式、运费、优惠券-->
   <div class="weui-panel">
     <div class="weui-panel__bd">
-      <div class="weui-media-box weui-media-box_small-appmsg">
+      <div class="weui-media-box weui-media-box_s-appmsg">
         <div class="weui-cells">
           <div class="weui-cell weui-cell_access">
             <div class="weui-cell__bd weui-cell_primary">
@@ -100,7 +104,7 @@
             <!--<span class="weui-cell__ft"></span>-->
           <!--</a>-->
           <!-- 跳转到优惠券选择页面 -->
-          <a class="weui-cell weui-cell_access" th:href="@{/mall/coupon}">
+          <a class="weui-cell weui-cell_access" th:href="@{/coupon}">
             <div class="weui-cell__bd weui-cell_primary">
               <p class="font-14" th:if="${OrderModel.coupon} eq NoCoupon">
                 <span class="mg-r-10">选择优惠券</span>
@@ -122,7 +126,12 @@
     </div>
   </div>
   <div class="wy-media-box weui-media-box_text">
-    <div class="mg10-0 t-c">总金额：<span class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${OrderModel.totalAmount}"}></em></span></div>
+    <div class="mg10-0 t-c">总金额：
+      <span class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${OrderModel.DisAmount}"}></em></span>
+      <span class="wy-pro-pri mg-tb-5" style="text-decoration: line-through;font-size: 16em" th:unless="${OrderModel.DisAmount} eq ${OrderModel.totalAmount}">
+        <em class="num font-20" style="font-size: 16px" th:text="${OrderModel.totalAmount}"}></em>
+      </span>
+    </div>
     <div class="mg10-0"><a class="weui-btn weui-btn_primary" onclick="PayByWeChat()">微信付款</a></div>
   </div>
 </div>

@@ -1,130 +1,136 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<title>商城分类</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <title>商城分类</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 ">
-<link rel="stylesheet" href="lib/weui.min.css">
-<link rel="stylesheet" href="css/jquery-weui.css">
-<link rel="stylesheet" href="css/style.css">
-  <script type="text/javascript" src="js/base.js"></script>
+    <link rel="stylesheet" href="lib/weui.min.css">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--顶部搜索-->
-<header class="wy-header">
-  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
-  <div class="wy-header-title">搜索商品</div>
-</header>
 <!--主体-->
-<div class="wy-content">
-  <div class="category-top">
-    <header class='weui-header'>
-  <div class="weui-search-bar" id="searchBar">
-    <form class="weui-search-bar__form">
-      <div class="weui-search-bar__box">
-        <i class="weui-icon-search"></i>
-        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索您想要的商品" required>
-        <a class="weui-icon-clear" id="searchClear"></a>
-      </div>
-      <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
-        <i class="weui-icon-search"></i>
-        <span>搜索您想要的商品</span>
-      </label>
-    </form>
-    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-  </div>
-</header>
-  </div>
-  <aside>
-    <div class="menu-left scrollbar-none" id="sidebar">
-      <ul>
-        <li class="active">最近热销</li>
-        <li>十年珍藏</li>
-        <li>百年珍藏</li>
-        <li>千年佳酿</li>
-      </ul>
+
+<div class="NC-back-model">
+    <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+    <div class="nc-header-title">
+        商城分类
     </div>
-  </aside>
-  <section class="menu-right padding-all j-content">
-    <h5>最近热销</h5>
-    <ul>
-
-      <li class="w-3" th:each="commodity : ${classifyMode.c1}">
-        <a th:href="@{/mall/pro_info?id=}+${commodity.C_id}">
-          <!--<img  th:src="${commodity.image}" />-->
-        </a>
-        <img src="upload/pro3.jpg">
-        <span th:text="${commodity.name}"></span>
-      </li>
-
-
-
-    </ul>
-  </section>
-  <section class="menu-right padding-all j-content">
-    <h5>十年珍藏</h5>
-    <ul>
-
-      <li class="w-3" th:each="commodity : ${classifyMode.c2}">
-        <a th:href="@{/mall/pro_info?id=}+${commodity.C_id}">
-          <!--<img  th:src="${commodity.image}" />-->
-        </a>
-        <img src="upload/pro3.jpg">
-        <span th:text="${commodity.name}"></span>
-
-      </li>
-    </ul>
-  </section>
-  <section class="menu-right padding-all j-content" style="display:none">
-    <h5>百年珍藏</h5>
-    <ul>
-
-      <li class="w-3" th:each="commodity : ${classifyMode.c3}">
-        <a th:href="@{/mall/pro_info?id=}+${commodity.C_id}">
-          <!--<img  th:src="${commodity.image}" />-->
-        </a>
-        <img src="upload/pro3.jpg">
-        <span th:text="${commodity.name}"></span>
-
-      </li>
-    </ul>
-  </section>
-  <section class="menu-right padding-all j-content" style="display:none">
-    <h5>千年佳酿</h5>
-    <ul>
-
-      <li class="w-3" th:each="commodity : ${classifyMode.c4}">
-        <a th:href="@{/mall/pro_info?id=}+${commodity.C_id}">
-          <!--<img  th:src="${commodity.image}" />-->
-        </a>
-        <img src="upload/pro3.jpg">
-        <span th:text="${commodity.name}"></span>
-      </li>
-
-
-
-    </ul>
-  </section>
 </div>
-<script src="lib/jquery-2.1.4.js"></script> 
-<script src="lib/fastclick.js"></script> 
+<div class="wy-content">
+
+    <div class="NC-category-top">
+        <header class='weui-header'>
+            <div class="weui-search-bar" id="searchBar">
+                <form class="weui-search-bar__form">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索您想要的商品"
+                               required>
+                        <a class="weui-icon-clear" id="searchClear"></a>
+                    </div>
+                    <label class="weui-search-bar__label" id="searchText"
+                           style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>搜索您想要的商品</span>
+                    </label>
+                </form>
+                <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+            </div>
+        </header>
+    </div>
+    <aside>
+        <div class="menu-left scrollbar-none" id="sidebar">
+            <ul>
+                <li class="active">最近热销</li>
+                <li>十年珍藏</li>
+                <li>百年珍藏</li>
+                <li>千年佳酿</li>
+            </ul>
+        </div>
+    </aside>
+    <section class="menu-right padding-all j-content">
+        <h5>最近热销</h5>
+        <ul>
+
+            <li class="w-3" th:each="commodity : ${classifyMode.c1}">
+                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
+                    <!--<img  th:src="'/mall/goods/'+${commodity.image}" />-->
+                </a>
+                <img th:src="'/mall/goods/'+${commodity.image}">
+                <span th:text="${commodity.name}"></span>
+            </li>
+
+
+        </ul>
+    </section>
+    <section class="menu-right padding-all j-content">
+        <h5>十年珍藏</h5>
+        <ul>
+
+            <li class="w-3" th:each="commodity : ${classifyMode.c2}">
+                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
+                    <!--<img  th:src="${commodity.image}" />-->
+                </a>
+                <img th:src="'/mall/goods/'+${commodity.image}">
+                <span th:text="${commodity.name}"></span>
+
+            </li>
+        </ul>
+    </section>
+    <section class="menu-right padding-all j-content" style="display:none">
+        <h5>百年珍藏</h5>
+        <ul>
+
+            <li class="w-3" th:each="commodity : ${classifyMode.c3}">
+                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
+                    <!--<img  th:src="${commodity.image}" />-->
+                </a>
+                <img th:src="'/mall/goods/'+${commodity.image}">
+                <span th:text="${commodity.name}"></span>
+
+            </li>
+        </ul>
+    </section>
+    <section class="menu-right padding-all j-content" style="display:none">
+        <h5>千年佳酿</h5>
+        <ul>
+
+            <li class="w-3" th:each="commodity : ${classifyMode.c4}">
+                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
+                    <!--<img  th:src="${commodity.image}" />-->
+                </a>
+                <img th:src="'/mall/goods/'+${commodity.image}">
+                <span th:text="${commodity.name}"></span>
+            </li>
+
+
+        </ul>
+    </section>
+</div>
+<script src="lib/jquery-2.1.4.js"></script>
+<script src="lib/fastclick.js"></script>
 <script>
-  $(function() {
-    FastClick.attach(document.body);
-  });
+    $(function () {
+        FastClick.attach(document.body);
+    });
 </script>
 <script src="js/jquery-weui.js"></script>
 <script type="text/javascript">
-	$(function($){
-		$('#sidebar ul li').click(function(){
-			$(this).addClass('active').siblings('li').removeClass('active');
-			var index = $(this).index();
-			$('.j-content').eq(index).show().siblings('.j-content').hide();
-		})
-	})
+    $(function ($) {
+        $('#sidebar ul li').click(function () {
+            $(this).addClass('active').siblings('li').removeClass('active');
+            var index = $(this).index();
+            $('.j-content').eq(index).show().siblings('.j-content').hide();
+        })
+    })
 </script>
 </body>
 </html>
