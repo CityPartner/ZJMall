@@ -39,13 +39,9 @@ public class CouponController {
 
             //此处为从优惠券页面传上来选择的优惠券
 //        System.out.println(couponId);
-            request.getSession().setAttribute("OFid", couponId);
+            CouponEntity couponEntity = couponService.getCouponByOfid(couponId);
 
-            System.out.println("OFid:" + request.getSession().getAttribute("OFid").toString());
-            String OF_id = request.getSession().getAttribute("OFid").toString();
-            CouponEntity couponEntity = couponService.getCouponByOfid(OF_id);
-
-            System.out.println("totalAmount:" + request.getSession().getAttribute("totalAmount").toString());
+//            System.out.println("totalAmount:" + request.getSession().getAttribute("totalAmount").toString());
             String totalAmount = request.getSession().getAttribute("totalAmount").toString();
 
             Float f_Condition_use = Float.parseFloat(couponEntity.getCondition_use());
@@ -53,8 +49,8 @@ public class CouponController {
 
             //type == 1  折扣 ; type == 2  满减
             if (couponEntity.getType() == "1"){
+                request.getSession().setAttribute("OFid",couponId);
                 return "-OK-";
-
             }else if (couponEntity.getType() == "2"){
                 if (f_totalAmount > f_Condition_use){
                     return "-OK-";
