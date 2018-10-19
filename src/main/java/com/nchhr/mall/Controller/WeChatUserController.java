@@ -46,7 +46,7 @@ public class WeChatUserController {
 
 
 
-            return "redirect:/login.html";
+            return "redirect:/index";
         }
         else {
             return "redirect:/regist.html";

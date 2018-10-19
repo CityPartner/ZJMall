@@ -49,7 +49,7 @@
     <aside>
         <div class="menu-left scrollbar-none" id="sidebar">
             <ul>
-                <li class="active">最近热销</li>
+                <li>最近热销</li>
                 <li>十年珍藏</li>
                 <li>百年珍藏</li>
                 <li>千年佳酿</li>
@@ -62,7 +62,6 @@
 
             <li class="w-3" th:each="commodity : ${classifyMode.c1}">
                 <a th:href="@{/pro_info?id=}+${commodity.C_id}">
-                    <!--<img  th:src="'/mall/goods/'+${commodity.image}" />-->
                 </a>
                 <img th:src="'/mall/goods/'+${commodity.image}">
                 <span th:text="${commodity.name}"></span>
@@ -89,27 +88,27 @@
         <h5>百年珍藏</h5>
         <ul>
 
-            <li class="w-3" th:each="commodity : ${classifyMode.c3}">
-                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
-                    <!--<img  th:src="${commodity.image}" />-->
-                </a>
-                <img th:src="'/mall/goods/'+${commodity.image}">
-                <span th:text="${commodity.name}"></span>
+            <!--<li class="w-3" th:each="commodity : ${classifyMode.c3}">-->
+                <!--<a th:href="@{/pro_info?id=}+${commodity.C_id}">-->
+                    <!--&lt;!&ndash;<img  th:src="${commodity.image}" />&ndash;&gt;-->
+                <!--</a>-->
+                <!--<img th:src="'/mall/goods/'+${commodity.image}">-->
+                <!--<span th:text="${commodity.name}"></span>-->
 
-            </li>
+            <!--</li>-->
         </ul>
     </section>
     <section class="menu-right padding-all j-content" style="display:none">
         <h5>千年佳酿</h5>
         <ul>
 
-            <li class="w-3" th:each="commodity : ${classifyMode.c4}">
-                <a th:href="@{/pro_info?id=}+${commodity.C_id}">
-                    <!--<img  th:src="${commodity.image}" />-->
-                </a>
-                <img th:src="'/mall/goods/'+${commodity.image}">
-                <span th:text="${commodity.name}"></span>
-            </li>
+            <!--<li class="w-3" th:each="commodity : ${classifyMode.c4}">-->
+                <!--<a th:href="@{/pro_info?id=}+${commodity.C_id}">-->
+                    <!--&lt;!&ndash;<img  th:src="${commodity.image}" />&ndash;&gt;-->
+                <!--</a>-->
+                <!--<img th:src="'/mall/goods/'+${commodity.image}">-->
+                <!--<span th:text="${commodity.name}"></span>-->
+            <!--</li>-->
 
 
         </ul>

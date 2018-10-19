@@ -37,10 +37,6 @@ public class FrontController {
     public ModelAndView toIndexPage(Model model) {
         List<CommodityVo> allCommodity = commodityService.findAllCommodity();
         model.addAttribute("CVList",allCommodity);
-//        for (CommodityVo cv:allCommodity
-//             ) {
-//            System.out.println(cv.toString());
-//        }
         return new ModelAndView("index","IndexModel",model);
     }
 
@@ -48,8 +44,6 @@ public class FrontController {
     public ModelAndView toClassfyPage(Model model){
         model.addAttribute("c1",commodityService.findCommodityByYid("001"));
         model.addAttribute("c2",commodityService.findCommodityByYid("002"));
-        model.addAttribute("c3",commodityService.findCommodityByYid("003"));
-        model.addAttribute("c4",commodityService.findCommodityByYid("004"));
         System.out.println(model.toString());
         return new ModelAndView("classify","classifyMode",model);
     }

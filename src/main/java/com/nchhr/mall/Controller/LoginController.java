@@ -44,7 +44,7 @@ public class LoginController {
         // return "index"
 
         //没有cookie
-        System.out.println("++++++++++++++++++++_+_+_+_+_+_+_+");
+        System.out.println("检查cookie");
 
         Cookie[] cookies = request.getCookies();
         String ss = "";
