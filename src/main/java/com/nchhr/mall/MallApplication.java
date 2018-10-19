@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.web.WebApplicationInitializer;
 
 @SpringBootApplication
-@MapperScan("com.nchhr.mall.dao")
+@MapperScan("com.nchhr.mall.Dao")
 public class MallApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     public static void main(String[] args) {

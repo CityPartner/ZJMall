@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -30,7 +32,7 @@ public class WeChatUserController {
     }
 
     @RequestMapping("/wechat_redirect")
-    public String weChatRedirect(String code, String state, HttpSession session) {
+    public String weChatRedirect(String code, String state, HttpServletRequest request, HttpServletResponse  response, HttpSession session) {
         weChatUserService.getWeChatOAuth2Token(code, state);
 
         //获取用户微信openid
@@ -42,11 +44,11 @@ public class WeChatUserController {
         }
         session.setAttribute("weChatUser",weChatUser);
 
-        if (loginService.loginByOpenid(openid)){
+        if (loginService.loginByOpenid(openid,response,request,session)){
 
 
 
-            return "redirect:/login.html";
+            return "redirect:/index";
         }
         else {
             return "redirect:/regist.html";

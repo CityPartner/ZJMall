@@ -13,43 +13,46 @@
 <link rel="stylesheet" href="css/base.css"/>
 
   <script src="lib/jquery-2.1.4.js"></script>
-  <!--<script src="js/jquery-weui.js"></script>-->
-  <!--<script src="js/swiper.js"></script>-->
-
-  <!--<script src="lib/fastclick.js"></script>-->
 
   <script src="js/pro_info.js"></script>
+  <script type="text/javascript" src="js/base.js"></script>
 
 </head>
 <body ontouchstart>
 <!--主体-->
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    产品详情
+  </div>
+</div>
 <div class="weui-content">
   <!--产品详情-->
-  <input type="hidden" th:value="${pro_infoModel.commodity.C_id}" id="C_id"/>
-  <input type="hidden" th:value="${pro_infoModel.commodity.stock}" id="stock" />
+  <input type="hidden" th:value="${ProModel.CV.commodityEntity.C_id}" id="C_id"/>
+  <input type="hidden" th:value="${ProModel.CV.commodityEntity.stock}" id="stock" />
   <div class="weui-tab">
-    <div class="weui-navbar" style="position:fixed; top:0; left:0; right:0; height:44px;">
+    <div class="weui-navbar" style="position:relative; top:0px; left:0; right:0; height:44px;">
       <a class="weui-navbar__item proinfo-tab-tit weui-bar__item--on" href="#tab1">商品</a>
       <a class="weui-navbar__item proinfo-tab-tit" href="#tab2">详情</a>
       <a class="weui-navbar__item proinfo-tab-tit" href="#tab3">评价</a>
     </div>
-    <div class="weui-tab__bd proinfo-tab-con">
+    <div class="proinfo-tab-con">
       <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
         <!--主图轮播-->
         <div class="swiper-container swiper-zhutu">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
-            <div class="swiper-slide"><img th:src="${pro_infoModel.commodity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${ProModel.CV.commodityEntity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${ProModel.CV.commodityEntity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${ProModel.CV.commodityEntity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${ProModel.CV.commodityEntity.image}" /></div>
+            <div class="swiper-slide"><img th:src="'/mall/goods/'+${ProModel.CV.commodityEntity.image}" /></div>
           </div>
           <div class="swiper-pagination swiper-zhutu-pagination"></div>
         </div>
         <div class="wy-media-box-nomg weui-media-box_text">
-          <h4 class="wy-media-box__title" th:text="${pro_infoModel.commodity.name}"></h4>
-          <div class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${pro_infoModel.commodity.price}">296.00</em></div>
-          <p class="weui-media-box__desc" th:text="${pro_infoModel.commodity.comment}"></p>
+          <h4 class="wy-media-box__title" th:text="${ProModel.CV.commodityEntity.name}"></h4>
+          <div class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${ProModel.CV.commodityEntity.price}">296.00</em></div>
+          <p class="weui-media-box__desc" th:text="${ProModel.CV.commodityEntity.comment}"></p>
         </div>
 
         <div class="wy-media-box2 weui-media-box_text">
@@ -58,7 +61,7 @@
             <div class="weui-media-box__bd">
               <div class="promotion-sku clear">
                 <ul>
-                  <li><a href="javascript:;">6瓶/箱</a></li>
+                  <li><a href="javascript:;" th:text="${ProModel.CV.year.year}">6瓶/箱</a></li>
                 </ul>
               </div>
             </div>
@@ -66,7 +69,7 @@
           <div class="weui-media-box_appmsg">
             <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">库存</span></div>
             <div class="weui-cell__bd">
-              <span th:text="${pro_infoModel.commodity.stock}"></span>
+              <span th:text="${ProModel.CV.commodityEntity.stock}"></span>
             </div>
           </div>
         </div>
@@ -79,14 +82,14 @@
               </div>
             </div>
           </div>
-          <div class="weui-media-box_appmsg">
-            <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">商家</span></div>
-            <div class="weui-media-box__bd">
-              <div class="promotion-message clear">
-                <span class="promotion-item-text">蓝之蓝股份有限公司</span>
-              </div>
-            </div>
-          </div>
+          <!--<div class="weui-media-box_appmsg">-->
+            <!--<div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">商家</span></div>-->
+            <!--<div class="weui-media-box__bd">-->
+              <!--<div class="promotion-message clear">-->
+                <!--<span class="promotion-item-text">蓝之蓝股份有限公司</span>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="weui-media-box_appmsg">
             <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">提示</span></div>
             <div class="weui-media-box__bd">
@@ -119,8 +122,7 @@
     <div class="weui-tabbar__icon promotion-foot-menu-collection"></div>
     <p class="weui-tabbar__label">收藏</p>
   </a>
-  <a th:href="@{/mall/shopCart}" class="promotion-foot-menu-items">
-    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+  <a th:href="@{/shopCart}" class="promotion-foot-menu-items">
     <div class="weui-tabbar__icon promotion-foot-menu-cart"></div>
     <p class="weui-tabbar__label">购物车</p>
   </a>
@@ -132,7 +134,8 @@
     <p class="promotion-foot-menu-label">立即购买</p>
   </a>
 </div>
-<div id="join_cart" class='weui-popup__container popup-bottom' style="z-index:600;">
+<!--加入购物车成功-->
+<div id="join_cart" class="weui-popup__container popup-bottom" style="z-index:600;">
   <div class="weui-popup__overlay" style="opacity:1;"></div>
   <div class="weui-popup__modal">
     <div class="modal-content">
@@ -144,7 +147,7 @@
         </div>
         <div class="weui-msg__opr-area">
           <p class="weui-btn-area">
-            <a  th:href="@{/mall/shopCart}" class="weui-btn weui-btn_primary">去购物车结算</a>
+            <a  th:href="@{/shopCart}" class="weui-btn weui-btn_primary">去购物车结算</a>
             <a id="NoISeeMore" href="javascript:;" class="weui-btn weui-btn_default close-popup">不，我再看看</a>
           </p>
         </div>
@@ -152,6 +155,7 @@
     </div>
   </div>
 </div>
+<!--立即购买-->
 <div id="selcet_sku" class='weui-popup__container popup-bottom' style="z-index:600;">
   <div class="weui-popup__overlay" style="opacity:1;"></div>
   <div class="weui-popup__modal">
@@ -171,7 +175,7 @@
             <div class="weui-media-box__bd">
               <div class="promotion-sku clear">
                 <ul>
-                  <li><a href="javascript:;">6瓶/箱</a></li>
+                  <li><a href="javascript:;" th:text="${ProModel.CV.year.year}">6瓶/箱</a></li>
                 </ul>
               </div>
             </div>
@@ -186,7 +190,7 @@
               </div>
 
             </div>
-            <span th:text="库存：+${pro_infoModel.commodity.stock}"></span>
+            <span th:text="库存：+${ProModel.CV.commodityEntity.stock}"></span>
           </div>
         </div>
         <div class="weui-msg__opr-area">
@@ -199,6 +203,7 @@
     </div>
   </div>
 </div>
+<!--加购物车选择页面-->
 <div id="selcet_cart" class='weui-popup__container popup-bottom' style="z-index:600;">
   <div class="weui-popup__overlay" style="opacity:1;"></div>
   <div class="weui-popup__modal">
@@ -218,7 +223,7 @@
             <div class="weui-media-box__bd">
               <div class="promotion-sku clear">
                 <ul>
-                  <li><a href="javascript:;">6瓶/箱</a></li>
+                  <li><a href="javascript:;" th:text="${ProModel.CV.year.year}">6瓶/箱</a></li>
                 </ul>
               </div>
             </div>
@@ -234,7 +239,7 @@
 
               <!--<input  class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入购买箱数"/>-->
             </div>
-            <span th:text="库存：+${pro_infoModel.commodity.stock}"></span>
+            <span th:text="库存：+${ProModel.CV.commodityEntity.stock}"></span>
           </div>
 
 

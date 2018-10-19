@@ -23,10 +23,10 @@
   <div class="weui-panel address-box">
 
 
-    <a th:each="coupon : ${CouponPageModel.Coupons}" th:href="@{/mall/SetCoupon?Co_id=}+${coupon.Co_id}">
+    <a th:each="coupon : ${CouponPageModel.Coupons}" th:href="@{/SetCoupon?Co_id=}+${coupon.Co_id}">
       <div class="weui-panel__bd" >
         <div class="weui-media-box weui-media-box_text address-list-box">
-          <!--<a th:href="@{/mall/EditAddress?Re_id=}+${coupon.Co_id}" class="address-edit"></a>-->
+          <!--<a th:href="@{/EditAddress?Re_id=}+${coupon.Co_id}" class="address-edit"></a>-->
           <h4 class="weui-media-box__title">
             <!--<span th:text="${coupon.amount}"></span>-->
             <div class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${coupon.amount}">296.00</em></div>
@@ -58,7 +58,7 @@
       var params="Re_id="+Reid;
       // $.toast(params,"text");
       $.ajax({
-          url:"/mall/SetDefaultAddress",
+          url:"/SetDefaultAddress",
           data:params,
           type:"post",
           success:function (data) {

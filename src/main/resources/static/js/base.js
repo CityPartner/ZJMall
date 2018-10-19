@@ -3,5 +3,6 @@
  * HWG
  */
 function BackToPrevPage() {
+    // alert("hello");
     window.history.back();
 }

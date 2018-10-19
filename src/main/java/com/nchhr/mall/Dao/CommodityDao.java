@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CommodityDao {
 
-    @Select("select * from commodity")
+    @Select("select * from commodity where state=1")
     List<CommodityEntity> findAll();
 
     @Select("select * from commodity where C_id=#{C_id}")

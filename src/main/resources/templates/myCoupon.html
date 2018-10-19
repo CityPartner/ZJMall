@@ -13,26 +13,6 @@
     <script src="lib/fastclick.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/jquery.Spinner.js"></script>
-    <script>
-        function useCoupon(couponId) {
-            // $.toast("bel");
-            $.ajax({
-                type: "post",
-                url: "/mall/coupon/choose",
-                data: "couponId="+couponId,
-                success: function (data) {
-                    if (data == "-OK-"){
-                        window.location.href="/mall/orderConfirmPage";
-                    }else if (data == "-Error1-"){
-                        // $.toast("该优惠券未达到使用条件");
-                        alert("该优惠券未达到使用条件");
-                    }else if(data=="-Error1-2"){
-                        alert("E3221");
-                    }
-                }
-            });
-        }
-    </script>
 </head>
 <body>
 <div class="NC-back-model">
@@ -72,8 +52,7 @@
                                     </div>
                                     <div class="aui-coupon-list-flex-bd">
                                         <h3 th:utext="'<em>打折券</em>&nbsp;全场商品'+${unusedCoupon.getDiscount()}+'折优惠券'"></h3>
-                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue"
-                                                                            th:onclick="'useCoupon(\''+${unusedCoupon.getOFid()}+'\')'">&nbsp;使用&nbsp;</em>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="javascript:window.location.href='/mall/index'" >&nbsp;去使用&nbsp;</em>
                                         </p>
                                     </div>
                                 </div>
@@ -85,8 +64,7 @@
                                     </div>
                                     <div class="aui-coupon-list-flex-bd">
                                         <h3 th:utext="'<em>现金券</em>&nbsp;限定商品'+${unusedCoupon.getAmount()}+'元现金券'"></h3>
-                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue"
-                                                                            th:onclick="'useCoupon(\''+${unusedCoupon.getOFid()}+'\')'">&nbsp;使用&nbsp;</em>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="javascript:window.location.href='/mall/index'">&nbsp;去使用&nbsp;</em>
                                         </p>
                                     </div>
                                 </div>

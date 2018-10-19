@@ -2,6 +2,7 @@ package com.nchhr.mall.Service;
 
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
+import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Utils.Generate;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,10 @@ public class OrdersService {
     @Resource
     private CouponService couponService;
 
+    @Resource
+    private ShopCartService shopCartService;
     public int insertOrder(HttpServletRequest request) {
+        MallUserEntity mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
 
         try{
 
@@ -57,6 +61,7 @@ public class OrdersService {
 
 //        读取商品信息
             boolean b2=false;
+            String SC_id=mallUserEntity.getSC_id();
             try{
                 for (String codata:commoditys) {
                     System.out.println(codata);
@@ -66,8 +71,10 @@ public class OrdersService {
                         System.out.println(o_id+" "+temp[0]+"  "+temp[1]);
                         commodityService.buyCommodity(temp[0],temp[1]);
                         orderCommodityDao.saveByHand(o_id,temp[0],Integer.parseInt(temp[1]));
+                        shopCartService.deleteBySCidAndCid(SC_id,temp[0]);
                     }
                 }
+
             }catch (Exception e){
                 e.printStackTrace();
                 return 3;

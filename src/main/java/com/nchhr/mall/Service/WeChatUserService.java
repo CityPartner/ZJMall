@@ -4,9 +4,9 @@ package com.nchhr.mall.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Dao.WeChatUserDao;
-import com.nchhr.mall.entity.WeChatOAuth2Token;
 import com.nchhr.mall.util.JSONUtil;
 import com.nchhr.mall.util.WeChatUtil;
+import com.nchhr.mall.Entity.WeChatOAuth2Token;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -87,5 +87,10 @@ public class WeChatUserService {
         weChatUser.setPrivilege(WeChatUserJSON.getString("privilege"));
         System.out.println("TEST SERVICE user:" + weChatUser.toString());
         return weChatUser;
+    }
+
+    //通过openid获取微信信息
+    public WeChatUserEntity getUserByOpenid(String openid){
+        return weChatUserDao.getUserByOpenid(openid);
     }
 }

@@ -18,7 +18,7 @@ public interface CouponDao {
     CouponEntity getCouponById(@Param("OFid") String OFid);
 
     //改变优惠券状态
-    @Update("update offeCoupon set state = #{state}, useTime = #{useTime} where OFid = #{OFid}")
-    void updateCouponUsageInfo(CouponEntity couponEntity);
+    @Update("update offeCoupon set state = '1' where OFid = #{OFid}")
+    void updateCouponUsageInfo(@Param("OFid")String  OFid);
 
 }

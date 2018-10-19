@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import sun.security.util.DisabledAlgorithmConstraints;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 @Controller
@@ -56,6 +58,16 @@ public class OrdersController {
 
     @RequestMapping("/saveCommodityData")
     public void saveCommodityDataFun(@RequestParam(value = "CommodityData")String CommodityData,HttpServletRequest request,HttpServletResponse response){
+//        Enumeration<String> headerNames = request.getHeaderNames();
+//        while (headerNames.hasMoreElements()) {
+//            String name=headerNames.nextElement();
+//            System.out.print(name+":");
+//            System.out.println(request.getHeader(name));
+//        }
+//        System.out.println(request.getRequestURI());
+//        System.out.println(request.toString());
+
+
         request.getSession().setAttribute("CommodityData",CommodityData);
         try {
             response.sendRedirect("/mall/orderConfirmPage");
@@ -84,6 +96,7 @@ public class OrdersController {
         String[] commoditys=CommodityData.split(",");
         List<CommodityEntity> coms=new ArrayList<>();
         double totalAmount=0.0;
+        double DisAmount=0.0;
 //        String temp="";
 
 //        读取商品信息
@@ -99,6 +112,7 @@ public class OrdersController {
 
             }
         }
+        DisAmount=totalAmount;
 //        读取地址信息
         String Re_id=null;
         AddressEntity add=null;
@@ -132,9 +146,10 @@ public class OrdersController {
 //        使用优惠券
             if(totalAmount >= (Double.parseDouble(coupon.getCondition_use()))){
                 if(coupon.getType().equals("1")){
-                    totalAmount *= ((Double.parseDouble(coupon.getDiscount()))/10);
+                    DisAmount = (totalAmount*(Double.parseDouble(coupon.getDiscount())))/10;
+                    System.out.println(DisAmount+"--"+totalAmount);
                 }else if(coupon.getType().equals("2")){
-                    totalAmount -= (Double.parseDouble(coupon.getAmount()));
+                    DisAmount = totalAmount-(Double.parseDouble(coupon.getAmount()));
                 }else{
                     System.out.println("E:3101 优惠券使用出错");
                 }
@@ -143,8 +158,10 @@ public class OrdersController {
         }
 
         request.getSession().setAttribute("totalAmount",totalAmount);
+        request.getSession().setAttribute("DisAmount", DisAmount);
         model.addAttribute("commoditys",coms);
         model.addAttribute("totalAmount",totalAmount);
+        model.addAttribute("DisAmount", DisAmount);
         return new ModelAndView("order_info2","OrderModel",model);
     }
 
