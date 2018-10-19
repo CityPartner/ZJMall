@@ -31,6 +31,15 @@ public class CouponController {
         return "coupon";
     }
 
+    @RequestMapping("/myCoupon")
+    public String myCoupon(Map<String, Object> map) {
+        // TODO 此处的查询优惠券所有者的userId是临时定义的
+        String userId = "#123";
+        map.put("unusedCoupons", couponService.getCoupons(userId, "0"));
+        map.put("usedCoupons", couponService.getCoupons(userId, "1"));
+        return "coupon";
+    }
+
     @RequestMapping("/choose")
     @ResponseBody
     public String chooseCoupon(HttpServletRequest request, String couponId) {
