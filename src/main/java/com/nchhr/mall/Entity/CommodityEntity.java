@@ -15,7 +15,7 @@ public class CommodityEntity
     private String add_time;//商品加入的时间
     private String production_date;
     private String shelf_date;
-
+    private int state;//商品状态
     public CommodityEntity() {
     }
 
@@ -85,6 +85,34 @@ public class CommodityEntity
 
     public float getPurchase_price() {
         return purchase_price;
+    }
+
+    @Override
+    public String toString() {
+        return "CommodityEntity{" +
+                "C_id='" + C_id + '\'' +
+                ", Y_id='" + Y_id + '\'' +
+                ", name='" + name + '\'' +
+                ", productionDate='" + productionDate + '\'' +
+                ", shelfDate='" + shelfDate + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                ", comment='" + comment + '\'' +
+                ", purchase_price=" + purchase_price +
+                ", stock='" + stock + '\'' +
+                ", add_time='" + add_time + '\'' +
+                ", production_date='" + production_date + '\'' +
+                ", shelf_date='" + shelf_date + '\'' +
+                ", state=" + state +
+                '}';
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public void setPurchase_price(float purchase_price) {

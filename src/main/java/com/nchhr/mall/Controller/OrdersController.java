@@ -146,7 +146,8 @@ public class OrdersController {
 //        使用优惠券
             if(totalAmount >= (Double.parseDouble(coupon.getCondition_use()))){
                 if(coupon.getType().equals("1")){
-                    DisAmount = totalAmount*((Double.parseDouble(coupon.getDiscount()))/10);
+                    DisAmount = (totalAmount*(Double.parseDouble(coupon.getDiscount())))/10;
+                    System.out.println(DisAmount+"--"+totalAmount);
                 }else if(coupon.getType().equals("2")){
                     DisAmount = totalAmount-(Double.parseDouble(coupon.getAmount()));
                 }else{

@@ -4,6 +4,7 @@ import com.nchhr.mall.Entity.CommodityEntity;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.ShopCartEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
+import com.nchhr.mall.EntityVo.CommodityVo;
 import com.nchhr.mall.Service.CommodityService;
 import com.nchhr.mall.Service.ShopCartService;
 import com.nchhr.mall.Service.WeChatUserService;
@@ -34,8 +35,13 @@ public class FrontController {
 
     @RequestMapping("/index")
     public ModelAndView toIndexPage(Model model) {
-        model.addAttribute("coList",commodityService.findAllCommodity());
-        return new ModelAndView("index","coListModel",model);
+        List<CommodityVo> allCommodity = commodityService.findAllCommodity();
+        model.addAttribute("CVList",allCommodity);
+//        for (CommodityVo cv:allCommodity
+//             ) {
+//            System.out.println(cv.toString());
+//        }
+        return new ModelAndView("index","IndexModel",model);
     }
 
     @RequestMapping("/classify")
@@ -50,8 +56,8 @@ public class FrontController {
 
     @RequestMapping("/pro_info")
     public ModelAndView toPro_infoPage(Model model, @RequestParam(value="id",required = true,defaultValue = "0001") String id){
-        model.addAttribute("commodity",commodityService.findCommodityById(id));
-        return new ModelAndView("pro_info","pro_infoModel",model);
+        model.addAttribute("CV",commodityService.findCommodityVoById(id));
+        return new ModelAndView("pro_info","ProModel",model);
     }
 
 

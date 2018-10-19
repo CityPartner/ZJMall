@@ -6,41 +6,44 @@ Serving coupon functions
  */
 
 import com.nchhr.mall.Entity.CouponEntity;
+import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/coupon")
+@RequestMapping("")
 public class CouponController {
 
     @Autowired
     private CouponService couponService;
 
-    @RequestMapping("")
-    public String coupon(Map<String, Object> map) {
-        // TODO 此处的查询优惠券所有者的userId是临时定义的
-        String userId = "#123";
+    @RequestMapping("/coupon")
+    public String coupon(Map<String, Object> map, HttpSession session) {
+        MallUserEntity mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
+        String userId=mallUserEntity.getM_id();
         map.put("unusedCoupons", couponService.getCoupons(userId, "0"));
         map.put("usedCoupons", couponService.getCoupons(userId, "1"));
         return "coupon";
     }
 
     @RequestMapping("/myCoupon")
-    public String myCoupon(Map<String, Object> map) {
-        // TODO 此处的查询优惠券所有者的userId是临时定义的
-        String userId = "#123";
+    public String myCoupon(Map<String, Object> map, HttpSession session) {
+        MallUserEntity mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
+        String userId=mallUserEntity.getM_id();
         map.put("unusedCoupons", couponService.getCoupons(userId, "0"));
         map.put("usedCoupons", couponService.getCoupons(userId, "1"));
-        return "coupon";
+        return "myCoupon";
     }
 
-    @RequestMapping("/choose")
+    @RequestMapping("/coupon/choose")
     @ResponseBody
     public String chooseCoupon(HttpServletRequest request, String couponId) {
 
@@ -49,7 +52,7 @@ public class CouponController {
             //此处为从优惠券页面传上来选择的优惠券
 //        System.out.println(couponId);
             CouponEntity couponEntity = couponService.getCouponByOfid(couponId);
-
+            System.out.println(couponEntity.toString());
 //            System.out.println("totalAmount:" + request.getSession().getAttribute("totalAmount").toString());
             String totalAmount = request.getSession().getAttribute("totalAmount").toString();
 
@@ -57,18 +60,19 @@ public class CouponController {
             Float f_totalAmount = Float.parseFloat(totalAmount);
 
             //type == 1  折扣 ; type == 2  满减
-            if (couponEntity.getType() == "1"){
+            if ("1".equals(couponEntity.getType())){
                 request.getSession().setAttribute("OFid",couponId);
                 return "-OK-";
-            }else if (couponEntity.getType() == "2"){
+            }else if ("2".equals(couponEntity.getType())){
                 if (f_totalAmount > f_Condition_use){
+                    request.getSession().setAttribute("OFid",couponId);
                     return "-OK-";
                 }else {
-                    return "-Error-";
+                    return "-Error1-";
                 }
             }else {
                 System.out.println("error: coupon type !!!");
-                return "-Error-";
+                return "-Error2-";
             }
 
         }catch (Exception e){

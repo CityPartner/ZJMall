@@ -26,9 +26,6 @@ public class CouponService {
      * HWG
      */
     public void useCoupon(String OFid){
-        CouponEntity couponEntity=new CouponEntity();
-        couponEntity.setOffe_user(OFid);
-        couponEntity.setState("已用");
-        couponDao.updateCouponUsageInfo(couponEntity);
+        couponDao.updateCouponUsageInfo(OFid);
     }
 }

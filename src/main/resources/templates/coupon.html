@@ -22,10 +22,12 @@
                 data: "couponId="+couponId,
                 success: function (data) {
                     if (data == "-OK-"){
-                        window.history.back();
-                    }else if (data == "-Error-"){
+                        window.location.href="/mall/orderConfirmPage";
+                    }else if (data == "-Error1-"){
                         // $.toast("该优惠券未达到使用条件");
                         alert("该优惠券未达到使用条件");
+                    }else if(data=="-Error1-2"){
+                        alert("E3221");
                     }
                 }
             });

@@ -17,7 +17,7 @@
 <body ontouchstart>
 <!--主体-->
 <div class="NC-back-model">
-  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-icon-back" onclick="javascript:window.location.href='/mall'"><span>◁返回</span></div>
   <div class="nc-header-title">
     订单详情
   </div>
@@ -127,8 +127,10 @@
   </div>
   <div class="wy-media-box weui-media-box_text">
     <div class="mg10-0 t-c">总金额：
-      <span class="wy-pro-pri mg-tb-5">¥<em class="num font-20" th:text="${OrderModel.DisAmount}"}></em></span>
-      <span class="wy-pro-pri mg-tb-5" style="text-decoration: line-through;font-size: 16em" th:unless="${OrderModel.DisAmount} eq ${OrderModel.totalAmount}">
+      <span class="wy-pro-pri mg-tb-5">
+        ¥<em class="num font-20" th:text="${OrderModel.DisAmount}"}></em>
+      </span>
+      <span class="wy-pro-pri mg-tb-5" style="text-decoration: line-through" th:unless="${OrderModel.DisAmount} eq ${OrderModel.totalAmount}">
         <em class="num font-20" style="font-size: 16px" th:text="${OrderModel.totalAmount}"}></em>
       </span>
     </div>

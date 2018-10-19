@@ -4,6 +4,7 @@ HWG  详情页面的js文件
 
 $(function(){
     $("#AddToCartBtn1").click(function () {
+        // alert(1);
         $("#selcet_cart").addClass("weui-popup__container--visible");
     });
     $("#AddToCartBtn2").click(function () {

@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +52,7 @@
                                     </div>
                                     <div class="aui-coupon-list-flex-bd">
                                         <h3 th:utext="'<em>打折券</em>&nbsp;全场商品'+${unusedCoupon.getDiscount()}+'折优惠券'"></h3>
-                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="/index">&nbsp;去使用&nbsp;</em>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="javascript:window.location.href='/mall/index'" >&nbsp;去使用&nbsp;</em>
                                         </p>
                                     </div>
                                 </div>
@@ -65,7 +64,7 @@
                                     </div>
                                     <div class="aui-coupon-list-flex-bd">
                                         <h3 th:utext="'<em>现金券</em>&nbsp;限定商品'+${unusedCoupon.getAmount()}+'元现金券'"></h3>
-                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="/index">&nbsp;去使用&nbsp;</em>
+                                        <p>&nbsp;微信自领优惠券&nbsp;<i>无限期</i><em class="coupon-issue" onclick="javascript:window.location.href='/mall/index'">&nbsp;去使用&nbsp;</em>
                                         </p>
                                     </div>
                                 </div>
