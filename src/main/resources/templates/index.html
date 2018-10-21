@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <title>商城首页</title>
+    <title>首页</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -37,8 +37,8 @@
     <!--顶部轮播-->
     <div class="swiper-container swiper-banner">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="pro_info.html"><img src="indexImg/ban1.jpg"/></a></div>
-            <div class="swiper-slide"><a href="pro_list.html"><img src="indexImg/ban2.jpg"/></a></div>
+            <div class="swiper-slide"><a href=""><img src="indexImg/ban1.jpg"/></a></div>
+            <div class="swiper-slide"><a href=""><img src="indexImg/ban2.jpg"/></a></div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -127,10 +127,10 @@
         <div class="weui-tabbar__icon foot-menu-home"></div>
         <p class="weui-tabbar__label">首页</p>
     </a>
-    <a th:href="@{/classify}" class="weui-tabbar__item">
-        <div class="weui-tabbar__icon foot-menu-list"></div>
-        <p class="weui-tabbar__label">分类</p>
-    </a>
+    <!--<a th:href="@{/classify}" class="weui-tabbar__item">-->
+        <!--<div class="weui-tabbar__icon foot-menu-list"></div>-->
+        <!--<p class="weui-tabbar__label">分类</p>-->
+    <!--</a>-->
     <a th:href="@{/shopCart}" class="weui-tabbar__item">
         <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>-->
         <div class="weui-tabbar__icon foot-menu-cart"></div>

@@ -14,6 +14,9 @@ public class CouponService {
     private CouponDao couponDao;
 
     public List<CouponEntity> getCoupons(String userId, String state) {
+//        List<CouponEntity> coupons = couponDao.getCoupons(userId, state);
+//        System.out.println(coupons.toString());
+//        return coupons;
         return couponDao.getCoupons(userId, state);
     }
 
