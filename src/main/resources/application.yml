@@ -1,11 +1,8 @@
 server:
-  port: 8080
+  port: 80
   servlet:
-    context-path: /mall
+    context-path: /
 
-
-web:
-  upload=path: /usr/local/upload/
 spring:
   messages:
     encoding: UTF-8
@@ -20,7 +17,7 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
   resources:
-    static-locations: classpath:/static/, classpath:/templates/,file:${web.upload=path}
+    static-locations: classpath:/static/, classpath:/templates/
 #
 #  mvc:
 #    static-path-pattern: /**
