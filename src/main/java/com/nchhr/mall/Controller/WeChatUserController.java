@@ -44,15 +44,16 @@ public class WeChatUserController {
         }
         session.setAttribute("weChatUser",weChatUser);
 
-        if (loginService.loginByOpenid(openid,response,request,session)){
+        return "redirect:"+"/index";
 
-
-
-            return "redirect:/index";
-        }
-        else {
-            return "redirect:/regist.html";
-        }
+//        if (loginService.loginByOpenid(openid,response,request,session)){
+//
+//
+//            return "redirect:/index";
+//        }
+//        else {
+//            return "redirect:/regist.html";
+//        }
 
             //微信id存在 有账号 return“login”
 
