@@ -54,6 +54,8 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/login")
                 && !requestURI.contains("/MallUserRegistered")
                 && !requestURI.contains("/deleteCode")
+                && !requestURI.contains("/pro_info")
+                && !requestURI.contains("/usr/local/upload/")
 
 //                && !requestURI.contains("/print")
                 ) {
