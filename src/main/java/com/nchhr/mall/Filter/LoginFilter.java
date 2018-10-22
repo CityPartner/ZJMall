@@ -1,7 +1,11 @@
 package com.nchhr.mall.Filter;
 
+import com.nchhr.mall.Dao.MallUserDao;
+import com.nchhr.mall.Entity.MallUserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +16,8 @@ import java.io.IOException;
 @Component
 public class LoginFilter implements Filter {
 
-
+@Resource
+MallUserDao mallUserDao;
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -25,6 +30,7 @@ public class LoginFilter implements Filter {
 //        String requestURI = req.getRequestURI().substring(req.getRequestURI().indexOf("/", 1), req.getRequestURI().length());
         String requestURI = req.getServletPath();
         System.out.println("requestURI=" + requestURI);
+        System.out.println("路径："+req.getContextPath());
 ////        boolean ss = requestURI.contains("**/index**");
 //        System.out.println("80:"+requestURI);
         //访问除login.jsp（登录页面）和验证码servlet之外的jsp/servlet都要进行验证
@@ -49,11 +55,11 @@ public class LoginFilter implements Filter {
             String MID = "" ;
             Cookie[] cookies = req.getCookies();
             HttpSession session = req.getSession();
-            if (cookies == null && session.getAttribute("MallUserInfo") == null ){
+            if (cookies == null ){
                 res.sendRedirect( req.getContextPath()+"/login.html");
                 return;
             }
-            if (cookies != null) {
+            else {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("MID")) {
                         MID = cookie.getValue();
@@ -62,9 +68,14 @@ public class LoginFilter implements Filter {
             }
 
             System.out.println("MID:"+MID);
-            if ( MID == null || MID.equals("") && session.getAttribute("MallUserInfo") == null) {
+            if ( MID == null || MID.equals("")) {
                 res.sendRedirect( req.getContextPath()+"/login.html");
                 return;
+            }else {
+                if (session.getAttribute("MallUserInfo") == null) {
+                    MallUserEntity mallUserEntity = mallUserDao.loadByMid(MID);
+                    session.setAttribute("MallUserInfo",mallUserEntity);
+                }
             }
 
 
