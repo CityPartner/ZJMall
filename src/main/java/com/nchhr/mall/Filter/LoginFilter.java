@@ -34,7 +34,8 @@ MallUserDao mallUserDao;
 ////        boolean ss = requestURI.contains("**/index**");
 //        System.out.println("80:"+requestURI);
         //访问除login.jsp（登录页面）和验证码servlet之外的jsp/servlet都要进行验证
-        if (    requestURI.contains(req.getContextPath())
+        if (    !"/".contains(requestURI)
+                && requestURI.contains(req.getContextPath())
                 && !requestURI.contains("/404.html")
                 && !requestURI.contains("/login.html")
                 && !requestURI.contains("/images")
@@ -46,6 +47,7 @@ MallUserDao mallUserDao;
                 && !requestURI.contains("/custom-js")
                 && !requestURI.contains("/custom-css")
                 && !requestURI.contains("/goods")
+                && !requestURI.contains("/wechatuser")
 //                && !requestURI.contains("/save")
                 && !requestURI.contains("/index")
                 && !requestURI.contains("/MP_verify_6NRD3VognOOIx0WG.txt")
