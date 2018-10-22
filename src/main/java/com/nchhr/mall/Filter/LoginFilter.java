@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse)response;
         //如果没有登录
 //        String requestURI = req.getRequestURI().substring(req.getRequestURI().indexOf("/", 1), req.getRequestURI().length());
-        String requestURI = req.getServletPath();
+        String requestURI = req.getRequestURI();
         System.out.println("requestURI=" + requestURI);
         System.out.println("路径："+req.getContextPath());
 ////        boolean ss = requestURI.contains("**/index**");
