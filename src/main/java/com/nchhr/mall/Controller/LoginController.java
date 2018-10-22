@@ -59,7 +59,8 @@ public class LoginController {
 
             }
         }
-        if (ss == ""){
+        System.out.println("mid:"+ss);
+        if (ss.equals("")){
             return "redirect:"+"/wechatuser";
         }
         else {
