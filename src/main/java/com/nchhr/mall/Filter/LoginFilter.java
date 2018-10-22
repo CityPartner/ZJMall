@@ -51,6 +51,10 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/index")
                 && !requestURI.contains("/MP_verify_6NRD3VognOOIx0WG.txt")
                 && !requestURI.contains("/getMallUserInfo")
+                && !requestURI.contains("/login")
+                && !requestURI.contains("/MallUserRegistered")
+                && !requestURI.contains("/deleteCode")
+
 //                && !requestURI.contains("/print")
                 ) {
             //判断cookies中是否有用户信息，如果没有则重定向到登录页面
