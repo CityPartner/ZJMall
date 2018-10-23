@@ -56,7 +56,6 @@ public class LoginController {
             System.out.println(cookie.toString());
             if (cookie.getName().equals("MID")) {
                 ss = cookie.getValue();
-
             }
         }
         System.out.println("mid:"+ss);

@@ -76,7 +76,7 @@ public class OrdersController {
         }
     }
 
-    @RequestMapping("orderConfirmPage")
+    @RequestMapping("/orderConfirmPage")
     public ModelAndView toOrderPage(HttpServletRequest request, HttpServletResponse response, Model model){
         mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
         String CommodityData=request.getSession().getAttribute("CommodityData").toString();
@@ -165,4 +165,18 @@ public class OrdersController {
         return new ModelAndView("order_info2","OrderModel",model);
     }
 
+    @RequestMapping("/orderListPage")
+    public ModelAndView toOrderListPage(HttpServletResponse response,
+                                        HttpServletRequest request,
+                                        Model model)
+    {
+        mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
+        String M_id=mallUserEntity.getM_id();
+        model.addAttribute("UnpayOrder",ordersService.getOrdersByMid(M_id,"0"));
+        model.addAttribute("NotSendOrder",ordersService.getOrdersByMid(M_id,"2"));
+        model.addAttribute("NotReciveOrder",ordersService.getOrdersByMid(M_id,"3"));
+        model.addAttribute("NotCommentOrder",ordersService.getOrdersByMid(M_id,"4"));
+
+        return new ModelAndView("all_orders","OM",model);
+    }
 }

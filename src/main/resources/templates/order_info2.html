@@ -155,7 +155,9 @@ function PayByWeChat() {
         type:"post",
         success:function (data) {
             if(data==1){
-                $.toast("购买成功");
+                $.toast("购买成功",1000,function () {
+                    window.location.href="/mall/orderListPage";
+                });
             }else if(data==2){
                 $.toast("请先选择收货人","text");
             }else if(data==3){

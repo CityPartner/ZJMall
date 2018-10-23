@@ -28,6 +28,7 @@ $(function(){
             data:"BuyCount="+BuyCount+"&C_id="+C_id,
             type:"post",
             success:showAddCartResult,
+            error:NoResFromServ,
         });
     });
     $("#NoISeeMore").click(function () {
@@ -93,4 +94,7 @@ function showAddCartResult(data) {
     if(data==1){
         $("#join_cart").addClass("weui-popup__container--visible");
     }
+}
+function NoResFromServ() {
+    window.location.href="/mall/login.html";
 }
