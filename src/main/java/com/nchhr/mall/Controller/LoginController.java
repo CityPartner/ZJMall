@@ -30,13 +30,6 @@ public class LoginController {
     @Resource
     MallUserDao mallUserDao;
 
-    //测试用 请勿使用该控制器
-    @RequestMapping("/MP_verify_6NRD3VognOOIx0WG.txt")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("MP_verify_6NRD3VognOOIx0WG.txt");
-        return modelAndView;
-    }
-
     @RequestMapping("")
     public String index(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
