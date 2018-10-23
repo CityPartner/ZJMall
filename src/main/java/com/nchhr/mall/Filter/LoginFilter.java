@@ -49,7 +49,6 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/wechatuser")
 //                && !requestURI.contains("/save")
                 && !requestURI.contains("/index")
-                && !requestURI.contains("/MP_verify_6NRD3VognOOIx0WG.txt")
                 && !requestURI.contains("/getMallUserInfo")
                 && !requestURI.contains("/login")
                 && !requestURI.contains("/MallUserRegistered")

@@ -27,6 +27,7 @@ public class WeChatUserService {
     public String getWeChatRequestURL() {
         //回调页面路径
         String wechat_redirect_uri = "http://haoduodian.trunch.cn/mall/wechatuser/wechat_redirect";
+
         //授权请求路径
         String request_url = null;
         try {
