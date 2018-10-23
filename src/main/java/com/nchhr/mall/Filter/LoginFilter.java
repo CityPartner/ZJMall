@@ -58,7 +58,9 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/usr/local/upload/")
                 && !requestURI.contains("/indexImg")
                 && !requestURI.contains("/regist.html")
-                && !requestURI.contains("/password.html")
+                && !requestURI.contains("/psd_chage.html")
+                && !requestURI.contains("/ResetPassword")
+                && !requestURI.contains("/ChangePassword")
                 && !requestURI.contains("/RegistLogin")
 
 
