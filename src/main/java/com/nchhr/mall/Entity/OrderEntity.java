@@ -87,6 +87,9 @@ public class OrderEntity{
         this.status = status;
     }
 
+    public OrderEntity() {
+    }
+
     @Override
     public String toString() {
         return "T_orders{" +

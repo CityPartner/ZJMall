@@ -89,7 +89,7 @@
               success:function (data) {
                   if(data== 1)
                     $.toast("添加成功",1000,function () {
-                        window.history.back();
+                        window.location.href="/mall/addressList";
                     });
                   else if(data==-1){
                       $.toast("总地址数量超过12条");

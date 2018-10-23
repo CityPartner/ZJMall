@@ -3,6 +3,8 @@ package com.nchhr.mall.Service;
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
 import com.nchhr.mall.Entity.MallUserEntity;
+import com.nchhr.mall.Entity.OrderEntity;
+import com.nchhr.mall.EntityVo.OrderCommodityVo;
 import com.nchhr.mall.Utils.Generate;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class OrdersService {
 
     @Resource
     private ShopCartService shopCartService;
+
+    /*产生并写入订单
+     *库存相应减少
+     * 优惠券使用
+     */
     public int insertOrder(HttpServletRequest request) {
         MallUserEntity mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
 
@@ -40,7 +47,7 @@ public class OrdersService {
                 return 2;
             String re_id = request.getSession().getAttribute("Re_id").toString();
 //            String m_id = request.getSession().getAttribute("M_id").toString();
-            String m_id="#123";
+            String m_id=mallUserEntity.getM_id();
             String OFid = null;
             Object oFid = request.getSession().getAttribute("OFid");
             if(oFid!=null)
@@ -83,6 +90,7 @@ public class OrdersService {
 //            使用优惠券
             if(OFid!=null){
                 couponService.useCoupon(OFid);
+                request.getSession().removeAttribute("OFid");
             }
 
 
@@ -93,6 +101,23 @@ public class OrdersService {
             e.printStackTrace();
             return  4;
         }
+
+    }
+
+
+    /*
+    通过M_id 和订单状态  获取List  订单
+     */
+    public List<OrderCommodityVo> getOrdersByMid(String M_id, String status){
+        List<OrderCommodityVo> orderCommodityVo=new ArrayList<>();
+        List<OrderEntity> orders = ordersDao.getOrderByMid(M_id, status);
+
+        for (OrderEntity order:orders) {
+            orderCommodityVo.add(new OrderCommodityVo(order,orderCommodityDao.getOrderCommoditiesByOid(order.getO_id())));
+        }
+
+
+        return orderCommodityVo;
 
     }
 }
