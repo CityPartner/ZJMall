@@ -237,6 +237,15 @@ $(document).ready(function () {
                         html: true
                     });
                 }
+                if (itm == null){
+                    swal({
+                        title: "<span style='color:#f6d224;font-size: 26px'>验证码获取频繁！<span>",
+                        text: "2秒后自动关闭。",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                }
             },
             error: function (data) {
                 //console.log(JSON.stringify(data,null,4));
