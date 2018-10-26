@@ -34,6 +34,7 @@ public class LoginService {
 
     public String login(String phone, String pwd, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception {
         MallUserEntity mallUserEntity = mallUserDao.loadByID(phone);
+        System.out.println("现在denglu ::"+mallUserEntity);
         System.out.println(pwd + "pwd");
         if (mallUserEntity == null) {
             //该用户不存在

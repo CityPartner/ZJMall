@@ -26,11 +26,11 @@ public class CookiesService {
                     response.addCookie(cookie);
                 }
             }
-
-        }
             Cookie WXIDCookie = new Cookie("MID", MID);
             WXIDCookie.setMaxAge(86400);//设置cookie生存时间：
             response.addCookie(WXIDCookie);// 添加cookie：
+        }
+
         }catch(Exception e){
             return false;
 
