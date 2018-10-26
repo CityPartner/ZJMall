@@ -68,6 +68,7 @@ public class MallUserService {
         //获取用户信息session
         TemporaryloginEntity temporaryloginEntity = (TemporaryloginEntity)session.getAttribute("temporaryloginEntity") ;
         if (temporaryloginEntity == null){
+            //注册失败
             return "4";
         }
         String userPhone = temporaryloginEntity.getPhone();
@@ -96,7 +97,11 @@ public class MallUserService {
                     CodeUtils codeUtils = new CodeUtils();
                     //获取微信id
                     WeChatUserEntity weChatUserEntity = (WeChatUserEntity)session.getAttribute("weChatUser");
+                    if (weChatUserEntity == null){
+                        //注册失败
+                        return "4";
 
+                    }
                     weChatUserDao.addWeCharUser(weChatUserEntity);
 
                     String Mid = "M" + codeUtils.createRandom(false, 16);
