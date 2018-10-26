@@ -81,6 +81,7 @@ public class LoginService {
 
                 uvo.setMenuVos(menuVos);
                 cookiesService.clear(response,request);
+                System.out.println("login:Mid"+mallUserEntity.getM_id());
                 cookiesService.saveCookies(mallUserEntity.getM_id(),response,request);
                 session.setAttribute("UserVo",uvo);
                 session.setAttribute("MallUserInfo", mallUserEntity);

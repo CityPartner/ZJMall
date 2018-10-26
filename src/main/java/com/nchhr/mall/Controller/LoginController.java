@@ -5,6 +5,7 @@ import com.nchhr.mall.Dao.MallUserDao;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.RsultModel.R_data;
+import com.nchhr.mall.Service.CookiesService;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class LoginController {
 
     @Resource
     MallUserDao mallUserDao;
+
+    @Autowired
+    CookiesService cookiesService;
 
     @RequestMapping("")
     public String index(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
@@ -58,6 +62,7 @@ public class LoginController {
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
             if (mallUser == null){
+                cookiesService.clear(response,request);
                 return  "redirect:/login.html";
             }
             System.out.println(mallUser.toString());
