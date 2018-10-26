@@ -47,7 +47,7 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/custom-css")
                 && !requestURI.contains("/goods")
                 && !requestURI.contains("/wechatuser")
-                && !requestURI.contains("/test")
+//                && !requestURI.contains("/test")
                 && !requestURI.contains("/index")
                 && !requestURI.contains("/getMallUserInfo")
                 && !requestURI.contains("/login")
