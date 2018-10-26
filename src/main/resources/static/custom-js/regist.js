@@ -303,11 +303,11 @@ $(document).ready(function () {
     $("#regist_login").click(function () {
         var params = {};
         params.userPhone = $("#userPhone").val();
-        params.code = $("#code").val();
+        params.codess = $("#code").val();
         params.pwd = $("#pwd").val();
         params.repwd = $("#repwd").val();
         // alert(JSON.stringify(params));
-        if (params.userPhone == "" || params.code == "" || params.pwd == "" || params.repwd == "") {
+        if (params.userPhone == "" || params.codess == "" || params.pwd == "" || params.repwd == "") {
 
             swal({
                 title: "<span style='color:#f6d224;font-size: 26px'>验证码不能为空！<span>",

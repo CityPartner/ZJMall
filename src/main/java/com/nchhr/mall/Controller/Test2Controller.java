@@ -26,21 +26,22 @@ public class Test2Controller {
 
 
     @RequestMapping("/test")
-    public String index(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        String userPhone = "13870080064";
-        String code = "789456";
+    public boolean index(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        String userPhone = "13330113797";
+        String code = "123456";
 //     cookiesService.saveCookies("123",response,request);
         PhoneCodeUtils  phoneCodeUtils = new PhoneCodeUtils();
         phoneCodeUtils.save(userPhone,code,session);
-        TemporaryloginEntity temporaryloginEntity = new TemporaryloginEntity();
-        temporaryloginEntity.setCode(code);
-        temporaryloginEntity.setPhone(userPhone);
-        temporaryloginEntity.setPwd("a123456");
-        if (session.getAttribute("temporaryloginEntity") != null){
-            session.removeAttribute("temporaryloginEntity");
-        }
-        session.setAttribute("temporaryloginEntity",temporaryloginEntity);
-     return "redirect:/wechatuser?userPhone="+userPhone+"&code="+code+"&pwd=a123456";
+//        TemporaryloginEntity temporaryloginEntity = new TemporaryloginEntity();
+//        temporaryloginEntity.setCode(code);
+//        temporaryloginEntity.setPhone(userPhone);
+//        temporaryloginEntity.setPwd("a123456");
+//        if (session.getAttribute("temporaryloginEntity") != null){
+//            session.removeAttribute("temporaryloginEntity");
+//        }
+//        session.setAttribute("temporaryloginEntity",temporaryloginEntity);
+//     return "redirect:/wechatuser?userPhone="+userPhone+"&code="+code+"&pwd=a123456";
+        return true;
     }
 
 

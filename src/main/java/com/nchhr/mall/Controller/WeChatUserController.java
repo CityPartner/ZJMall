@@ -27,11 +27,12 @@ public class WeChatUserController {
     LoginService loginService;
 
     @RequestMapping("")
-    private String weChatAuthorize(String userPhone, String code, String pwd, HttpSession session) {
+    private String weChatAuthorize(String userPhone, String codess, String pwd, HttpSession session) {
         TemporaryloginEntity temporaryloginEntity = new TemporaryloginEntity();
-        temporaryloginEntity.setCode(code);
+        temporaryloginEntity.setCode(codess);
         temporaryloginEntity.setPhone(userPhone);
         temporaryloginEntity.setPwd(pwd);
+        System.out.println(temporaryloginEntity);
         if (session.getAttribute("temporaryloginEntity") != null){
             session.removeAttribute("temporaryloginEntity");
         }
