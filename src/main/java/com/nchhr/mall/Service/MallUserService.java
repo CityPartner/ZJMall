@@ -13,6 +13,7 @@ import com.nchhr.mall.Dao.MallUserDao;
 import com.nchhr.mall.Dao.WeChatUserDao;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.PhoneCodeEntity;
+import com.nchhr.mall.Entity.TemporaryloginEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Enum.CodeEnum;
 import com.nchhr.mall.Enum.ExceptionEnum;
@@ -56,17 +57,22 @@ public class MallUserService {
     /**
      * 登录与注册
      *
-     * @param userPhone
-     * @param code
-     * @param pwd
      * @param session
      * @param response
      * @param request
      * @return
      */
     @Transactional
-    public String RegistLogin(String userPhone, String code, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+    public String RegistLogin(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         MD5Utils md5Utils = new MD5Utils();
+        //获取用户信息session
+        TemporaryloginEntity temporaryloginEntity = (TemporaryloginEntity)session.getAttribute("temporaryloginEntity") ;
+        if (temporaryloginEntity == null){
+            return "4";
+        }
+        String userPhone = temporaryloginEntity.getPhone();
+        String code = temporaryloginEntity.getCode();
+        String pwd = temporaryloginEntity.getPwd();
         //再次判断注册手机号已被注册（是否）
         MallUserEntity loadByPhone = mallUserDao.loadByID(userPhone);
         if (loadByPhone == null) {
@@ -132,6 +138,7 @@ public class MallUserService {
                 return "2";
             }
         } else {
+            //该手机号已被注册
             return "6";
         }
 
