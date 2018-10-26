@@ -52,11 +52,14 @@ public class LoginController {
             }
         }
         System.out.println("mid:"+ss);
-        if (ss.equals("")){
+        if ("".equals(ss) && ss == null){
             return "redirect:"+"/wechatuser";
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
+            if (mallUser == null){
+                return  "redirect:/login.html";
+            }
             System.out.println(mallUser.toString());
             session.setAttribute("MallUserInfo",mallUser);
 
@@ -73,4 +76,10 @@ public class LoginController {
 
         return ResultUtils.success(loginService.login(phone, pwd,response,request,session),ExceptionEnum.SUCCESS);
     }
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+        loginService.loginOut(request,response,session);
+        return "redirect:/login.html";
+    }
+
 }

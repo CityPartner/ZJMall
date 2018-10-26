@@ -41,7 +41,6 @@ public class LoginService {
         }
         if (mallUserEntity != null) {
             if (pwd.equals(mallUserEntity.getPassword())) {
-                cookiesService.saveCookies(mallUserEntity.getM_id(),response,request);
 
                 UserVo uvo = new UserVo();
                 uvo.setUser(mallUserEntity);
@@ -80,6 +79,7 @@ public class LoginService {
                 }
 
                 uvo.setMenuVos(menuVos);
+                cookiesService.clear(response,request);
                 cookiesService.saveCookies(mallUserEntity.getM_id(),response,request);
                 session.setAttribute("UserVo",uvo);
                 session.setAttribute("MallUserInfo", mallUserEntity);
@@ -148,5 +148,16 @@ public class LoginService {
             //4系统异常
             return false;
         }
+    }
+
+    public boolean loginOut(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+        cookiesService.clear(response,request);
+        if (session.getAttribute("MallUserInfo") == null){
+            return true;
+        }else {
+            session.removeAttribute("MallUserInfo");
+        }
+        return true;
     }
 }
