@@ -26,7 +26,7 @@ public class Test2Controller {
 
 
     @RequestMapping("/test")
-    public boolean index(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    public String index(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         String userPhone = "13330113797";
         String code = "123456";
 //     cookiesService.saveCookies("123",response,request);
@@ -41,7 +41,7 @@ public class Test2Controller {
 //        }
 //        session.setAttribute("temporaryloginEntity",temporaryloginEntity);
 //     return "redirect:/wechatuser?userPhone="+userPhone+"&code="+code+"&pwd=a123456";
-        return true;
+       return  "redirect:"+"/login.html";
     }
 
 

@@ -57,24 +57,18 @@ public class MallUserService {
     /**
      * 登录与注册
      *
+     *
+     * @param userPhone
+     * @param code
+     * @param pwd
      * @param session
      * @param response
      * @param request
      * @return
      */
     @Transactional
-    public String RegistLogin(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+    public String RegistLogin(String userPhone, String code, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         MD5Utils md5Utils = new MD5Utils();
-        //获取用户信息session
-        TemporaryloginEntity temporaryloginEntity = (TemporaryloginEntity)session.getAttribute("temporaryloginEntity") ;
-        if (temporaryloginEntity == null){
-            System.out.println("temporaryloginEntity == null");
-            //注册失败
-            return "4";
-        }
-        String userPhone = temporaryloginEntity.getPhone();
-        String code = temporaryloginEntity.getCode();
-        String pwd = temporaryloginEntity.getPwd();
         //再次判断注册手机号已被注册（是否）
         MallUserEntity loadByPhone = mallUserDao.loadByID(userPhone);
         if (loadByPhone == null) {

@@ -27,16 +27,7 @@ public class WeChatUserController {
     LoginService loginService;
 
     @RequestMapping("")
-    private String weChatAuthorize(String userPhone, String codess, String pwd, HttpSession session) {
-        TemporaryloginEntity temporaryloginEntity = new TemporaryloginEntity();
-        temporaryloginEntity.setCode(codess);
-        temporaryloginEntity.setPhone(userPhone);
-        temporaryloginEntity.setPwd(pwd);
-        System.out.println(temporaryloginEntity);
-        if (session.getAttribute("temporaryloginEntity") != null){
-            session.removeAttribute("temporaryloginEntity");
-        }
-        session.setAttribute("temporaryloginEntity",temporaryloginEntity);
+    private String weChatAuthorize() {
         //跳转授权验证请求页
         return "redirect:"+weChatUserService.getWeChatRequestURL();
     }
@@ -53,8 +44,8 @@ public class WeChatUserController {
             session.removeAttribute("weChatUser");
         }
         session.setAttribute("weChatUser",weChatUser);
-
-        return "redirect:"+"/RegistLogin";
+        System.out.println(weChatUser);
+        return "redirect:"+"/regist.html";
 
 //        if (loginService.loginByOpenid(openid,response,request,session)){
 //
