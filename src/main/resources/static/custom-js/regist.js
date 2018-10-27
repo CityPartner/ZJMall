@@ -325,7 +325,7 @@ $(document).ready(function () {
         $.ajax({
             async: false,
             type: "POST",
-            url: projectName + "/wechatuser",//注意路径
+            url: projectName + "/RegistLogin",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
