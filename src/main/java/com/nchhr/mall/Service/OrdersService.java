@@ -54,7 +54,8 @@ public class OrdersService {
                 OFid=oFid.toString();
             String price = request.getSession().getAttribute("totalAmount").toString();
 //            System.out.println(price);
-            String o_id = "D"+Generate.getTime()+m_id;
+            String o_id = "D"+Generate.getTime()+Generate.getRandomNumStr(6);
+//            System.out.println(o_id);
             String order_time = Generate.getTimeByFormat("yyyy-MM-dd HH:mm:ss");
             String self_lifting = "否";
             String status = "0";
