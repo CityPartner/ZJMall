@@ -1,5 +1,6 @@
 package com.nchhr.mall.Controller;
 
+import com.nchhr.mall.Entity.TemporaryloginEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Service.WeChatUserService;
@@ -43,8 +44,8 @@ public class WeChatUserController {
             session.removeAttribute("weChatUser");
         }
         session.setAttribute("weChatUser",weChatUser);
-
-        return "redirect:"+"/index";
+        System.out.println(weChatUser);
+        return "redirect:"+"/regist.html";
 
 //        if (loginService.loginByOpenid(openid,response,request,session)){
 //

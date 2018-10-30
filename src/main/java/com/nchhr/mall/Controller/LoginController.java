@@ -47,7 +47,7 @@ public class LoginController {
         String ss = "";
 
         if (cookies == null){
-            return "redirect:"+"/wechatuser";
+            return "redirect:"+"/index";
         }
         for (Cookie cookie : cookies) {
             System.out.println(cookie.toString());
@@ -57,12 +57,19 @@ public class LoginController {
         }
         System.out.println("mid:"+ss);
         if ("".equals(ss) && ss == null){
-            return "redirect:"+"/wechatuser";
+            return "redirect:"+"/index";
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
             if (mallUser == null){
-                cookiesService.clear(response,request);
+//                cookiesService.clear(response,request);
+                for (Cookie cookie : cookies) {
+//                    System.out.println(cookie.toString());
+                    if (cookie.getName().equals("MID")) {
+                            cookie.setMaxAge(0);
+                            response.addCookie(cookie);
+                    }
+                }
                 return  "redirect:/login.html";
             }
             System.out.println(mallUser.toString());

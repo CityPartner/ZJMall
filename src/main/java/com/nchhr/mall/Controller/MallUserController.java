@@ -47,18 +47,14 @@ public class MallUserController {
 
     /**
      * 注册
-     *
-     * @param userPhone
-     * @param code
-     * @param pwd
      * @param session
      * @return
      * @throws Exception
      */
     @RequestMapping("RegistLogin")
     @ResponseBody
-    public R_data RegistLogin(String userPhone, String code, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
-        return ResultUtils.success(mallUserService.RegistLogin(userPhone, code, pwd, session, response, request), ExceptionEnum.SUCCESS);
+    public R_data RegistLogin(String userPhone,String code,String pwd,HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        return ResultUtils.success(mallUserService.RegistLogin(userPhone,code,pwd ,session, response, request), ExceptionEnum.SUCCESS);
     }
 
     /**
@@ -111,5 +107,12 @@ public class MallUserController {
         MallUserEntity mallUserEntity = mallUserDao.loadByMid(MID);
         session.setAttribute("MallUserInfo", mallUserEntity);
         return "redirect:" + "/index";
+    }
+
+
+    @RequestMapping("/registered")
+    public String registered(){
+        System.out.println("registered");
+        return "redirect:/wechatuser";
     }
 }

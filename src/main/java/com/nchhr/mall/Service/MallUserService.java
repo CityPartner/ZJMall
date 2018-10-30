@@ -13,6 +13,7 @@ import com.nchhr.mall.Dao.MallUserDao;
 import com.nchhr.mall.Dao.WeChatUserDao;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.PhoneCodeEntity;
+import com.nchhr.mall.Entity.TemporaryloginEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Enum.CodeEnum;
 import com.nchhr.mall.Enum.ExceptionEnum;
@@ -56,6 +57,7 @@ public class MallUserService {
     /**
      * 登录与注册
      *
+     *
      * @param userPhone
      * @param code
      * @param pwd
@@ -90,7 +92,12 @@ public class MallUserService {
                     CodeUtils codeUtils = new CodeUtils();
                     //获取微信id
                     WeChatUserEntity weChatUserEntity = (WeChatUserEntity)session.getAttribute("weChatUser");
+                    if (weChatUserEntity == null){
+                        System.out.println("weChatUserEntity == null");
+                        //注册失败
+                        return "4";
 
+                    }
                     weChatUserDao.addWeCharUser(weChatUserEntity);
 
                     String Mid = "M" + codeUtils.createRandom(false, 16);
@@ -132,6 +139,7 @@ public class MallUserService {
                 return "2";
             }
         } else {
+            //该手机号已被注册
             return "6";
         }
 

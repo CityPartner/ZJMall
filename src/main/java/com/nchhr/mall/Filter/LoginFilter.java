@@ -47,7 +47,7 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/custom-css")
                 && !requestURI.contains("/goods")
                 && !requestURI.contains("/wechatuser")
-//                && !requestURI.contains("/save")
+                && !requestURI.contains("/registered")
                 && !requestURI.contains("/index")
                 && !requestURI.contains("/getMallUserInfo")
                 && !requestURI.contains("/login")
@@ -61,6 +61,7 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/ResetPassword")
                 && !requestURI.contains("/ChangePassword")
                 && !requestURI.contains("/RegistLogin")
+//                && !requestURI.contains("/test")
 
 
 

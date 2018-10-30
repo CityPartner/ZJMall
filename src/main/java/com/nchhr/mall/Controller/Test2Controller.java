@@ -1,10 +1,16 @@
 package com.nchhr.mall.Controller;
 
+import com.nchhr.mall.Entity.TemporaryloginEntity;
+import com.nchhr.mall.Service.CookiesService;
+import com.nchhr.mall.Utils.PhoneCodeUtils;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -14,12 +20,29 @@ public class Test2Controller {
 
     //    CodeUtils codeUtils;
     //
-    @RequestMapping("test")
-    @ResponseBody
-    public String index(HttpSession session) {
-        System.out.println("123");
-      return "123";
-    }
+    @Autowired
+    CookiesService cookiesService;
+
+
+
+//    @RequestMapping("/test")
+//    public String index(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+//        String userPhone = "13330113797";
+//        String code = "123456";
+////     cookiesService.saveCookies("123",response,request);
+//        PhoneCodeUtils  phoneCodeUtils = new PhoneCodeUtils();
+//        phoneCodeUtils.save(userPhone,code,session);
+////        TemporaryloginEntity temporaryloginEntity = new TemporaryloginEntity();
+////        temporaryloginEntity.setCode(code);
+////        temporaryloginEntity.setPhone(userPhone);
+////        temporaryloginEntity.setPwd("a123456");
+////        if (session.getAttribute("temporaryloginEntity") != null){
+////            session.removeAttribute("temporaryloginEntity");
+////        }
+////        session.setAttribute("temporaryloginEntity",temporaryloginEntity);
+////     return "redirect:/wechatuser?userPhone="+userPhone+"&code="+code+"&pwd=a123456";
+//       return  "redirect:"+"/login.html";
+//    }
 
 
 

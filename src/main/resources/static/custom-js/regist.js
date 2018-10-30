@@ -330,6 +330,15 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 var item = data.data;
+                if (item == null){
+                    swal({
+                        title: "<span style='color:#ef3737;font-size: 26px'>注册失败！<span>",
+                        text: "2秒后自动关闭。",
+                        timer: 2000,
+                        showConfirmButton: true,
+                        html: true
+                    });
+                }
                 if (item == "1") {
 
                     swal({
@@ -363,10 +372,10 @@ $(document).ready(function () {
                 }
                 if (item == "4") {
                     swal({
-                        title: "<span style='color:#ef3737;font-size: 26px'>未知错误！<span>",
+                        title: "<span style='color:#ef3737;font-size: 26px'>注册失败！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         html: true
                     });
                 }
