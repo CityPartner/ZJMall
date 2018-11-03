@@ -20,6 +20,11 @@ public class CouponService {
         return couponDao.getCoupons(userId, state);
     }
 
+    /*
+     *通过ofid
+     * HWG
+     *
+     */
     public CouponEntity getCouponByOfid(String OFid){
         return couponDao.getCouponById(OFid);
     }

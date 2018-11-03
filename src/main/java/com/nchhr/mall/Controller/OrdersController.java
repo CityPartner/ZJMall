@@ -1,13 +1,7 @@
 package com.nchhr.mall.Controller;
 
-import com.nchhr.mall.Entity.AddressEntity;
-import com.nchhr.mall.Entity.CommodityEntity;
-import com.nchhr.mall.Entity.CouponEntity;
-import com.nchhr.mall.Entity.MallUserEntity;
-import com.nchhr.mall.Service.AddressService;
-import com.nchhr.mall.Service.CommodityService;
-import com.nchhr.mall.Service.CouponService;
-import com.nchhr.mall.Service.OrdersService;
+import com.nchhr.mall.Entity.*;
+import com.nchhr.mall.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import sun.security.util.DisabledAlgorithmConstraints;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @Controller
@@ -40,6 +32,13 @@ public class OrdersController {
     @Autowired
     private CouponService couponService;
 
+    @Autowired
+    private MallUserService mallUserService;
+
+    @Autowired
+    private ProjectService projectService;
+
+
     MallUserEntity mallUserEntity=null;
 
     /*
@@ -56,6 +55,9 @@ public class OrdersController {
         return ordersService.insertOrder(request);
     }
 
+    /*
+     *将商品信息保存在session
+     */
     @RequestMapping("/saveCommodityData")
     public void saveCommodityDataFun(@RequestParam(value = "CommodityData")String CommodityData,HttpServletRequest request,HttpServletResponse response){
 //        Enumeration<String> headerNames = request.getHeaderNames();
@@ -76,6 +78,9 @@ public class OrdersController {
         }
     }
 
+    /*
+     *确定订单（收货地址、优惠券、price）
+     */
     @RequestMapping("/orderConfirmPage")
     public ModelAndView toOrderPage(HttpServletRequest request, HttpServletResponse response, Model model){
         mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
@@ -165,6 +170,11 @@ public class OrdersController {
         return new ModelAndView("order_info2","OrderModel",model);
     }
 
+
+    /*
+     *获取商品信息、收货地址
+     * 转到订单确认页面
+     */
     @RequestMapping("/orderListPage")
     public ModelAndView toOrderListPage(HttpServletResponse response,
                                         HttpServletRequest request,
@@ -178,5 +188,37 @@ public class OrdersController {
         model.addAttribute("NotCommentOrder",ordersService.getOrdersByMid(M_id,"4"));
 
         return new ModelAndView("all_orders","OM",model);
+    }
+
+
+    /*
+     *订单分红
+     */
+    @RequestMapping("/orderBonus")
+    @ResponseBody
+    public String distributionBonus(String O_id){
+        OrderEntity order = ordersService.getOrderById(O_id);
+        String m_id = order.getM_id();
+        String oFid = order.getOFid();
+        MallUserEntity user = mallUserService.getUserByMid(m_id);
+        ProjectEntity project = projectService.getProByPid("PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz");
+        int discount_lowest = (int) (project.getDiscount_lowest()*10);
+        String r_id = user.getR_id();
+        double project_income=0;
+        double person_income=0;
+
+//        //项目发起人或投资人下单
+//        if ("1".equals(r_id)||"2".equals(r_id)){
+//            project_income=order.getPrice()-(order.getOriginal_price()*discount_lowest/10);
+//        }
+        project_income=order.getPrice()-(order.getOriginal_price()*discount_lowest/10);
+        if(oFid!=null)
+        {
+            CouponEntity coupon = couponService.getCouponByOfid(oFid);
+            String offe_user = coupon.getOffe_user();
+        }
+
+
+        return "success";
     }
 }

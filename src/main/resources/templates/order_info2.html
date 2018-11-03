@@ -94,7 +94,7 @@
           </div>
           <div class="weui-cell weui-cell_access" href="javascript:;">
             <div class="weui-cell__bd weui-cell_primary">
-              <p class="font-14"><span class="mg-r-10">运费</span><span class="fr txt-color-red">￥<em class="num">10.00</em></span></p>
+              <p class="font-14"><span class="mg-r-10">运费</span><span class="fr txt-color-red">￥<em class="num">0</em></span></p>
             </div>
           </div>
           <!--<a class="weui-cell weui-cell_access" href="money.html">-->
@@ -155,7 +155,7 @@ function PayByWeChat() {
         type:"post",
         success:function (data) {
             if(data==1){
-                $.toast("购买成功",1000,function () {
+                $.toast("等待付款",1000,function () {
                     window.location.href="/mall/orderListPage";
                 });
             }else if(data==2){

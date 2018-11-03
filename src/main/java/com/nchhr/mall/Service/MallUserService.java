@@ -244,4 +244,11 @@ public class MallUserService {
     }
 
 
+    /*
+     *通过Mid获取用户信息
+     * HWG
+     */
+    public MallUserEntity getUserByMid(String M_id){
+        return mallUserDao.loadByMid(M_id);
+    }
 }

@@ -7,6 +7,7 @@ public class OrderEntity{
     private String Re_id;           //收货人id
     private String M_id;            //商城用户id（发货人）
     private double price;           //总价
+    private double original_price; //原价
     private String order_time;      //下单时间
     private String self_lifting;    //是否自提
     private String status;          //订单状态      0-未支付  1-已支付  2-待发货  3-已发货  4-已完成  5-订单已取消  6-补录
@@ -16,15 +17,24 @@ public class OrderEntity{
         return O_id;
     }
 
-    public OrderEntity(String o_id, String re_id, String m_id, String OFid, double price, String order_time, String self_lifting, String status) {
+    public double getOriginal_price() {
+        return original_price;
+    }
+
+    public void setOriginal_price(double original_price) {
+        this.original_price = original_price;
+    }
+
+    public OrderEntity(String o_id, String re_id, String m_id, double price, double original_price, String order_time, String self_lifting, String status, String OFid) {
         O_id = o_id;
         Re_id = re_id;
         M_id = m_id;
-        this.OFid = OFid;
         this.price = price;
+        this.original_price = original_price;
         this.order_time = order_time;
         this.self_lifting = self_lifting;
         this.status = status;
+        this.OFid = OFid;
     }
 
     public void setO_id(String o_id) {
@@ -92,16 +102,16 @@ public class OrderEntity{
 
     @Override
     public String toString() {
-        return "T_orders{" +
+        return "OrderEntity{" +
                 "O_id='" + O_id + '\'' +
                 ", Re_id='" + Re_id + '\'' +
                 ", M_id='" + M_id + '\'' +
-                ", OFid='" + OFid + '\'' +
-                ", price='" + price + '\'' +
+                ", price=" + price +
+                ", original_price=" + original_price +
                 ", order_time='" + order_time + '\'' +
                 ", self_lifting='" + self_lifting + '\'' +
                 ", status='" + status + '\'' +
+                ", OFid='" + OFid + '\'' +
                 '}';
     }
-
 }
