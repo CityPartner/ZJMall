@@ -2,6 +2,7 @@ package com.nchhr.mall.Controller;
 
 import com.nchhr.mall.Entity.*;
 import com.nchhr.mall.Service.*;
+import com.nchhr.mall.Utils.Generate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -38,6 +41,12 @@ public class OrdersController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private IncomeService incomeService;
+
+    @Autowired
+    private WalletService walletService;
+
 
     MallUserEntity mallUserEntity=null;
 
@@ -55,8 +64,12 @@ public class OrdersController {
         return ordersService.insertOrder(request);
     }
 
-    /*
-     *将商品信息保存在session
+    /**
+     * 将商品信息保存在session
+     * @param CommodityData
+     * @param request
+     * @param response
+     * HWG
      */
     @RequestMapping("/saveCommodityData")
     public void saveCommodityDataFun(@RequestParam(value = "CommodityData")String CommodityData,HttpServletRequest request,HttpServletResponse response){
@@ -78,8 +91,13 @@ public class OrdersController {
         }
     }
 
-    /*
-     *确定订单（收货地址、优惠券、price）
+    /**
+     * 确定订单（收货地址、优惠券、price）
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     * HWG
      */
     @RequestMapping("/orderConfirmPage")
     public ModelAndView toOrderPage(HttpServletRequest request, HttpServletResponse response, Model model){
@@ -171,9 +189,14 @@ public class OrdersController {
     }
 
 
-    /*
-     *获取商品信息、收货地址
+    /**
+     * 获取商品信息、收货地址
      * 转到订单确认页面
+     * @param response
+     * @param request
+     * @param model
+     * @return
+     * HWG
      */
     @RequestMapping("/orderListPage")
     public ModelAndView toOrderListPage(HttpServletResponse response,
@@ -191,32 +214,77 @@ public class OrdersController {
     }
 
 
-    /*
-     *订单分红
+    /**
+     * 订单分红
+     * @param O_id
+     * @return
+     * HWG
      */
     @RequestMapping("/orderBonus")
     @ResponseBody
-    public String distributionBonus(String O_id){
+    public String distributionBonus(@RequestParam(value = "O_id",required = true,defaultValue = "00000")String O_id){
         OrderEntity order = ordersService.getOrderById(O_id);
+        if(order==null)
+            return "Wrong Order!";
         String m_id = order.getM_id();
         String oFid = order.getOFid();
         MallUserEntity user = mallUserService.getUserByMid(m_id);
         ProjectEntity project = projectService.getProByPid("PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz");
         int discount_lowest = (int) (project.getDiscount_lowest()*10);
         String r_id = user.getR_id();
-        double project_income=0;
-        double person_income=0;
+        String moneyReceiver=null;
+        boolean flag=false;
+        double price=order.getPrice();
+        double original_price = order.getOriginal_price();
+        double project_income=price;
+        double person_income=0.0;
 
 //        //项目发起人或投资人下单
 //        if ("1".equals(r_id)||"2".equals(r_id)){
-//            project_income=order.getPrice()-(order.getOriginal_price()*discount_lowest/10);
+//            project_income=order.getPrice()-(original_price*discount_lowest/10);
 //        }
-        project_income=order.getPrice()-(order.getOriginal_price()*discount_lowest/10);
         if(oFid!=null)
         {
+            flag=true;
             CouponEntity coupon = couponService.getCouponByOfid(oFid);
-            String offe_user = coupon.getOffe_user();
+            moneyReceiver=coupon.getOffe_user();
+            project_income=(original_price*discount_lowest)/100;
+            person_income=price-project_income;
         }
+        else
+        {
+            flag=false;
+            project_income=price;
+        }
+        System.out.println("project"+project_income+"----person"+person_income);
+        //插入到income表
+        IncomeEntity incomeEntity=new IncomeEntity();
+        incomeEntity.setIn_id("I"+Generate.getTime()+Generate.getRandomNumStr(3));
+        incomeEntity.setIncome_amount(String.valueOf(price));
+        incomeEntity.setM_id(m_id);
+        incomeEntity.setUnallocated_amount(String.valueOf(project_income));
+        if(!(incomeService.insertIntoIncome(incomeEntity))){
+            return "Failed insert into table income!";
+        }
+
+        //插入到投资人钱包、收入（如果用户使用了优惠券）
+        if(flag){
+            //收入表更新
+            ProjectWalletIncome pwi=new ProjectWalletIncome();
+            pwi.setAttachInfo(O_id);
+            pwi.setIncomeAmount(String.valueOf(person_income));
+            pwi.setIncomeId("PI"+Generate.getTime()+Generate.getRandomNumStr(4));
+            pwi.setIncomeTime(new Timestamp(new Date().getTime()));
+            pwi.setIncomeType("0");
+            pwi.setProjectId("PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz");
+            pwi.setUserId(moneyReceiver);
+            if(!(walletService.insertIntoPWI(pwi)))
+                return "Failed to insert into project_wallet_income";
+            //钱包余额更新
+            if(!(walletService.updateWallet(moneyReceiver,"PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz",person_income)))
+                return "Failed to update walllet_amount!";
+        }
+
 
 
         return "success";

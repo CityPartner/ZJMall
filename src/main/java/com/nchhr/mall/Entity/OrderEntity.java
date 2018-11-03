@@ -62,7 +62,7 @@ public class OrderEntity{
     }
 
     public void setOFid(String OFid) {
-        OFid = OFid;
+        this.OFid = OFid;
     }
 
     public double getPrice() {
