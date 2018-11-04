@@ -11,23 +11,35 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css">
+  <script type="text/javascript" src="js/base.js">
+
+
+
+  </script>
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back"><span></span></div>
-  <div class="wy-header-title">选择收货地址</div>
-</header>
+<!--<header class="wy-header">-->
+  <!--<div class="wy-header-icon-back"><span></span></div>-->
+  <!--<div class="wy-header-title">选择收货地址</div>-->
+<!--</header>-->
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    选择收货地址
+  </div>
+</div>
 <div class="weui-content">
 
   <div class="weui-panel address-box">
 
 
-    <a th:each="address : ${Model.AddList}" th:href="@{/mall/SetAddress?Re_id=}+${address.Re_id}"
+    <a th:each="address : ${Model.AddList}" th:href="@{/SetAddress?Re_id=}+${address.Re_id}"
     style="text-decoration: none;color: black;">
       <div class="weui-panel__bd" >
         <div class="weui-media-box weui-media-box_text address-list-box">
-          <!--<a th:href="@{/mall/EditAddress?Re_id=}+${address.Re_id}" class="address-edit"></a>-->
+          <!--<a th:href="@{/EditAddress?Re_id=}+${address.Re_id}" class="address-edit"></a>-->
           <h4 class="weui-media-box__title"><span th:text="收货人：+${address.name}"></span></h4>
           <h5><span th:text="收货电话：+${address.phone}"></span></h5>
           <p class="weui-media-box__desc address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></p>

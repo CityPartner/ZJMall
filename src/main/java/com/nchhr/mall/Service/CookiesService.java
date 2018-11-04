@@ -26,11 +26,11 @@ public class CookiesService {
                     response.addCookie(cookie);
                 }
             }
-
-        }
             Cookie WXIDCookie = new Cookie("MID", MID);
             WXIDCookie.setMaxAge(315360000);//设置cookie生存时间：十年
             response.addCookie(WXIDCookie);// 添加cookie：
+        }
+
         }catch(Exception e){
             return false;
 
@@ -40,6 +40,9 @@ public class CookiesService {
 
     public boolean clear(HttpServletResponse response, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if (cookies == null){
+            return true;
+        }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("MID")) {
                 cookie.setMaxAge(0);
@@ -48,5 +51,18 @@ public class CookiesService {
         }
 
         return true;
+    }
+    public String print(HttpServletResponse response, HttpServletRequest request){
+        String ss = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null){
+            return "";
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("MID")) {
+               ss = cookie.getValue();
+            }
+        }
+        return ss;
     }
 }

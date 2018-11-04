@@ -1,4 +1,4 @@
-package com.nchhr.mall.entity;
+package com.nchhr.mall.Entity;
 
 /*
     通过两种scope： snsapi_base 和 snsapi_userinfo

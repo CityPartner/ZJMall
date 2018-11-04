@@ -30,7 +30,7 @@
     </div>
     <div class="weui-cell weui-cell_vcode">
       <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
-      <div class="weui-cell__bd"><input class="weui-input" id="newphone" type="numble" placeholder="请输入手机号"></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="newphone" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="请输入手机号"></div>
       <div class="weui-cell__ft"><button class="weui-vcode-btn" id="getCode">获取验证码</button></div>
     </div>
     <div class="weui-cell weui-cell_vcode" style="height: 44px;display: none;color: red;background-color: antiquewhite" id="format_phone">
@@ -54,7 +54,7 @@
     FastClick.attach(document.body);
   });
 </script>
-
+<script src="custom-js/jquery.cookie.js"></script>
 <script src="js/jquery-weui.js"></script>
 <script src="custom-js/sweetalert.min.js"></script>
 <script type="text/javascript" src="custom-js/psd_chage.js"></script>

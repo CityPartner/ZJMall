@@ -3,7 +3,17 @@ HWG  详情页面的js文件
  */
 
 $(function(){
+
+    $("#CustomService").click(function(){
+        $("#custom_service").addClass("weui-popup__container--visible");
+    });
+
+    $("#custom_service").click(function(){
+        $("#custom_service").removeClass("weui-popup__container--visible");
+    });
+
     $("#AddToCartBtn1").click(function () {
+        // alert(1);
         $("#selcet_cart").addClass("weui-popup__container--visible");
     });
     $("#AddToCartBtn2").click(function () {
@@ -27,6 +37,7 @@ $(function(){
             data:"BuyCount="+BuyCount+"&C_id="+C_id,
             type:"post",
             success:showAddCartResult,
+            error:NoResFromServ,
         });
     });
     $("#NoISeeMore").click(function () {
@@ -92,4 +103,7 @@ function showAddCartResult(data) {
     if(data==1){
         $("#join_cart").addClass("weui-popup__container--visible");
     }
+}
+function NoResFromServ() {
+    window.location.href="/mall/login.html";
 }

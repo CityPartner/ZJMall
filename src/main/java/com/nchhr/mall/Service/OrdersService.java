@@ -2,6 +2,9 @@ package com.nchhr.mall.Service;
 
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
+import com.nchhr.mall.Entity.MallUserEntity;
+import com.nchhr.mall.Entity.OrderEntity;
+import com.nchhr.mall.EntityVo.OrderCommodityVo;
 import com.nchhr.mall.Utils.Generate;
 import org.springframework.stereotype.Service;
 
@@ -26,28 +29,38 @@ public class OrdersService {
     @Resource
     private CouponService couponService;
 
+    @Resource
+    private ShopCartService shopCartService;
+
+    /*产生并写入订单
+     *库存相应减少
+     * 优惠券使用
+     * HWG
+     */
     public int insertOrder(HttpServletRequest request) {
+        MallUserEntity mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
 
         try{
-
 //            产生订单号
             Object re_id1 = request.getSession().getAttribute("Re_id");
             if(re_id1==null)
                 return 2;
             String re_id = request.getSession().getAttribute("Re_id").toString();
 //            String m_id = request.getSession().getAttribute("M_id").toString();
-            String m_id="#123";
+            String m_id=mallUserEntity.getM_id();
             String OFid = null;
             Object oFid = request.getSession().getAttribute("OFid");
             if(oFid!=null)
                 OFid=oFid.toString();
-            String price = request.getSession().getAttribute("totalAmount").toString();
+            String price = request.getSession().getAttribute("DisAmount").toString();
+            String original_price = request.getSession().getAttribute("totalAmount").toString();
 //            System.out.println(price);
-            String o_id = "D"+Generate.getTime()+m_id;
+            String o_id = "D"+Generate.getTime()+Generate.getRandomNumStr(6);
+//            System.out.println(o_id);
             String order_time = Generate.getTimeByFormat("yyyy-MM-dd HH:mm:ss");
             String self_lifting = "否";
             String status = "0";
-            boolean b1 = ordersDao.insertOrder(o_id,re_id,m_id,Double.parseDouble(price),order_time,self_lifting,status,OFid);
+            boolean b1 = ordersDao.insertOrder(o_id,re_id,m_id,Double.parseDouble(price),Double.parseDouble(original_price),order_time,self_lifting,status,OFid);
 
 //            插入商品
             String CommodityData=request.getSession().getAttribute("CommodityData").toString();
@@ -57,6 +70,7 @@ public class OrdersService {
 
 //        读取商品信息
             boolean b2=false;
+            String SC_id=mallUserEntity.getSC_id();
             try{
                 for (String codata:commoditys) {
                     System.out.println(codata);
@@ -66,8 +80,10 @@ public class OrdersService {
                         System.out.println(o_id+" "+temp[0]+"  "+temp[1]);
                         commodityService.buyCommodity(temp[0],temp[1]);
                         orderCommodityDao.saveByHand(o_id,temp[0],Integer.parseInt(temp[1]));
+                        shopCartService.deleteBySCidAndCid(SC_id,temp[0]);
                     }
                 }
+
             }catch (Exception e){
                 e.printStackTrace();
                 return 3;
@@ -76,6 +92,7 @@ public class OrdersService {
 //            使用优惠券
             if(OFid!=null){
                 couponService.useCoupon(OFid);
+                request.getSession().removeAttribute("OFid");
             }
 
 
@@ -87,5 +104,31 @@ public class OrdersService {
             return  4;
         }
 
+    }
+
+
+    /*
+    通过M_id 和订单状态  获取List  订单
+    HWG
+     */
+    public List<OrderCommodityVo> getOrdersByMid(String M_id, String status){
+        List<OrderCommodityVo> orderCommodityVo=new ArrayList<>();
+        List<OrderEntity> orders = ordersDao.getOrderByMid(M_id, status);
+
+        for (OrderEntity order:orders) {
+            orderCommodityVo.add(new OrderCommodityVo(order,orderCommodityDao.getOrderCommoditiesByOid(order.getO_id())));
+        }
+
+
+        return orderCommodityVo;
+
+    }
+
+    /*
+     *通过O_id 获取订单
+     * HWG
+     */
+    public OrderEntity getOrderById(String O_id){
+        return ordersDao.getOrderById(O_id);
     }
 }

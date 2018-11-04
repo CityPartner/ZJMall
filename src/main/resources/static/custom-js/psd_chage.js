@@ -1,14 +1,43 @@
 $(document).ready(function () {
 
 
-    var pathName=window.document.location.pathname;
-    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    var pathName = window.document.location.pathname;
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+
+    function phone(Phone) {
+        var pattern = /^1[34578]\d{9}$/;
+        var b = pattern.test(Phone);
+        return b;
+
+    }
+
+    function format_pwd(pwd) {
+        var regExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/;
+        var b = regExp.test(pwd);
+        return b;
+    }
+
+    var curCount = 0;//当前剩余秒数
 
     //手机号格式判断
     $("#newphone").on('input', function (e) {
-        var pattern = /^1[34578]\d{9}$/;
-        var b = pattern.test($("#newphone").val());
-        if (b == false) {
+
+        if (phone($("#newphone").val())) {
+            // console.log("123");
+            $("#format_phone").hide();
+            if (curCount == 0) {
+                $("#getCode").attr('disabled', false);
+                $("#getCode").css("background-color", "transparent");
+            }
+
+
+            if (format_pwd($("#newpwd").val())) {
+                $("#btn_chage").attr('disabled', false);
+                $("#change").css("background-color", "#1aad19");
+            }
+
+
+        } else {
             $("#format_phone").show();
             $("#getCode").attr('disabled', true);
             $("#getCode").css("background-color", "#ececec");
@@ -16,43 +45,42 @@ $(document).ready(function () {
             $("#btn_chage").attr('disabled', true);
             $("#change").css("background-color", "#ececec");
         }
-        if (b == true) {
-            // console.log("123");
-            $("#format_phone").hide();
-            $("#getCode").attr('disabled', false);
-            $("#getCode").css("background-color", "transparent");
-
-            $("#btn_chage").attr('disabled', false);
-            $("#change").css("background-color", "#1aad19");
-
-        }
     });
     //校验密码是否6位，不能全是数字或者字母
     $("#newpwd").on('input', function (e) {
-        var regExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/;
-        var b = regExp.test($("#newpwd").val());
-        if (b == false) {
+
+        if (format_pwd($("#newpwd").val())) {
+            $("#format_pwd").hide();
+
+            if (phone($("#newphone").val())) {
+                $("#btn_chage").attr('disabled', false);
+                $("#change").css("background-color", "#1aad19");
+            }
+
+        } else {
             $("#regExpPwd").text("新密码格式不对");
             $("#format_pwd").show();
 
             $("#btn_chage").attr('disabled', true);
             $("#change").css("background-color", "#ececec");
         }
-        if (b == true) {
-            $("#format_pwd").hide();
-            $("#btn_chage").attr('disabled', false);
-            $("#change").css("background-color", "#1aad19");
-        }
 
     });
+
+
     //清除code
-    var curCount;//当前剩余秒数
+
     var InterValObj; //timer变量，控制时间
     function SetRemainTime() {
         if (curCount == 0) {
             window.clearInterval(InterValObj);//停止计时器
-            $("#getCode").removeAttr("disabled");//启用按钮
-            $("#getCode").text("重新发送验证码");
+
+            if (phone($("#newphone").val())) {
+
+                $("#getCode").removeAttr("disabled");//启用按钮
+                $("#getCode").text("重新发送验证码");
+                $("#getCode").css("background-color", "transparent");
+            }
             /**
              * 清除验证码
              */
@@ -62,7 +90,7 @@ $(document).ready(function () {
             $.ajax({
                 async: false,
                 type: "POST",
-                url: projectName+"/deleteCode",//注意路径
+                url: projectName + "/deleteCode",//注意路径
                 data: temp,
                 dataType: "json",
                 success: function (data) {
@@ -74,7 +102,7 @@ $(document).ready(function () {
                     //2代表有异常
                     if (itemb == "2") {
                         swal({
-                            title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
+                            title: "<span style='color:#ef3737;font-size: 22px'>系统异常！<span>",
                             text: "2秒后自动关闭。",
                             timer: 2000,
                             showConfirmButton: true,
@@ -85,7 +113,7 @@ $(document).ready(function () {
                 },
                 error: function (data) {
                     swal({
-                        title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
+                        title: "<span style='color:#ef3737;font-size: 22px'>系统异常！<span>",
                         text: "2秒后自动关闭。",
                         timer: 2000,
                         showConfirmButton: true,
@@ -102,6 +130,22 @@ $(document).ready(function () {
         }
 
     }
+
+    //保存cookies 不要多次拿密码
+    function setCookies(name) {
+
+        var expiresDate = new Date();
+        expiresDate.setTime(expiresDate.getTime() + (1 * 60 * 1000));
+//?替换成分钟数如果为60分钟则为 60 * 60 *1000
+        var m = expiresDate.getMinutes();     //获取当前分钟数(0-59)
+        var s = expiresDate.getSeconds();
+        $.cookie(name, m * 60 + s, {
+            path: '/',//cookie的作用域
+            expires: expiresDate
+        });
+
+    }
+
     //获取验证码
     $("#getCode").click(function (e) {
         // alert("123");
@@ -113,7 +157,7 @@ $(document).ready(function () {
         if (params.phone == "") {
 
             swal({
-                title: "<span style='color:#f6d224;font-size: 26px'>手机号不能为空！<span>",
+                title: "<span style='color:#f6d224;font-size: 22px'>手机号不能为空！<span>",
                 text: "2秒后自动关闭。",
                 timer: 2000,
                 showConfirmButton: true,
@@ -126,13 +170,30 @@ $(document).ready(function () {
         //设置获取验证码获取时间
         $("#getCode").attr("disabled", "true");
         $("#getCode").text(curCount + "秒再获取");
-        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+        $("#getCode").css("background-color", "#ececec");
+        var temp = true;
+        if ($.cookie(params.phone) != null) {
+            swal({
+                title: "<span style='color:#f6d224;font-size: 22px'>验证码获取频繁！<span>",
+                text: "2秒后自动关闭。",
+                timer: 1500,
+                showConfirmButton: true,
+                html: true
+            });
+            temp = false
+        } else {
+            setCookies(params.phone);
+        }
 
+        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+        if (temp == false) {
+            return;
+        }
 
         $.ajax({
             async: false,
             type: "POST",
-            url: projectName+"/ResetPassword",//注意路径
+            url: projectName + "/ResetPassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -176,6 +237,15 @@ $(document).ready(function () {
                         html: true
                     });
                 }
+                if (itm == null){
+                    swal({
+                        title: "<span style='color:#f6d224;font-size: 26px'>验证码获取频繁！<span>",
+                        text: "2秒后自动关闭。",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                }
             },
             error: function (data) {
                 //console.log(JSON.stringify(data,null,4));
@@ -200,7 +270,7 @@ $(document).ready(function () {
         params.code = $("#code").val();
         params.newphone = $("#newphone").val();
         // alert(JSON.stringify(params));
-        if (params.newpwd ==''){
+        if (params.newpwd == '') {
             swal({
                 title: "<span style='color:#f6d224;font-size: 26px'>新密码不能为空！<span>",
                 text: "2秒后自动关闭。",
@@ -210,7 +280,7 @@ $(document).ready(function () {
             });
             return;
         }
-        if (params.newpwd == "" || params.code == "" || params.newphone == "" ) {
+        if (params.newpwd == "" || params.code == "" || params.newphone == "") {
 
             swal({
                 title: "<span style='color:#f6d224;font-size: 26px'>验证码不能为空！<span>",
@@ -222,12 +292,12 @@ $(document).ready(function () {
             return;
         }
 
-        console.log(JSON.stringify(params,null,4));
+        console.log(JSON.stringify(params, null, 4));
 
         $.ajax({
             async: false,
             type: "POST",
-            url: projectName+"/ChangePassword",//注意路径
+            url: projectName + "/ChangePassword",//注意路径
             data: params,
             dataType: "json",
             success: function (data) {
@@ -241,17 +311,19 @@ $(document).ready(function () {
                         showConfirmButton: true,
                         html: true
                     });
+
                     function jump(count) {
-                        window.setTimeout(function(){
+                        window.setTimeout(function () {
                             count--;
-                            if(count > 0) {
+                            if (count > 0) {
                                 $('#num').attr('innerHTML', count);
                                 jump(count);
                             } else {
-                                window.location.href="login.html";
+                                window.location.href = "login.html";
                             }
                         }, 1000);
                     }
+
                     jump(2);
                     return;
 

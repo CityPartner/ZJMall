@@ -10,13 +10,17 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css"/>
+  <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back"><span></span></div>
-  <div class="wy-header-title">新增地址</div>
-</header>
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    新增地址
+  </div>
+</div>
 <div class="weui-content">
   <div class="weui-cells weui-cells_form wy-address-edit">
     <div class="weui-cell">
@@ -85,7 +89,7 @@
               success:function (data) {
                   if(data== 1)
                     $.toast("添加成功",1000,function () {
-                        window.history.back();
+                        window.location.href="/mall/addressList";
                     });
                   else if(data==-1){
                       $.toast("总地址数量超过12条");

@@ -3,9 +3,9 @@
  *hwg
  */
 
-.IncreaseNum,.DecreaseNum{
+.IncreaseNum, .DecreaseNum {
     /*border: 1px solid;*/
-    border-color:#3d4145;
+    border-color: #3d4145;
     border-radius: 5px;
     width: 30px;
     height: 30px;
@@ -14,12 +14,14 @@
     margin-top: auto;
     margin-bottom: auto;
 }
-.ncui-amoutn-container{
+
+.ncui-amoutn-container {
     flex-flow: row;
     align-items: center;
     justify-items: center;
 }
-.ncui-input{
+
+.ncui-input {
     width: 60%;
     border: 0;
     outline: 0;
@@ -31,9 +33,57 @@
     height: 1.41176471em;
     line-height: 1.41176471;
 }
-.ncui-cart-amount{
-    width:110px;
+
+.ncui-cart-amount {
+    width: 110px;
     height: 32px;
     border: 1px solid #5f646e;
     border-radius: 4px;
+}
+
+.NC-category-top {
+    border-bottom: 1px solid #e8e8e8;
+    position: fixed;
+    left: 0;
+    top: 44px;
+    right: 0;
+    z-index: 1;
+    background: #F6F6F9
+}
+
+.NC-back-model {
+    border-bottom: 1px solid #e8e8e8;
+    position: relative;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    height: 44px;
+    background-color: white;
+}
+
+.nc-header-icon-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 44px;
+    z-index: 2;
+    line-height: 44px;
+    font-size: 16px;
+    color: #252525;
+}
+
+.nc-header-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    height: 44px;
+    line-height: 44px;
+    font-size: 18px;
+    color: #252525;
 }

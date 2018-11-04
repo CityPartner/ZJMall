@@ -14,9 +14,17 @@ public class CouponService {
     private CouponDao couponDao;
 
     public List<CouponEntity> getCoupons(String userId, String state) {
+//        List<CouponEntity> coupons = couponDao.getCoupons(userId, state);
+//        System.out.println(coupons.toString());
+//        return coupons;
         return couponDao.getCoupons(userId, state);
     }
 
+    /*
+     *通过ofid
+     * HWG
+     *
+     */
     public CouponEntity getCouponByOfid(String OFid){
         return couponDao.getCouponById(OFid);
     }
@@ -26,9 +34,6 @@ public class CouponService {
      * HWG
      */
     public void useCoupon(String OFid){
-        CouponEntity couponEntity=new CouponEntity();
-        couponEntity.setOffe_user(OFid);
-        couponEntity.setState("已用");
-        couponDao.updateCouponUsageInfo(couponEntity);
+        couponDao.updateCouponUsageInfo(OFid);
     }
 }

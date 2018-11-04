@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var pathName=window.document.location.pathname;
-    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    var pathName = window.document.location.pathname;
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 //手机号格式判断
     $("#loginPhone").on('input', function (e) {
         var pattern = /^1[34578]\d{9}$/;
@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $("#login").css("background-color", "#ececec");
             }
             if (ba == true) {
-                
+
                 $("#login").attr('disabled', false);
                 $("#login").css("background-color", "#e21323");
             }
@@ -76,13 +76,13 @@ $(document).ready(function () {
 
     $("#login").click(function () {
 
-        $("#loading_login").css("display","block");
+        $("#loading_login").css("display", "block");
 
         var param = {};
         param.phone = $("#loginPhone").val();
         param.pwd = $("#pwd").val();
         // alert(param.pwd);
-        if (param.phone == ""|| param.pwd == ''){
+        if (param.phone == "" || param.pwd == '') {
             swal({
                 title: "<span style='color:#f6d224;font-size: 26px'>手机号、密码不能为空！<span>",
                 text: "2秒后自动关闭。",
@@ -90,47 +90,27 @@ $(document).ready(function () {
                 showConfirmButton: true,
                 html: true
             });
-            $("#loading_login").css("display","none");
+            $("#loading_login").css("display", "none");
             return;
         }
 
         $.ajax({
             async: false,
             type: "POST",
-            url: projectName+"/login",//注意路径
+            url: projectName + "/login",//注意路径
             data: param,
             dataType: "json",
             success: function (data) {
 
 
-
                 var itm = data.data;
 
                 if (itm == "1") {
-                    $("#loading_login").css("display","none");
-                    swal({
-                        title: "<span style='color:#6ddb8d;font-size: 26px'>登录成功，正在跳转！<span>",
-                        text: "2秒后自动关闭。",
-                        timer: 2000,
-                        showConfirmButton: false,
-                        html: true
-                    });
-                    function jump(count) {
-                        window.setTimeout(function(){
-                            count--;
-                            if(count > 0) {
-                                $('#num').attr('innerHTML', count);
-                                jump(count);
-                            } else {
-                                window.location.href=projectName+"/index";
-                            }
-                        }, 1000);
-                    }
-                    jump(2);
+                    window.location.href = projectName + "/index";
 
                 }
                 if (itm == "2") {
-                    $("#loading_login").css("display","none");
+                    $("#loading_login").css("display", "none");
                     swal({
                         title: "<span style='color:#f6d224;font-size: 26px'>该用户不存在，请注册！<span>",
                         text: "2秒后自动关闭。",
@@ -140,7 +120,7 @@ $(document).ready(function () {
                     });
                 }
                 if (itm == "3") {
-                    $("#loading_login").css("display","none");
+                    $("#loading_login").css("display", "none");
                     swal({
                         title: "<span style='color:#ef3737;font-size: 26px'>密码错误！<span>",
                         text: "2秒后自动关闭。",
@@ -150,7 +130,7 @@ $(document).ready(function () {
                     });
                 }
                 if (itm == "4") {
-                    $("#loading_login").css("display","none");
+                    $("#loading_login").css("display", "none");
                     swal({
                         title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
                         text: "2秒后自动关闭。",
@@ -160,19 +140,19 @@ $(document).ready(function () {
                     });
                 }
 
-            },error:function (data) {
-                $("#loading_login").css("display","none");
-                    swal({
-                        title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
-                        text: "2秒后自动关闭。",
-                        timer: 2000,
-                        showConfirmButton: false,
-                        html: true
-                    });
+            }, error: function (data) {
+                $("#loading_login").css("display", "none");
+                swal({
+                    title: "<span style='color:#ef3737;font-size: 26px'>系统异常！<span>",
+                    text: "2秒后自动关闭。",
+                    timer: 2000,
+                    showConfirmButton: false,
+                    html: true
+                });
 
             }
         });
-        $("#loading_login").css("display","none");
+        $("#loading_login").css("display", "none");
     });
 
 });

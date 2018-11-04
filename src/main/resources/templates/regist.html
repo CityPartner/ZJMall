@@ -26,9 +26,9 @@
     <div class="weui-cells weui-cells_form wy-address-edit">
         <div class="weui-cell weui-cell_vcode">
             <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
-            <div class="weui-cell__bd"><input class="weui-input" type="number" id="userPhone" placeholder="请输入手机号"></div>
+            <div class="weui-cell__bd"><input class="weui-input" oninput = "value=value.replace(/[^\d]/g,'')" id="userPhone" placeholder="请输入手机号"></div>
             <div class="weui-cell__ft">
-                <button class="weui-vcode-btn" id="getCode">获取验证码</button>
+                <button class="weui-vcode-btn" disabled id="getCode">获取验证码</button>
             </div>
         </div>
         <div class="weui-cell weui-cell_vcode" style="height: 44px;display: none;color: red;background-color: antiquewhite" id="format_phone">
@@ -40,13 +40,13 @@
             <div class="weui-cell__bd"><input class="weui-input" type="number" id="code" placeholder="请输入验证码"></div>
             <!--<div class="weui-cell__ft" style="display: none"><img class="weui-vcode-img" src="./images/vcode.jpg"></div>-->
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label wy-lab">设置密码</label></div>
+        <div class="weui-cell" style="height: 24px">
+            <div class="weui-cell__hd" ><label class="weui-label wy-lab">设置密码</label></div>
             <div class="weui-cell__bd"><input class="weui-input" type="password" id="pwd" pattern="[0-9]*" placeholder="密码不能全是数字或字母、至少6位">
             </div>
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label wy-lab">确认密码</label></div>
+        <div class="weui-cell" style="height: 24px">
+            <div class="weui-cell__hd" ><label class="weui-label wy-lab">确认密码</label></div>
             <div class="weui-cell__bd"><input class="weui-input"  type="password" id="repwd" pattern="[0-9]*" placeholder="请再次输入新密码">
             </div>
         </div>
@@ -59,7 +59,7 @@
         <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" checked="checked">
         <span class="weui-agree__text">阅读并同意<a href="javascript:void(0);">《注册协议》</a></span>
     </label>
-    <div class="weui-btn-area" id="but_regist" disabled><a class="weui-btn" id="regist_login" style="background-color: #999">注册并登陆</a></div>
+    <div class="weui-btn-area"><button class="weui-btn" disabled id="regist_login" style="background-color: #999">注册并登陆</button></div>
     <div class="weui-cells__tips t-c font-12" >登陆账号为您输入的手机号码</div>
     <div class="weui-cells__tips t-c pd-10"><a href="xieyi.html" class="weui-cell_link font-12">查看注册协议</a></div>
 
@@ -73,7 +73,7 @@
     //     FastClick.attach(document.body);
     // });
 </script>
-
+<script src="custom-js/jquery.cookie.js"></script>
 <script src="js/jquery-weui.js"></script>
 <script src="custom-js/sweetalert.min.js"></script>
 <script src="custom-js/regist.js"></script>

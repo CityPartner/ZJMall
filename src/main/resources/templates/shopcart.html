@@ -19,14 +19,16 @@
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
-  <div class="wy-header-title">购物车</div>
-</header>
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="BackToPrevPage()"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    购物车
+  </div>
+</div>
 <div class="weui-content">
   <div class="weui-panel weui-panel_access" th:each="commodity : ${shopcartModel.commodities}">
     <div class="weui-panel__hd">
-      <span>江苏蓝之蓝旗舰店</span>
+      <span>酒水商城</span>
       <a href="javascript:;" class="wy-dele">
       </a>
       <input type="hidden" th:value="${commodity.C_id}" class="C_id"/>
@@ -44,13 +46,13 @@
         </div>
         <!--图片-->
         <div class="weui-media-box__hd">
-          <a th:href="@{/mall/pro_info?id=}+ ${commodity.C_id}">
-            <img class="weui-media-box__thumb" th:src="${commodity.image}" alt="">
+          <a th:href="@{/pro_info?id=}+ ${commodity.C_id}">
+            <img class="weui-media-box__thumb" th:src="'/mall/goods/'+${commodity.image}" alt="">
           </a>
         </div>
         <!--价格&数量-->
         <div class="weui-media-box__bd">
-          <h1 class="weui-media-box__desc"><a th:href="@{/mall/pro_info?id=}+ ${commodity.C_id}" class="ord-pro-link"><span th:text="${commodity.name}"></span></a></h1>
+          <h1 class="weui-media-box__desc"><a th:href="@{/pro_info?id=}+ ${commodity.C_id}" class="ord-pro-link"><span th:text="${commodity.name}"></span></a></h1>
           <div class="clear mg-t-10">
             <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${commodity.price}" id="price"></em></div>
             <div class="pro-amount fr">

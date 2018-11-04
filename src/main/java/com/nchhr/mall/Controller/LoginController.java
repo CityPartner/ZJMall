@@ -5,6 +5,7 @@ import com.nchhr.mall.Dao.MallUserDao;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.RsultModel.R_data;
+import com.nchhr.mall.Service.CookiesService;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,8 @@ public class LoginController {
     @Resource
     MallUserDao mallUserDao;
 
-    //测试用 请勿使用该控制器
-    @RequestMapping("/MP_verify_6NRD3VognOOIx0WG.txt")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("MP_verify_6NRD3VognOOIx0WG.txt");
-        return modelAndView;
-    }
+    @Autowired
+    CookiesService cookiesService;
 
     @RequestMapping("")
     public String index(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
@@ -44,26 +41,37 @@ public class LoginController {
         // return "index"
 
         //没有cookie
-        System.out.println("++++++++++++++++++++_+_+_+_+_+_+_+");
+        System.out.println("检查cookie");
 
         Cookie[] cookies = request.getCookies();
         String ss = "";
 
         if (cookies == null){
-            return "redirect:"+"/wechatuser";
+            return "redirect:"+"/index";
         }
         for (Cookie cookie : cookies) {
             System.out.println(cookie.toString());
             if (cookie.getName().equals("MID")) {
                 ss = cookie.getValue();
-
             }
         }
-        if (ss == ""){
-            return "redirect:"+"/wechatuser";
+        System.out.println("mid:"+ss);
+        if ("".equals(ss) && ss == null){
+            return "redirect:"+"/index";
         }
         else {
             MallUserEntity mallUser = mallUserDao.loadByMid(ss);
+            if (mallUser == null){
+//                cookiesService.clear(response,request);
+                for (Cookie cookie : cookies) {
+//                    System.out.println(cookie.toString());
+                    if (cookie.getName().equals("MID")) {
+                            cookie.setMaxAge(0);
+                            response.addCookie(cookie);
+                    }
+                }
+                return  "redirect:/login.html";
+            }
             System.out.println(mallUser.toString());
             session.setAttribute("MallUserInfo",mallUser);
 
@@ -80,4 +88,10 @@ public class LoginController {
 
         return ResultUtils.success(loginService.login(phone, pwd,response,request,session),ExceptionEnum.SUCCESS);
     }
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+        loginService.loginOut(request,response,session);
+        return "redirect:/login.html";
+    }
+
 }

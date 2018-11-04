@@ -1,5 +1,6 @@
 package com.nchhr.mall.Controller;
 
+import com.nchhr.mall.Entity.TemporaryloginEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Service.LoginService;
 import com.nchhr.mall.Service.WeChatUserService;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -30,7 +33,7 @@ public class WeChatUserController {
     }
 
     @RequestMapping("/wechat_redirect")
-    public String weChatRedirect(String code, String state, HttpSession session) {
+    public String weChatRedirect(String code, String state, HttpServletRequest request, HttpServletResponse  response, HttpSession session) {
         weChatUserService.getWeChatOAuth2Token(code, state);
 
         //获取用户微信openid
@@ -41,16 +44,17 @@ public class WeChatUserController {
             session.removeAttribute("weChatUser");
         }
         session.setAttribute("weChatUser",weChatUser);
+        System.out.println(weChatUser);
+        return "redirect:"+"/regist.html";
 
-        if (loginService.loginByOpenid(openid)){
-
-
-
-            return "redirect:/login.html";
-        }
-        else {
-            return "redirect:/regist.html";
-        }
+//        if (loginService.loginByOpenid(openid,response,request,session)){
+//
+//
+//            return "redirect:/index";
+//        }
+//        else {
+//            return "redirect:/regist.html";
+//        }
 
             //微信id存在 有账号 return“login”
 

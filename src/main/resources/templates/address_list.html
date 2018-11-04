@@ -11,25 +11,32 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/base.css"/>
+  <script type="text/javascript" src="js/base.js"></script>
 
   <script type="text/javascript" src="js/base.js"></script>
 </head>
 <body ontouchstart>
 <!--主体-->
-<header class="wy-header">
-  <div class="wy-header-icon-back" onclick="BackToPrevPage()"><span></span></div>
-  <div class="wy-header-title">地址管理</div>
-</header>
+<div class="NC-back-model">
+  <div class="nc-header-icon-back" onclick="javascript: window.location.href='/mall/mine'"><span>◁返回</span></div>
+  <div class="nc-header-title">
+    地址管理
+  </div>
+</div>
+
+
 <div class="weui-content">
 
   <div class="weui-panel address-box">
     <div class="weui-panel__bd" th:each="address : ${addressListModel.AddList}">
       <div class="weui-media-box weui-media-box_text address-list-box">
-        <a th:href="@{/mall/EditAddress?Re_id=}+${address.Re_id}" class="address-edit"></a>
-        <h4 class="weui-media-box__title"><span th:text="${address.name}"></span><span th:text="${address.phone}"></span></h4>
+        <a th:href="@{/EditAddress?Re_id=}+${address.Re_id}" class="address-edit"></a>
+        <h4 class="weui-media-box__title">收货人:<span th:text="${address.name}"></span></h4>
+        <h4 class="weui-media-box__title">电话:<span th:text="${address.phone}"></span></h4>
         <p class="weui-media-box__desc address-txt" th:text="${address.province}+${address.city}+${address.county}+${address.address_details}"></p>
-        <span style="background-color: #9598a5" th:if="${address.acquiescence} eq 是">默认地址</span>
-        <span class="default-add" th:if="${address.acquiescence} eq 否">设为默认地址</span>
+        <!--<span style="background-color: #9598a5" th:if="${address.acquiescence} eq 是">默认地址</span>-->
+        <span class="default-add" th:if="${address.acquiescence} eq 是">默认地址</span>
         <input type="hidden" th:value="${address.Re_id}"/>
       </div>
     </div>
@@ -52,7 +59,7 @@
       var params="Re_id="+Reid;
       // $.toast(params,"text");
       $.ajax({
-          url:"/mall/SetDefaultAddress",
+          url:"/SetDefaultAddress",
           data:params,
           type:"post",
           success:function (data) {
