@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @Service
-public class WechatUserService {
+public class WeChatUserService {
 
     @Resource
     private WeChatUserDao weChatUserDao;
@@ -122,6 +122,7 @@ public class WechatUserService {
                 + "&code=" + code
                 + "&grant_type=authorization_code";
         JSONObject wechatOAuth2TokenJSON = JSONObject.parseObject(JSONUtil.getJSONByURL(wechatOAuth2TokenURL));
+
         //还能拿到的请他信息请参考WechatOAuth2Token实体类，此处只拿openid
         return wechatOAuth2TokenJSON.getString("openid");
     }

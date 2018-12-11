@@ -2,7 +2,7 @@ package com.nchhr.mall.Controller;
 
 
 import com.nchhr.mall.Configure.WechatConfig;
-import com.nchhr.mall.Service.WechatUserService;
+import com.nchhr.mall.Service.WeChatUserService;
 import com.nchhr.mall.Utils.HttpUtil;
 import com.nchhr.mall.Utils.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class WechatPayController {
 
     @Autowired
-    WechatUserService wechatUserService;
+    WeChatUserService wechatUserService;
 
     /**
      * 微信支付入口

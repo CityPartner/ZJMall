@@ -4,7 +4,7 @@ import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.EntityVo.CommodityVo;
 import com.nchhr.mall.Service.CommodityService;
-import com.nchhr.mall.Service.WechatUserService;
+import com.nchhr.mall.Service.WeChatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,7 @@ public class FrontController {
     private CommodityService commodityService;
 
     @Autowired
-    private WechatUserService weChatUserService;
+    private WeChatUserService weChatUserService;
 
 
     @RequestMapping("/index")
