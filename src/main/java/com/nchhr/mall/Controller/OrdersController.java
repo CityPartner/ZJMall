@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -60,8 +61,8 @@ public class OrdersController {
 
     @RequestMapping("/GenerateOrder")
     @ResponseBody
-    public int insertOrder(HttpServletRequest request){
-        return ordersService.insertOrder(request);
+    public int insertOrder(HttpSession httpSession, HttpServletRequest request){
+        return ordersService.insertOrder(httpSession, request);
     }
 
     /**

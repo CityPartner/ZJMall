@@ -1,27 +1,22 @@
 package com.nchhr.mall.Controller;
 
-import com.nchhr.mall.Entity.TemporaryloginEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Service.LoginService;
-import com.nchhr.mall.Service.WeChatUserService;
-import com.nchhr.mall.util.WeChatUtil;
+import com.nchhr.mall.Service.WechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/wechatuser")
-public class WeChatUserController {
+public class WechatUserController {
 
     @Autowired
-    private WeChatUserService weChatUserService;
+    private WechatUserService weChatUserService;
 
     @Autowired
     LoginService loginService;

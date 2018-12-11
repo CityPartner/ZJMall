@@ -25,7 +25,7 @@ public interface MenuDao {
             "menu\n" +
             "INNER JOIN Menu_Role ON Menu_Role.M_id = menu.M_id\n" +
             "INNER JOIN role ON Menu_Role.R_id = role.R_id\n" +
-            "WHERE Menu_Role.R_id = #{0}" +
+            "WHERE Menu_Role.R_id = #{0} " +
             "ORDER BY\n" +
             "menu.parents ASC,\n" +
             "menu.menu_sort ASC ")

@@ -1,25 +1,18 @@
 package com.nchhr.mall.Controller;
 
-import com.nchhr.mall.Entity.CommodityEntity;
 import com.nchhr.mall.Entity.MallUserEntity;
-import com.nchhr.mall.Entity.ShopCartEntity;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.EntityVo.CommodityVo;
 import com.nchhr.mall.Service.CommodityService;
-import com.nchhr.mall.Service.ShopCartService;
-import com.nchhr.mall.Service.WeChatUserService;
+import com.nchhr.mall.Service.WechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,7 +23,7 @@ public class FrontController {
     private CommodityService commodityService;
 
     @Autowired
-    private WeChatUserService weChatUserService;
+    private WechatUserService weChatUserService;
 
 
     @RequestMapping("/index")

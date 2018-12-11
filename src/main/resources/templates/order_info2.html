@@ -156,7 +156,7 @@ function PayByWeChat() {
         success:function (data) {
             if(data==1){
                 $.toast("等待付款",1000,function () {
-                    window.location.href="/mall/orderListPage";
+                    window.location.href="/mall/wechat/pay";
                 });
             }else if(data==2){
                 $.toast("请先选择收货人","text");

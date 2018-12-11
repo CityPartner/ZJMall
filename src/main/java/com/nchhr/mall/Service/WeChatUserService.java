@@ -2,6 +2,7 @@ package com.nchhr.mall.Service;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.nchhr.mall.Configure.WechatConfig;
 import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Dao.WeChatUserDao;
 import com.nchhr.mall.util.JSONUtil;
@@ -14,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @Service
-public class WeChatUserService {
+public class WechatUserService {
 
     @Resource
     private WeChatUserDao weChatUserDao;
@@ -26,7 +27,7 @@ public class WeChatUserService {
     //获取微信验证请求路径
     public String getWeChatRequestURL() {
         //回调页面路径
-        String wechat_redirect_uri = "http://haoduodian.trunch.cn/mall/wechatuser/wechat_redirect";
+        String wechat_redirect_uri = "http://" + WechatConfig.ADN + "/mall/wechatuser/wechat_redirect";
 
         //授权请求路径
         String request_url = null;
@@ -93,5 +94,35 @@ public class WeChatUserService {
     //通过openid获取微信信息
     public WeChatUserEntity getUserByOpenid(String openid){
         return weChatUserDao.getUserByOpenid(openid);
+    }
+
+    //获取微信验证请求路径
+    public String getWeChatRequestURL(String redirect_path) {
+        //确定回调页面路径
+        String wechat_redirect_uri = "http://"+ WechatConfig.ADN + redirect_path;
+        //生成授权请求路径
+        String request_url = null;
+        try {
+            request_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WechatConfig.AppID
+                    + "&redirect_uri="+ URLEncoder.encode(wechat_redirect_uri, "UTF-8")
+                    + "&response_type=code"
+                    + "&scope=snsapi_base" //通过snsapi_userinfo必须显式授权，此处snsapi_base为隐式授权
+                    + "&state=STATE#wechat_redirect";
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return request_url;
+    }
+
+    //通过用户授权方式获得token和openid
+    public String getOpenID(String code, String state) {
+        //回调进来进行处理
+        String wechatOAuth2TokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WechatConfig.AppID
+                + "&secret=" + WechatConfig.AppSecret
+                + "&code=" + code
+                + "&grant_type=authorization_code";
+        JSONObject wechatOAuth2TokenJSON = JSONObject.parseObject(JSONUtil.getJSONByURL(wechatOAuth2TokenURL));
+        //还能拿到的请他信息请参考WechatOAuth2Token实体类，此处只拿openid
+        return wechatOAuth2TokenJSON.getString("openid");
     }
 }

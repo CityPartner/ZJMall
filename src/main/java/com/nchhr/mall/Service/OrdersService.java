@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class OrdersService {
      * 优惠券使用
      * HWG
      */
-    public int insertOrder(HttpServletRequest request) {
+    public int insertOrder(HttpSession httpSession, HttpServletRequest request) {
         MallUserEntity mallUserEntity= (MallUserEntity) request.getSession().getAttribute("MallUserInfo");
 
         try{
@@ -103,9 +104,9 @@ public class OrdersService {
                 couponService.useCoupon(OFid);
                 request.getSession().removeAttribute("OFid");
             }
-
-
-
+            httpSession.setAttribute("orderId", o_id);
+            String orderFee = (int)(Float.parseFloat(price)*100) + "";
+            httpSession.setAttribute("orderFee", orderFee);
 
             return 1;
         }catch(Exception e){
