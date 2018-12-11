@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="lib/weui.min.css">
     <link rel="stylesheet" href="css/jquery-weui.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/base.css">
 </head>
 <body ontouchstart>
 <!--顶部搜索-->
@@ -110,11 +111,11 @@
         <div class="wy-Module-con">
             <ul class="wy-pro-list clear">
                 <li th:each="CV : ${IndexModel.CVList}">
-                    <a th:href="@{/pro_info?id=}+ ${CV.commodityEntity.C_id}">
+                    <a th:href="@{/pro_info?id=}+ ${CV.commodityEntity.C_id}" >
                         <div class="proimg"><img th:attr="src='/mall/goods/'+${CV.commodityEntity.image}"></div>
                         <div class="protxt">
-                            <div class="name" th:text="${CV.commodityEntity.name}">洋河蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食白酒2瓶装包邮</div>
-                            <div class="wy-pro-pri">¥<span th:text="${CV.commodityEntity.price}">296.00</span></div>
+                            <div class="name-index-hwg" th:text="${CV.commodityEntity.name}"></div>
+                            <div class="wy-pro-pri-hwg">¥<span th:text="${CV.commodityEntity.price}"></span></div>
                         </div>
                     </a>
                 </li>

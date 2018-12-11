@@ -2,6 +2,7 @@ package com.nchhr.mall.Service;
 
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
+import com.nchhr.mall.Entity.CommodityEntity;
 import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Entity.OrderEntity;
 import com.nchhr.mall.EntityVo.OrderCommodityVo;
@@ -54,7 +55,7 @@ public class OrdersService {
                 OFid=oFid.toString();
             String price = request.getSession().getAttribute("DisAmount").toString();
             String original_price = request.getSession().getAttribute("totalAmount").toString();
-//            System.out.println(price);
+            System.out.println("OrderPrice:"+price);
             String o_id = "D"+Generate.getTime()+Generate.getRandomNumStr(6);
 //            System.out.println(o_id);
             String order_time = Generate.getTimeByFormat("yyyy-MM-dd HH:mm:ss");
@@ -71,16 +72,24 @@ public class OrdersService {
 //        读取商品信息
             boolean b2=false;
             String SC_id=mallUserEntity.getSC_id();
+            List<CommodityEntity> coms= (List<CommodityEntity>) request.getSession().getAttribute("RealComs");
             try{
-                for (String codata:commoditys) {
+//                for (String codata:commoditys) {
+//                    System.out.println(codata);
+//                    if(codata!=null) {
+//                        String[] temp = codata.split(":");
+//                        System.out.println(o_id+" "+temp[0]+"  "+temp[1]);
+//                        commodityService.buyCommodity(temp[0],temp[1]);
+//                        orderCommodityDao.saveByHand(o_id,temp[0],Integer.parseInt(temp[1]));
+//                        shopCartService.deleteBySCidAndCid(SC_id,temp[0]);
+//                    }
+//                }
+                for (CommodityEntity codata:coms) {
                     System.out.println(codata);
                     if(codata!=null) {
-                        String[] temp = codata.split(":");
-//                        b2 = orderCommodityDao.save(new OrderCommodityEntity(o_id, temp[0], Integer.parseInt(temp[1])));
-                        System.out.println(o_id+" "+temp[0]+"  "+temp[1]);
-                        commodityService.buyCommodity(temp[0],temp[1]);
-                        orderCommodityDao.saveByHand(o_id,temp[0],Integer.parseInt(temp[1]));
-                        shopCartService.deleteBySCidAndCid(SC_id,temp[0]);
+                        commodityService.buyCommodity(codata.getC_id(),codata.getStock());
+                        orderCommodityDao.saveByHand(o_id,codata.getC_id(),Integer.parseInt(codata.getStock()));
+                        shopCartService.deleteBySCidAndCid(SC_id,codata.getC_id());
                     }
                 }
 

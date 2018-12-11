@@ -9,7 +9,7 @@ spring:
     encoding: UTF-8
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://47.94.81.127:3306/hyzj?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+    url: jdbc:mysql://47.94.206.247:3306/hyzj?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
     username: hyzjdba
     password: hyzjprogroup
     driver-class-name: com.mysql.jdbc.Driver

@@ -24,7 +24,7 @@ public interface OrdersDao {
      *查看一个用户的所有订单通过status
      * HWG
      */
-    @Select("select * from orders where M_id=#{M_id} and status=#{status}")
+    @Select("select * from orders where M_id=#{M_id} and status=#{status} order by order_time desc")
     List<OrderEntity> getOrderByMid(@Param("M_id")String M_id, @Param("status")String status);
 
     /*

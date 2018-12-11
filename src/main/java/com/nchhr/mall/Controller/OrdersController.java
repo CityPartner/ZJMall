@@ -131,8 +131,10 @@ public class OrdersController {
                     commodityById.setStock(temp[1]);
                 }
                 coms.add(commodityById);
-                totalAmount += commodityById.getPrice()*(Integer.parseInt(commodityById.getStock()));
-
+                float price = commodityById.getPrice()*100;
+                price=((int) price)*(Integer.parseInt(commodityById.getStock()));
+//                System.out.println("Price:"+price);
+                totalAmount += price*0.01;
             }
         }
         DisAmount=totalAmount;
@@ -182,6 +184,8 @@ public class OrdersController {
 
         request.getSession().setAttribute("totalAmount",totalAmount);
         request.getSession().setAttribute("DisAmount", DisAmount);
+        request.getSession().setAttribute("RealComs",coms);
+//        System.out.println("TotalAmount:"+totalAmount+"\nDisAmount:"+DisAmount);
         model.addAttribute("commoditys",coms);
         model.addAttribute("totalAmount",totalAmount);
         model.addAttribute("DisAmount", DisAmount);
