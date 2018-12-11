@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="/mall/js/jquery.min.js"></script>
+    <title>支付处理</title>
+</head>
+<body>
+<h1>微信处理中...</h1>
+</body>
+<script>
+    var paySignJSON;
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "http://test.trunch.cn/mall/wechat/pay/handle",
+            dataType: "json",
+            success: function (data) {
+                paySignJSON = data;
+                // alert(JSON.stringify(paySignJSON));
+
+                if (typeof WeixinJSBridge == "undefined"){
+                    if( document.addEventListener ){
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    }else if (document.attachEvent){
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                }else{
+                    onBridgeReady();
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+
+        function onBridgeReady(){
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                    "appId":paySignJSON.appId,
+                    "timeStamp":paySignJSON.timeStamp,
+                    "nonceStr":paySignJSON.nonceStr,
+                    "package":paySignJSON.package,
+                    "signType":paySignJSON.signType,
+                    "paySign":paySignJSON.paySign
+                },
+                function(res){
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        $(location).attr('href', '/mall/orderListPage' +
+                            '');
+                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                        alert('支付取消');
+                    }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+                        alert('支付失败');
+
+                    }
+                }
+            );
+        }
+    });
+
+</script>
+</html>
