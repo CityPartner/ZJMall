@@ -4,6 +4,7 @@ import com.nchhr.mall.Entity.OrderEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -33,4 +34,7 @@ public interface OrdersDao {
      */
     @Select("select * from orders where O_id=#{O_id}")
     OrderEntity getOrderById(@Param("O_id")String O_id);
+
+    @Update("update orders set status=#{status} where O_id = #{o_id}")
+    void setOrderStatusByOid(@Param("o_id")String  o_id,@Param("status")String status);
 }

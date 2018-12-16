@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class OrdersService {
     @Resource
     private ShopCartService shopCartService;
 
-    /*产生并写入订单
+    /**产生并写入订单
      *库存相应减少
      * 优惠券使用
      * HWG
@@ -117,9 +118,11 @@ public class OrdersService {
     }
 
 
-    /*
-    通过M_id 和订单状态  获取List  订单
-    HWG
+    /**
+     * HWG
+     * @param M_id
+     * @param status
+     * @return
      */
     public List<OrderCommodityVo> getOrdersByMid(String M_id, String status){
         List<OrderCommodityVo> orderCommodityVo=new ArrayList<>();
@@ -134,11 +137,21 @@ public class OrdersService {
 
     }
 
-    /*
+    /**
      *通过O_id 获取订单
      * HWG
      */
     public OrderEntity getOrderById(String O_id){
         return ordersDao.getOrderById(O_id);
+    }
+
+    public boolean setOrderStatus(String o_id,String status){
+        try {
+            ordersDao.setOrderStatusByOid(o_id,status);
+        }catch (Exception se){
+            System.out.println(se.getMessage());
+            return false;
+        }
+        return  true;
     }
 }
