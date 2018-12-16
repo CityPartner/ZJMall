@@ -2,7 +2,7 @@ package com.nchhr.mall.Configure;
 
 public class WechatConfig {
 
-    public static final String ADN = "test.trunch.cn";//授权域名
+    public static final String ADN = "nchhr.com";//授权域名
 
     public static final String MP_verify = "Xt4X9SkoJm8PdJD1";
 

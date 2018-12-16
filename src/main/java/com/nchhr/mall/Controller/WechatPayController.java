@@ -134,7 +134,9 @@ public class WechatPayController {
     //支付成功后微信通知于此
     @RequestMapping("/notify")
     @ResponseBody
-    public void notifys(HttpServletRequest request, HttpServletResponse response) {
+    public String notifys(HttpServletRequest request) {
+
+        String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
         System.out.println("------------------------------通知完成-------------------------");
 
         //System.out.println("微信支付成功,微信发送的callback信息,请注意修改订单信息");
@@ -154,12 +156,13 @@ public class WechatPayController {
                 }
             }
             //勿需通知
-            String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-            response.getWriter().write(xmlResponse);
+//            String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+//            response.getWriter().write(xmlResponse);
             inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return xmlResponse;
     }
 
     @RequestMapping("/loading") //支付加载页
