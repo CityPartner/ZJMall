@@ -2,15 +2,21 @@ package com.nchhr.mall.Controller;
 
 
 import com.nchhr.mall.Configure.WechatConfig;
+import com.nchhr.mall.Service.OrdersService;
 import com.nchhr.mall.Service.WeChatUserService;
 import com.nchhr.mall.Utils.HttpUtil;
 import com.nchhr.mall.Utils.WXPayUtil;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +26,8 @@ public class WechatPayController {
 
     @Autowired
     WeChatUserService wechatUserService;
+    @Autowired
+    OrdersService ordersService;
 
     /**
      * 微信支付入口
@@ -126,9 +134,30 @@ public class WechatPayController {
     //支付成功后微信通知于此
     @RequestMapping("/notify")
     @ResponseBody
-    public void notifys() {
+    public void notifys(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("------------------------------通知");
 
+        //System.out.println("微信支付成功,微信发送的callback信息,请注意修改订单信息");
+        InputStream inputStream = null;
+        try {
+            inputStream = request.getInputStream();//获取请求的流信息(这里是微信发的xml格式所有只能使用流来读)
+            String xml = WXPayUtil.streamToXml(inputStream);
+            Map<String, String> notifyMap = WXPayUtil.xmlToMap(xml);//将微信发的xml转map
+
+            if(notifyMap.get("return_code").equals("SUCCESS")){
+                if(notifyMap.get("result_code").equals("SUCCESS")){
+                    String orderId = notifyMap.get("out_trade_no");//商户订单号
+                    String orderAmount = notifyMap.get("total_fee");//实际支付的订单金额:单位 分
+                    ordersService.setOrderStatus(orderId, "1");
+                }
+            }
+            //勿需通知
+            String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+            response.getWriter().write(xmlResponse);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/loading") //支付加载页

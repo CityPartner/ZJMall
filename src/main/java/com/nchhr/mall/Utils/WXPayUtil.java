@@ -13,9 +13,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.*;
@@ -291,4 +290,17 @@ public class WXPayUtil {
         return System.currentTimeMillis();
     }
 
+    public static String streamToXml(InputStream inputStream) throws IOException {
+        String xml = "";
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+        outStream.close();
+        inputStream.close();
+        xml = new String(outStream.toByteArray(), StandardCharsets.UTF_8);
+        return xml;
+    }
 }
