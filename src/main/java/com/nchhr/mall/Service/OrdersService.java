@@ -2,9 +2,7 @@ package com.nchhr.mall.Service;
 
 import com.nchhr.mall.Dao.OrderCommodityDao;
 import com.nchhr.mall.Dao.OrdersDao;
-import com.nchhr.mall.Entity.CommodityEntity;
-import com.nchhr.mall.Entity.MallUserEntity;
-import com.nchhr.mall.Entity.OrderEntity;
+import com.nchhr.mall.Entity.*;
 import com.nchhr.mall.EntityVo.OrderCommodityVo;
 import com.nchhr.mall.Utils.Generate;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -145,6 +145,12 @@ public class OrdersService {
         return ordersDao.getOrderById(O_id);
     }
 
+    /**
+     * HWG
+     * @param o_id
+     * @param status
+     * @return
+     */
     public boolean setOrderStatus(String o_id,String status){
         try {
             ordersDao.setOrderStatusByOid(o_id,status);
@@ -153,5 +159,84 @@ public class OrdersService {
             return false;
         }
         return  true;
+    }
+
+    /**
+     * HWG
+     * @param O_id
+     * @return
+     */
+    public String orderBonus(String O_id){
+
+        OrderEntity order = ordersDao.getOrderById(O_id);
+        MallUserService mallUserService=new MallUserService();
+        ProjectService projectService=new ProjectService();
+        IncomeService incomeService=new IncomeService();
+        WalletService walletService=new WalletService();
+        if(order==null)
+            return "Wrong Order!";
+        String m_id = order.getM_id();
+        String oFid = order.getOFid();
+        MallUserEntity user = mallUserService.getUserByMid(m_id);
+        ProjectEntity project = projectService.getProByPid("PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz");
+        int discount_lowest = (int) (project.getDiscount_lowest()*10);
+        String r_id = user.getR_id();
+        String moneyReceiver=null;
+        boolean flag=false;
+        double price=order.getPrice();
+        double original_price = order.getOriginal_price();
+        double project_income=price;
+        double person_income=0.0;
+
+//        //项目发起人或投资人下单
+//        if ("1".equals(r_id)||"2".equals(r_id)){
+//            project_income=order.getPrice()-(original_price*discount_lowest/10);
+//        }
+        if(oFid!=null)
+        {
+            flag=true;
+            CouponEntity coupon = couponService.getCouponByOfid(oFid);
+            moneyReceiver=coupon.getOffe_user();
+            project_income=(original_price*discount_lowest)/100;
+            person_income=price-project_income;
+        }
+        else
+        {
+            flag=false;
+            project_income=price;
+        }
+        System.out.println("project"+project_income+"----person"+person_income);
+        //插入到income表
+        IncomeEntity incomeEntity=new IncomeEntity();
+        incomeEntity.setIn_id("I"+Generate.getTime()+Generate.getRandomNumStr(3));
+        incomeEntity.setIncome_amount(String.valueOf(price));
+        incomeEntity.setM_id(m_id);
+        incomeEntity.setUnallocated_amount(String.valueOf(project_income));
+        if(!(incomeService.insertIntoIncome(incomeEntity))){
+            return "Failed insert into table income!";
+        }
+
+        //插入到投资人钱包、收入（如果用户使用了优惠券）
+        if(flag){
+            //收入表更新
+            ProjectWalletIncome pwi=new ProjectWalletIncome();
+            pwi.setAttachInfo(O_id);
+            pwi.setIncomeAmount(String.valueOf(person_income));
+            pwi.setIncomeId("PI"+Generate.getTime()+Generate.getRandomNumStr(4));
+            pwi.setIncomeTime(new Timestamp(new Date().getTime()));
+            pwi.setIncomeType("0");
+            pwi.setProjectId("PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz");
+            pwi.setUserId(moneyReceiver);
+            if(!(walletService.insertIntoPWI(pwi)))
+                return "Failed to insert into project_wallet_income";
+            //钱包余额更新
+            if(!(walletService.updateWallet(moneyReceiver,"PmA1bP2PAVSUItWEZsLjeTTQAD1NFpktz",person_income)))
+                return "Failed to update walllet_amount!";
+        }
+
+
+
+        return "success";
+
     }
 }
