@@ -136,7 +136,6 @@ public class WechatPayController {
     @ResponseBody
     public String notifys(HttpServletRequest request) {
 
-        String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
         System.out.println("------------------------------通知完成-------------------------");
 
         //System.out.println("微信支付成功,微信发送的callback信息,请注意修改订单信息");
@@ -144,8 +143,8 @@ public class WechatPayController {
         try {
             inputStream = request.getInputStream();//获取请求的流信息(这里是微信发的xml格式所有只能使用流来读)
             String xml = WXPayUtil.streamToXml(inputStream);
+            inputStream.close();
             Map<String, String> notifyMap = WXPayUtil.xmlToMap(xml);//将微信发的xml转map
-
             if(notifyMap.get("return_code").equals("SUCCESS")){
                 if(notifyMap.get("result_code").equals("SUCCESS")){
                     String orderId = notifyMap.get("out_trade_no");//商户订单号
@@ -157,13 +156,13 @@ public class WechatPayController {
                 }
             }
             //勿需通知
-//            String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+            String xmlResponse = "<xml> <return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+            return xmlResponse;
 //            response.getWriter().write(xmlResponse);
-            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
-        return xmlResponse;
     }
 
     @RequestMapping("/loading") //支付加载页
