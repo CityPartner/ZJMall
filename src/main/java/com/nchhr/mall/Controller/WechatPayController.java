@@ -149,6 +149,7 @@ public class WechatPayController {
             if(notifyMap.get("return_code").equals("SUCCESS")){
                 if(notifyMap.get("result_code").equals("SUCCESS")){
                     String orderId = notifyMap.get("out_trade_no");//商户订单号
+                    System.out.println("-----: "+orderId);
                     String orderAmount = notifyMap.get("total_fee");//实际支付的订单金额:单位 分
                     ordersService.setOrderStatus(orderId, "1");
                     String msg = ordersService.orderBonus(orderId);
