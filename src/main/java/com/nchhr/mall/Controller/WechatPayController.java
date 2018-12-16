@@ -135,7 +135,7 @@ public class WechatPayController {
     @RequestMapping("/notify")
     @ResponseBody
     public void notifys(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("------------------------------通知");
+        System.out.println("------------------------------通知完成-------------------------");
 
         //System.out.println("微信支付成功,微信发送的callback信息,请注意修改订单信息");
         InputStream inputStream = null;
@@ -149,6 +149,8 @@ public class WechatPayController {
                     String orderId = notifyMap.get("out_trade_no");//商户订单号
                     String orderAmount = notifyMap.get("total_fee");//实际支付的订单金额:单位 分
                     ordersService.setOrderStatus(orderId, "1");
+                    String msg = ordersService.orderBonus(orderId);
+                    System.out.println(msg);
                 }
             }
             //勿需通知
