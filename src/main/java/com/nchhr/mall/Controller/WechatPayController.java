@@ -161,7 +161,7 @@ public class WechatPayController {
 //            response.getWriter().write(xmlResponse);
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return "EXCEPTION";
         }
     }
 
