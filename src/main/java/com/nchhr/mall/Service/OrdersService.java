@@ -167,7 +167,6 @@ public class OrdersService {
      * @return
      */
     public String orderBonus(String O_id){
-
         OrderEntity order = ordersDao.getOrderById(O_id);
         MallUserService mallUserService=new MallUserService();
         ProjectService projectService=new ProjectService();
