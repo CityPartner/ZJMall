@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="/mall/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/mall/js/layer.js"></script>
     <title>支付处理</title>
 </head>
 <body>
@@ -48,13 +47,8 @@
                 },
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        layer.open({
-                            type: 2
-                            ,content: '付款成功，耐心等待哦'
-                            ,time: 5000
-                            ,function(){
-                                $(location).attr('href', '/mall/orderListPage');
-                            }
+                        $.toast("支付完成，正在处理", 5000, function(){
+                            $(location).attr('href', '/mall/orderListPage');
                         });
                     }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
                         $(location).attr('href', '/mall/orderListPage');
