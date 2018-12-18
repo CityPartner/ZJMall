@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="/mall/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/mall/js/layer.js"></script>
     <title>支付处理</title>
 </head>
 <body>
@@ -47,12 +48,19 @@
                 },
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        $(location).attr('href', '/mall/orderListPage' +
-                            '');
+                        layer.open({
+                            type: 2
+                            ,content: '付款成功，耐心等待哦'
+                            ,time: 5000
+                            ,function(){
+                                $(location).attr('href', '/mall/orderListPage');
+                            }
+                        });
                     }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-                        alert('支付取消');
+                        $(location).attr('href', '/mall/orderListPage');
                     }else if(res.err_msg == "get_brand_wcpay_request:fail"){
                         alert('支付失败');
+                        $(location).attr('href', '/mall/orderListPage');
 
                     }
                 }
