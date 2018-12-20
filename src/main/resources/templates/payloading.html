@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="lib/jquery-2.1.4.js"></script>
-    <script src="lib/fastclick.js"></script>
-    <link rel="stylesheet" href="lib/weui.min.css">
-    <link rel="stylesheet" href="css/jquery-weui.css">
-    <script src="js/jquery-weui.js"></script>
+    <script src="/mall/lib/jquery-2.1.4.js"></script>
+    <script src="/mall/lib/fastclick.js"></script>
+    <link rel="stylesheet" href="/mall/lib/weui.min.css">
+    <link rel="stylesheet" href="/mall/css/jquery-weui.css">
+    <script src="/mall/js/jquery-weui.js"></script>
     <title>支付处理</title>
 </head>
 <body>
@@ -14,9 +14,6 @@
 </body>
 <script>
     var paySignJSON;
-    $.toast("支付完成，正在处理", 5000, function(){
-        $(location).attr('href', '/mall/orderListPage');
-    });
     $(function () {
         $.ajax({
             type: "POST",
@@ -54,7 +51,7 @@
                 },
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        $.toast("支付完成，正在处理", 5000, function(){
+                        $.toast("支付完成<br>正在处理", 5000, function(){
                             $(location).attr('href', '/mall/orderListPage');
                         });
                     }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
