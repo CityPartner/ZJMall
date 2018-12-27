@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript" src="/mall/js/jquery.min.js"></script>
+    <script src="/mall/lib/jquery-2.1.4.js"></script>
+    <script src="/mall/lib/fastclick.js"></script>
+    <link rel="stylesheet" href="/mall/lib/weui.min.css">
+    <link rel="stylesheet" href="/mall/css/jquery-weui.css">
+    <script src="/mall/js/jquery-weui.js"></script>
     <title>支付处理</title>
 </head>
 <body>
-<h1>微信处理中...</h1>
+<h1></h1>
 </body>
 <script>
     var paySignJSON;
     $(function () {
         $.ajax({
             type: "POST",
-            url: "http://test.trunch.cn/mall/wechat/pay/handle",
+            url: "http://nchhr.com/mall/wechat/pay/handle",
             dataType: "json",
             success: function (data) {
                 paySignJSON = data;
@@ -45,14 +49,17 @@
                     "signType":paySignJSON.signType,
                     "paySign":paySignJSON.paySign
                 },
+
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        $(location).attr('href', '/mall/orderListPage' +
-                            '');
+                        $.toast("支付完成<br>正在处理", 5000, function(){
+                            $(location).attr('href', '/mall/orderListPage');
+                        });
                     }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-                        alert('支付取消');
+                        $(location).attr('href', '/mall/orderListPage');
                     }else if(res.err_msg == "get_brand_wcpay_request:fail"){
                         alert('支付失败');
+                        $(location).attr('href', '/mall/orderListPage');
 
                     }
                 }

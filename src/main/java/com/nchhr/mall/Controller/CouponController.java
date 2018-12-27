@@ -28,7 +28,8 @@ public class CouponController {
     @RequestMapping("/coupon")
     public String coupon(Map<String, Object> map,HttpSession session) {
         MallUserEntity mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
-        String userId=mallUserEntity.getM_id();
+        //TODO 手机号当做USERID
+        String userId=mallUserEntity.getPhone();
         map.put("unusedCoupons", couponService.getCoupons(userId, "0"));
         map.put("usedCoupons", couponService.getCoupons(userId, "1"));
         return "coupon";
@@ -37,7 +38,8 @@ public class CouponController {
     @RequestMapping("/myCoupon")
     public String myCoupon(Map<String, Object> map, HttpSession session) {
         MallUserEntity mallUserEntity= (MallUserEntity) session.getAttribute("MallUserInfo");
-        String userId=mallUserEntity.getM_id();
+        //TODO 手机号当做USERID
+        String userId=mallUserEntity.getPhone();
         map.put("unusedCoupons", couponService.getCoupons(userId, "0"));
         map.put("usedCoupons", couponService.getCoupons(userId, "1"));
         return "myCoupon";
