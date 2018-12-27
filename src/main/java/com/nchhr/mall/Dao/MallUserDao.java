@@ -17,7 +17,7 @@ public interface MallUserDao {
     MallUserEntity loadByMid(@Param("0") String mid);
 
     //插入用户
-    @Insert("insert into mall_user(M_id,R_id,phone,password,nickname,addTime,openid) values(#{0},'3',#{1},#{2},'商城用户',#{3},#{4})")
+    @Insert("insert into mall_user(M_id,R_id,phone,password,nickname,addTime,openid,name) values(#{0},'3',#{1},#{2},'商城用户',#{3},#{4},#{1})")
     boolean RegistLogin( @Param("0") String mid, @Param("1") String userPhone, @Param("2") String pwd, @Param("3") String addtime,@Param("4") String openid);
 
     //插入购物车
