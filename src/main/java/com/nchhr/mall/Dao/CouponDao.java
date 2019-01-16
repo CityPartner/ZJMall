@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CouponDao {
 
-    //通过用户ID和状态查询自己的优惠券信息（多表）
+    //通过用户手机号和状态查询自己的优惠券信息（多表）
     @Select("select * from offeCoupon, coupon where offeCoupon.COid = coupon.Co_id and Receiver = #{Receiver} and state = #{state}")
     List<CouponEntity> getCoupons(@Param("Receiver") String Receiver, @Param("state") String state);
 
@@ -20,5 +20,6 @@ public interface CouponDao {
     //改变优惠券状态
     @Update("update offeCoupon set state = '1' where OFid = #{OFid}")
     void updateCouponUsageInfo(@Param("OFid")String  OFid);
+
 
 }

@@ -249,6 +249,7 @@ public class MallUserService {
      * HWG
      */
     public MallUserEntity getUserByMid(String M_id){
+        System.out.println(M_id);
         return mallUserDao.loadByMid(M_id);
     }
 }

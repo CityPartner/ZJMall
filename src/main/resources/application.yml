@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
   servlet:
       context-path: /mall
 web:
@@ -13,6 +13,7 @@ spring:
     username: hyzjdba
     password: hyzjprogroup
     driver-class-name: com.mysql.jdbc.Driver
+
   thymeleaf:
     cache: false
     prefix: classpath:/templates/

@@ -12,10 +12,10 @@ public interface WalletDao {
      * HWG
      */
     @Insert("insert into project_wallet_income(" +
-            "income_id,user_id,project_id,income_amount,income_time,income_type,attach_info) " +
+            "income_id,user_id,project_id,income_amount,income_type,attach_info) " +
             " values(" +
             "#{incomeId},#{userId},#{projectId},#{incomeAmount}," +
-            "#{incomeTime},#{incomeType},#{attachInfo})")
+            "#{incomeType},#{attachInfo})")
     void insertIntoPWI(ProjectWalletIncome projectWalletIncome);
 
     /**

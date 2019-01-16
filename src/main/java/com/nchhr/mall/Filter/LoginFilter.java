@@ -61,6 +61,7 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/ResetPassword")
                 && !requestURI.contains("/ChangePassword")
                 && !requestURI.contains("/RegistLogin")
+                && !requestURI.contains("/wechat/pay")
 //                && !requestURI.contains("/test")
 
 

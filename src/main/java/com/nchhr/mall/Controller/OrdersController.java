@@ -51,14 +51,13 @@ public class OrdersController {
 
     MallUserEntity mallUserEntity=null;
 
-    /*
+    /**
      *产生订单号
      * 返回1代表成功
      * 2表示没有选择收货人
      * 3订单产生成功，商品购买出错
      * 4订单产生出错
      */
-
     @RequestMapping("/GenerateOrder")
     @ResponseBody
     public int insertOrder(HttpSession httpSession, HttpServletRequest request){
@@ -293,5 +292,22 @@ public class OrdersController {
 
 
         return "success";
+    }
+
+    /**
+     * 去付款按钮调用
+     * @param O_id
+     * HWG
+     */
+    @RequestMapping("/toPay")
+    @ResponseBody
+    public int toPay(@RequestParam(value="oid",required = true,defaultValue = "0000")String O_id,HttpSession session){
+        System.out.println("oid="+O_id);
+        if(ordersService.toPay(O_id,session)){
+            return  1;
+        }else
+        {
+            return 2;
+        }
     }
 }
