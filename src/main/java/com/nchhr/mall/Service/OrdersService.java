@@ -255,18 +255,42 @@ public class OrdersService {
 
     }
 
+    /**
+     * 支付接口
+     * @param o_id
+     * @param httpSession
+     * @return
+     * HWG
+     */
     public boolean toPay(String o_id, HttpSession httpSession){
         try {
-            System.out.println("oid:"+o_id);
             OrderEntity orderById = ordersDao.getOrderById(o_id);
             double price = orderById.getPrice();
             String orderFee = price * 100 + "";
             httpSession.setAttribute("orderId", o_id);
             httpSession.setAttribute("orderFee", orderFee);
+            System.out.println("Session保存成功--Oid:"+o_id+"&orderFee:"+orderFee);
             return true;
         }catch (Exception eee){
             System.out.println(eee.getMessage());
             return false;
         }
     }
+
+    /**
+     * 删除订单 置状态7
+     * @param o_id
+     * @return
+     *
+     */
+    public boolean delOrder(String o_id){
+        try{
+            ordersDao.setOrderStatusByOid(o_id,"7");
+            return true;
+        }catch (Exception ee){
+            System.out.println(ee.getMessage());
+            return false;
+        }
+    }
+
 }

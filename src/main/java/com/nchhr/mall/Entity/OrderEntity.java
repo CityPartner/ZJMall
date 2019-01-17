@@ -10,7 +10,7 @@ public class OrderEntity{
     private double original_price; //原价
     private String order_time;      //下单时间
     private String self_lifting;    //是否自提
-    private String status;          //订单状态      0-未支付  1-已支付  2-待发货  3-已发货  4-已完成  5-订单已取消  6-补录
+    private String status;          //订单状态      0-未支付  1-已支付  2-待发货  3-已发货  4-已完成  5-订单已取消  6-补录 7-删除
     private String OFid;           //优惠券id
 
     public String getO_id() {

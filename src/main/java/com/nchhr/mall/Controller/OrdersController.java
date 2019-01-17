@@ -310,4 +310,29 @@ public class OrdersController {
             return 2;
         }
     }
+
+    /**
+     * 删除订单，成功返回1失败返回0
+     * @param o_id
+     * @return
+     * HWG
+     */
+    @RequestMapping("/delOrder")
+    @ResponseBody
+    public int delOrderById(@RequestParam(value = "oid",required = true,defaultValue = "0000")String o_id){
+        if(ordersService.delOrder(o_id)){
+            return 1;
+        }else{
+            return 2;
+        }
+
+    }
+
+
+
+
+
+
+
+
 }

@@ -84,13 +84,12 @@ public class LoginFilter implements Filter {
                 }
             }
 
-            System.out.println("MID:"+MID);
+//            System.out.println("MID:"+MID);
             if ( MID == null || MID.equals("")) {
                 res.sendRedirect( req.getContextPath()+"/login.html");
                 return;
             }else {
                 if (session.getAttribute("MallUserInfo") == null) {
-
                     req.getRequestDispatcher( req.getContextPath()+"/getMallUserInfo").forward(request,response);
                 }
             }
