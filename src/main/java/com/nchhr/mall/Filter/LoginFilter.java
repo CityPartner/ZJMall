@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
         //如果没有登录
 //        String requestURI = req.getRequestURI().substring(req.getRequestURI().indexOf("/", 1), req.getRequestURI().length());
         String requestURI = req.getRequestURI();
-//        System.out.println("requestURI=" + requestURI);
+        System.out.println("requestURI=" + requestURI);
 //        System.out.println("路径："+req.getContextPath());
 ////        boolean ss = requestURI.contains("**/index**");
 //        System.out.println("80:"+requestURI);
@@ -90,7 +90,8 @@ public class LoginFilter implements Filter {
                 return;
             }else {
                 if (session.getAttribute("MallUserInfo") == null) {
-                    req.getRequestDispatcher( req.getContextPath()+"/getMallUserInfo").forward(request,response);
+                    System.out.println(req.getContextPath());
+                    res.sendRedirect( req.getContextPath()+"/getMallUserInfo");
                 }
             }
 
