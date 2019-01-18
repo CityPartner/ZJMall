@@ -5,10 +5,14 @@ import com.nchhr.mall.Dao.OrdersDao;
 import com.nchhr.mall.Entity.*;
 import com.nchhr.mall.EntityVo.OrderCommodityVo;
 import com.nchhr.mall.Utils.Generate;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +38,15 @@ public class OrdersService {
 
     @Resource
     private ShopCartService shopCartService;
+
+    @Autowired
+    MallUserService mallUserService;
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    IncomeService incomeService;
+    @Autowired
+    WalletService walletService;
 
     /**产生并写入订单
      *库存相应减少
@@ -168,10 +181,8 @@ public class OrdersService {
      */
     public String orderBonus(String O_id){
         OrderEntity order = ordersDao.getOrderById(O_id);
-        MallUserService mallUserService=new MallUserService();
-        ProjectService projectService=new ProjectService();
-        IncomeService incomeService=new IncomeService();
-        WalletService walletService=new WalletService();
+
+
         if(order==null)
             return "Wrong Order!";
         String m_id = order.getM_id();
@@ -196,8 +207,13 @@ public class OrdersService {
             flag=true;
             CouponEntity coupon = couponService.getCouponByOfid(oFid);
             moneyReceiver=coupon.getOffe_user();
-            project_income=(original_price*discount_lowest)/100;
-            person_income=price-project_income;
+//            System.out.println("original_price:"+original_price+
+//                    "\ndis_lowest:"+discount_lowest+
+//                    "\noXd:"+original_price*discount_lowest+
+//                    "\n(original_price*discount_lowest)*0.01="+(original_price*discount_lowest)*0.01);
+            project_income=(original_price*discount_lowest)*0.01;
+            //System.out.println("price="+price+"\nprice-project_income="+(price-project_income));
+            person_income=(price*100-project_income*100)*0.01;
         }
         else
         {
@@ -238,4 +254,43 @@ public class OrdersService {
         return "success";
 
     }
+
+    /**
+     * 支付接口
+     * @param o_id
+     * @param httpSession
+     * @return
+     * HWG
+     */
+    public boolean toPay(String o_id, HttpSession httpSession){
+        try {
+            OrderEntity orderById = ordersDao.getOrderById(o_id);
+            double price = orderById.getPrice();
+            String orderFee = price * 100 + "";
+            httpSession.setAttribute("orderId", o_id);
+            httpSession.setAttribute("orderFee", orderFee);
+            System.out.println("Session保存成功--Oid:"+o_id+"&orderFee:"+orderFee);
+            return true;
+        }catch (Exception eee){
+            System.out.println(eee.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * 删除订单 置状态7
+     * @param o_id
+     * @return
+     *
+     */
+    public boolean delOrder(String o_id){
+        try{
+            ordersDao.setOrderStatusByOid(o_id,"7");
+            return true;
+        }catch (Exception ee){
+            System.out.println(ee.getMessage());
+            return false;
+        }
+    }
+
 }

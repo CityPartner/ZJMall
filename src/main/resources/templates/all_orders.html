@@ -10,7 +10,14 @@
 <link rel="stylesheet" href="lib/weui.min.css">
 <link rel="stylesheet" href="css/jquery-weui.css">
 <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/base.css">
+<script src="/mall/lib/jquery-2.1.4.js"></script>
+<script src="/mall/lib/fastclick.js"></script>
+<link rel="stylesheet" href="/mall/lib/weui.min.css">
+<link rel="stylesheet" href="/mall/css/jquery-weui.css">
+<script src="/mall/js/jquery-weui.js"></script>
+<link rel="stylesheet" href="css/base.css">
+    <script type="text/javascript" src="js/allOrder.js"></script>
+<!--<script type="text/javascript" src="js/allOrder.js"></script>-->
 </head>
 <body ontouchstart>
 <div class="NC-back-model">
@@ -33,7 +40,10 @@
       <!--全部订单-->
       <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
           <div class="weui-panel weui-panel_access" th:each="COV : ${OM.UnpayOrder}">
-              <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">未付款</span></div>
+              <div class="weui-panel__hd">
+                  <span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span>
+                  <span class="ord-status-txt-ts fr">未付款</span>
+              </div>
               <div class="weui-media-box__bd  pd-10">
                   <!--//商品列表-->
                   <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
@@ -60,7 +70,8 @@
               <div class="weui-panel__ft">
                   <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
                       <!--<a href="javascript:;" class="ords-btn-dele">取消订单</a>-->
-                      <a href="javascript:;" class="ords-btn-com">去付款</a>
+                      <a href="" class="ords-btn-com toPayBtn">去付款</a>
+                      <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
                   </div>
               </div>
           </div>
@@ -137,7 +148,6 @@
           <div class="weui-panel weui-panel_access" th:each="COV : ${OM.NotCommentOrder}">
               <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">交易成功</span></div>
               <div class="weui-media-box__bd  pd-10">
-
                   <!--//商品列表-->
                   <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
                       <!--//图片-->
@@ -150,16 +160,12 @@
                       <div class="weui-media-box__bd">
                           <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
-
                           <div class="clear mg-t-10">
                               <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
                               <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
                           </div>
                       </div>
-
-
                   </div>
-
               </div>
               <div class="ord-statistics">
                   <!--<span>共<em class="num">1</em>件商品，</span>-->
@@ -168,7 +174,8 @@
               </div>
               <div class="weui-panel__ft">
                   <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
-                      <a href="javascript:;" class="ords-btn-dele">删除订单</a>
+                      <a href="javascript:;" class="ords-btn-dele delOrderBtn">删除订单</a>
+                      <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
                       <!--<a href="comment.html" class="ords-btn-com">评价</a>-->
                   </div>
               </div>
@@ -179,7 +186,10 @@
 
           <!--//订单列表-->
           <div class="weui-panel weui-panel_access" th:each="COV : ${OM.UnpayOrder}">
-              <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">未付款</span></div>
+              <div class="weui-panel__hd">
+                  <span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span>
+                  <span class="ord-status-txt-ts fr">未付款</span>
+              </div>
               <div class="weui-media-box__bd  pd-10">
                   <!--//商品列表-->
                   <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
@@ -206,7 +216,8 @@
               <div class="weui-panel__ft">
                   <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
                       <!--<a href="javascript:;" class="ords-btn-dele">取消订单</a>-->
-                      <a href="javascript:;" class="ords-btn-com">去付款</a>
+                      <a href="" class="ords-btn-com toPayBtn">去付款</a>
+                      <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
                   </div>
               </div>
           </div>
@@ -298,7 +309,6 @@
         <div class="weui-panel weui-panel_access" th:each="COV : ${OM.NotCommentOrder}">
           <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">交易成功</span></div>
           <div class="weui-media-box__bd  pd-10">
-
             <!--//商品列表-->
             <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
               <!--//图片-->
@@ -311,16 +321,12 @@
               <div class="weui-media-box__bd">
                 <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                 <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
-
                 <div class="clear mg-t-10">
                   <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
                   <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
                 </div>
               </div>
-
-
             </div>
-
           </div>
           <div class="ord-statistics">
             <!--<span>共<em class="num">1</em>件商品，</span>-->
@@ -329,7 +335,8 @@
           </div>
           <div class="weui-panel__ft">
             <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
-              <a href="javascript:;" class="ords-btn-dele">删除订单</a>
+              <a href="javascript:;" class="ords-btn-dele delOrderBtn">删除订单</a>
+                <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
               <!--<a href="comment.html" class="ords-btn-com">评价</a>-->
             </div>
           </div>
@@ -347,19 +354,6 @@
   });
 </script> 
 <script src="js/jquery-weui.js"></script>
-<script>
 
-      $(document).on("click", ".ords-btn-dele", function() {
-        $.confirm("您确定要删除此订单吗?", "确认删除?", function() {
-          $.toast("订单已经删除!");
-        }, function() {
-          //取消操作
-        });
-      });
-	  $(document).on("click", ".receipt", function() {
-        $.alert("五星好评送蓝豆哦，赶快去评价吧！", "收货完成！");
-      });
-
-    </script>
 </body>
 </html>

@@ -32,10 +32,10 @@ public class WeChatUserService {
         //授权请求路径
         String request_url = null;
         try {
-            request_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeChatUtil.AppID
+            request_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WechatConfig.AppID
                     + "&redirect_uri="+ URLEncoder.encode(wechat_redirect_uri, "UTF-8")
                     + "&response_type=code"
-                    + "&scope=snsapi_userinfo" //另一种 snsapi_base 针对已关注者静默授权
+                    + "&scope=snsapi_userinfo" //通过snsapi_userinfo必须显式授权，此处snsapi_base为隐式授权
                     + "&state=STATE#wechat_redirect";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -45,8 +45,8 @@ public class WeChatUserService {
 
     //通过用户授权方式获得token和openid
     public void getWeChatOAuth2Token(String code, String state) {
-        String WeChatOAuth2TokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WeChatUtil.AppID
-                + "&secret=" + WeChatUtil.AppSecret
+        String WeChatOAuth2TokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WechatConfig.AppID
+                + "&secret=" + WechatConfig.AppSecret
                 + "&code=" + code
                 + "&grant_type=authorization_code";
         JSONObject WeChatOAuth2TokenJSON = JSONObject.parseObject(JSONUtil.getJSONByURL(WeChatOAuth2TokenURL));

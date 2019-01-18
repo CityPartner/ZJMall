@@ -61,6 +61,7 @@ public class LoginFilter implements Filter {
                 && !requestURI.contains("/ResetPassword")
                 && !requestURI.contains("/ChangePassword")
                 && !requestURI.contains("/RegistLogin")
+                && !requestURI.contains("/wechat/pay")
 //                && !requestURI.contains("/test")
 
 
@@ -83,13 +84,12 @@ public class LoginFilter implements Filter {
                 }
             }
 
-            System.out.println("MID:"+MID);
+//            System.out.println("MID:"+MID);
             if ( MID == null || MID.equals("")) {
                 res.sendRedirect( req.getContextPath()+"/login.html");
                 return;
             }else {
                 if (session.getAttribute("MallUserInfo") == null) {
-
                     req.getRequestDispatcher( req.getContextPath()+"/getMallUserInfo").forward(request,response);
                 }
             }
