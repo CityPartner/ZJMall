@@ -10,6 +10,7 @@ import com.nchhr.mall.Utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Parameter;
 
 @Controller
 @RequestMapping("")
@@ -96,7 +98,11 @@ public class MallUserController {
     }
 
     @RequestMapping("/getMallUserInfo")
-    public String getMallUserInfo5(HttpServletRequest request, HttpSession session) {
+    public String getMallUserInfo5( HttpServletRequest request, HttpSession session) {
+       String url =  request.getParameter("url");
+        String regex = "/mall\\/";
+        url = url.replaceAll (regex, "");
+
         String MID = "";
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
@@ -106,7 +112,7 @@ public class MallUserController {
         }
         MallUserEntity mallUserEntity = mallUserDao.loadByMid(MID);
         session.setAttribute("MallUserInfo", mallUserEntity);
-        return "redirect:" + "/index";
+        return "redirect:" + "/"+url;
     }
 
 

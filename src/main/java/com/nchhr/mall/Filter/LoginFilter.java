@@ -91,7 +91,7 @@ public class LoginFilter implements Filter {
             }else {
                 if (session.getAttribute("MallUserInfo") == null) {
                     System.out.println(req.getContextPath());
-                    res.sendRedirect( req.getContextPath()+"/getMallUserInfo");
+                    res.sendRedirect( req.getContextPath()+"/getMallUserInfo?url="+requestURI);
                 }
             }
 
