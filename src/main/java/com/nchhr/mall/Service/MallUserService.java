@@ -18,7 +18,10 @@ import com.nchhr.mall.Entity.WeChatUserEntity;
 import com.nchhr.mall.Enum.CodeEnum;
 import com.nchhr.mall.Enum.ExceptionEnum;
 import com.nchhr.mall.Exception.MDException;
-import com.nchhr.mall.Utils.*;
+import com.nchhr.mall.Utils.CodeUtils;
+import com.nchhr.mall.Utils.GetCodeUtils;
+import com.nchhr.mall.Utils.MD5Utils;
+import com.nchhr.mall.Utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +41,7 @@ public class MallUserService {
     WeChatUserDao weChatUserDao;
 
     @Autowired
-    CookiesService cookiesService;
+   CookiesService cookiesService;
 
     public String getCode(String phone, HttpSession session) {
         MallUserEntity mallUser = mallUserDao.loadByID(phone);
@@ -103,7 +106,7 @@ public class MallUserService {
                     String Mid = "M" + codeUtils.createRandom(false, 16);
                     System.out.println(Mid);
 
-                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd,TimeUtils.getTime(),weChatUserEntity.getOpenid());
+                    boolean b = mallUserDao.RegistLogin(Mid, userPhone, pwd, TimeUtils.getTime(),weChatUserEntity.getOpenid());
                     System.out.println(b);
                     if (b == true) {
                         String Sid = "S" + codeUtils.createRandom(false, 12);
