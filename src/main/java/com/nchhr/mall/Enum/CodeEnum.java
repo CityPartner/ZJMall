@@ -2,11 +2,15 @@ package com.nchhr.mall.Enum;
 
 public enum CodeEnum {
 
-    AccessId("AccessKeyId", "LTAIMCtxtFp03EBf"),
-    AccessKeySecre("AccessKeySecret", "nDr1n0ZRemha5MrkYnQ2ZLXprTmTdM"),
-    //短信模板
-    SMSTemplateCode("SMSTemplateCode", "SMS_146807344"),
-    SignName("SignName", "南昌城市合伙人"),;
+    AccessId("AccessKeyId", "LTAIt2OMF0RdFsw0"),
+    AccessKeySecre("AccessKeySecret", "CKNdqWQgzmYmPdeZetwpu0HmXHmEQH"),
+    //登录模板
+    SMSTemplateCode("SMSTemplateCode", "SMS_147125244"),
+    SignName("SignName", "南昌城市合伙人"),
+    //订单提醒
+    SMSTemplate1("SMSTemplateCode","SMS_156276411"),
+    SignName1("SignName", "南昌城市合伙人"),
+    ;
 
     private String key;
     private String value;
