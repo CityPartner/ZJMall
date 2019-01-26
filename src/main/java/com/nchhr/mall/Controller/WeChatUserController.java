@@ -41,19 +41,5 @@ public class WeChatUserController {
         session.setAttribute("weChatUser",weChatUser);
         System.out.println(weChatUser);
         return "redirect:"+"/regist.html";
-
-//        if (loginService.loginByOpenid(openid,response,request,session)){
-//
-//
-//            return "redirect:/index";
-//        }
-//        else {
-//            return "redirect:/regist.html";
-//        }
-
-            //微信id存在 有账号 return“login”
-
-            //不存在 没有账号 return “register”
-//            return "register";
     }
 }
