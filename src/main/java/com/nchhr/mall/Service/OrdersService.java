@@ -99,7 +99,7 @@ public class OrdersService {
 //                        shopCartService.deleteBySCidAndCid(SC_id,temp[0]);
 //                    }
 //                }
-                for (CommodityEntity codata:coms) {
+                for(CommodityEntity codata:coms) {
                     System.out.println(codata);
                     if(codata!=null) {
                         commodityService.buyCommodity(codata.getC_id(),codata.getStock());
@@ -107,12 +107,10 @@ public class OrdersService {
                         shopCartService.deleteBySCidAndCid(SC_id,codata.getC_id());
                     }
                 }
-
             }catch (Exception e){
                 e.printStackTrace();
                 return 3;
             }
-
 //            使用优惠券
             if(OFid!=null){
                 couponService.useCoupon(OFid);
@@ -121,13 +119,11 @@ public class OrdersService {
             httpSession.setAttribute("orderId", o_id);
             String orderFee = (int)(Float.parseFloat(price)*100) + "";
             httpSession.setAttribute("orderFee", orderFee);
-
             return 1;
         }catch(Exception e){
             e.printStackTrace();
             return  4;
         }
-
     }
 
 
@@ -258,11 +254,12 @@ public class OrdersService {
     /**
      * 支付接口
      * @param o_id
-     * @param httpSession
+     * @param request
      * @return
      * HWG
      */
-    public boolean toPay(String o_id, HttpSession httpSession){
+    public boolean toPay(String o_id,HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
         try {
             OrderEntity orderById = ordersDao.getOrderById(o_id);
             double price = orderById.getPrice();

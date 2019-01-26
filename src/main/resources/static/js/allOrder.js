@@ -10,10 +10,7 @@ $(function () {
             data:"oid="+oid,
             success:function (data) {
                 if(data==1){
-                    $.toast("等待付款",1000,function () {
-                        alert(data);
-                        window.location.href="/mall/wechat/pay";
-                    });
+                    window.location.href="/mall/wechat/pay";
                 }else{
                     $.toast("请重试","text");
                 }

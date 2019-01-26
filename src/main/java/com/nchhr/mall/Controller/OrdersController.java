@@ -301,10 +301,11 @@ public class OrdersController {
      */
     @RequestMapping("/toPay")
     @ResponseBody
-    public int toPay(@RequestParam(value="oid",required = true,defaultValue = "0000")String O_id,HttpSession session){
+    public int toPay(@RequestParam(value="oid",required = true,defaultValue = "0000")String O_id,
+                     HttpServletRequest request){
         System.out.println("oid="+O_id);
-        if(ordersService.toPay(O_id,session)){
-            return  1;
+        if(ordersService.toPay(O_id,request)){
+            return 1;
         }else
         {
             return 2;
