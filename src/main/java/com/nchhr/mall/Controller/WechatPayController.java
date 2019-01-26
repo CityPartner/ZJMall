@@ -2,6 +2,7 @@ package com.nchhr.mall.Controller;
 
 
 import com.nchhr.mall.Configure.WechatConfig;
+import com.nchhr.mall.Entity.MallUserEntity;
 import com.nchhr.mall.Service.OrdersService;
 import com.nchhr.mall.Service.WeChatUserService;
 import com.nchhr.mall.Utils.HttpUtil;
@@ -135,7 +136,7 @@ public class WechatPayController {
     //支付成功后微信通知于此
     @RequestMapping("/notify")
     @ResponseBody
-    public String notifys(HttpServletRequest request) {
+    public String notifys(HttpServletRequest request, HttpSession session) {
 
         System.out.println("------------------------------通知完成-------------------------");
 
@@ -154,7 +155,7 @@ public class WechatPayController {
                     ordersService.setOrderStatus(orderId, "2");
                     String msg = ordersService.orderBonus(orderId);
                     System.out.println(msg);
-                    OrderSmsUtils.orderSend(orderId,"2");
+                    OrderSmsUtils.orderSend(((MallUserEntity)session.getAttribute("MallUserInfo")).getPhone(),"2");
                 }
             }
             //勿需通知
