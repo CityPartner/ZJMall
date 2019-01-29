@@ -155,7 +155,7 @@ public class WechatPayController {
                     ordersService.setOrderStatus(orderId, "2");
                     String msg = ordersService.orderBonus(orderId);
                     System.out.println(msg);
-                    OrderSmsUtils.orderSend(((MallUserEntity)session.getAttribute("MallUserInfo")).getPhone(),"2");
+                    OrderSmsUtils.orderSend(((MallUserEntity)session.getAttribute("MallUserInfo")).getPhone(),"已成功付款");
                 }
             }
             //勿需通知
