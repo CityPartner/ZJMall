@@ -10,7 +10,10 @@ $(function () {
             data:"oid="+oid,
             success:function (data) {
                 if(data==1){
-                    window.location.href="/mall/wechat/pay";
+                    $.toast("正在拉起支付页面",1000,function () {
+                        window.location.href="http://www.nchhr.com/mall/wechat/pay";
+                    });
+
                 }else{
                     $.toast("请重试","text");
                 }
@@ -25,7 +28,7 @@ $(function () {
             data:"oid="+oid,
             success:function (data) {
                 if(data==1){
-                    $.toast("删除成功",1000,function () {
+                    $.toast("操作成功",1000,function () {
                        window.location.reload();
                     });
                 }else{
@@ -37,5 +40,4 @@ $(function () {
 })
 function toPay(){
     window.location.href="/mall/wechat/pay";
-
 }

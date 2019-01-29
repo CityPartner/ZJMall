@@ -263,7 +263,7 @@ public class OrdersService {
         try {
             OrderEntity orderById = ordersDao.getOrderById(o_id);
             double price = orderById.getPrice();
-            String orderFee = price * 100 + "";
+            String orderFee = (int)(price * 100) + "";
             httpSession.setAttribute("orderId", o_id);
             httpSession.setAttribute("orderFee", orderFee);
             System.out.println("Session保存成功--Oid:"+o_id+"&orderFee:"+orderFee);
