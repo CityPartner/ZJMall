@@ -48,19 +48,14 @@ public class CouponController {
     @RequestMapping("/coupon/choose")
     @ResponseBody
     public String chooseCoupon(HttpServletRequest request, String couponId) {
-
         try{
-
             //此处为从优惠券页面传上来选择的优惠券
-//        System.out.println(couponId);
             CouponEntity couponEntity = couponService.getCouponByOfid(couponId);
             System.out.println(couponEntity.toString());
-//            System.out.println("totalAmount:" + request.getSession().getAttribute("totalAmount").toString());
             String totalAmount = request.getSession().getAttribute("totalAmount").toString();
 
             Float f_Condition_use = Float.parseFloat(couponEntity.getCondition_use());
             Float f_totalAmount = Float.parseFloat(totalAmount);
-
             //type == 1  折扣 ; type == 2  满减
             if ("1".equals(couponEntity.getType())){
                 request.getSession().setAttribute("OFid",couponId);
@@ -76,10 +71,9 @@ public class CouponController {
                 System.out.println("error: coupon type !!!");
                 return "-Error2-";
             }
-
         }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+            System.out.println(e.getMessage());;
         }
-
+        return "-Error2-";
     }
 }

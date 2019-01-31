@@ -47,20 +47,20 @@
               <div class="weui-media-box__bd  pd-10">
                   <!--//商品列表-->
                   <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
-                      <!--//图片-->
-                      <div class="weui-media-box__hd">
-                          <a th:href="'/mall/pro_info?id='+${co.C_id}">
-                              <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}" alt="">
-                          </a>
-                      </div>
-                      <!--//详细信息-->
-                      <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
-                          <div class="clear mg-t-10">
-                              <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
-                              <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
+                      <a th:href="'/mall/pro_info?id='+${co.C_id}">
+                          <div class="weui-media-box__hd">
+                              <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}">
                           </div>
-                      </div>
+                      </a>
+                      <div class="weui-media-box__bd">
+                              <h1 class="weui-media-box__desc">
+                                  <a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}"></a>
+                              </h1>
+                              <div class="clear mg-t-10">
+                                  <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
+                                  <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
+                              </div>
+                          </div>
                   </div>
               </div>
               <div class="ord-statistics">
@@ -89,7 +89,7 @@
                       </div>
                       <!--//详细信息-->
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <div class="clear mg-t-10">
                               <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
                               <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
@@ -121,7 +121,7 @@
                       </div>
                       <!--//详细信息-->
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
 
                           <div class="clear mg-t-10">
@@ -159,7 +159,7 @@
                       </div>
                       <!--//详细信息-->
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
                           <div class="clear mg-t-10">
                               <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
@@ -184,7 +184,6 @@
       </div>
       <!--未付款-->
       <div id="tab2" class="weui-tab__bd-item">
-
           <!--//订单列表-->
           <div class="weui-panel weui-panel_access" th:each="COV : ${OM.UnpayOrder}">
               <div class="weui-panel__hd">
@@ -194,15 +193,15 @@
               <div class="weui-media-box__bd  pd-10">
                   <!--//商品列表-->
                   <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
-                      <!--//图片-->
-                      <div class="weui-media-box__hd">
-                          <a th:href="'/mall/pro_info?id='+${co.C_id}">
-                              <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}" alt="">
-                          </a>
-                      </div>
-                      <!--//详细信息-->
+                      <a th:href="'/mall/pro_info?id='+${co.C_id}">
+                          <div class="weui-media-box__hd">
+                              <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}">
+                          </div>
+                      </a>
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc">
+                              <a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}"></a>
+                          </h1>
                           <div class="clear mg-t-10">
                               <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
                               <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
@@ -216,9 +215,9 @@
               </div>
               <div class="weui-panel__ft">
                   <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
-                      <a href="javascript:;" class="ords-btn-dele delOrderBtn">取消订单</a>
+                      <a class="ords-btn-dele delOrderBtn">取消订单</a>
                       <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
-                      <a href="" class="ords-btn-com toPayBtn">去付款</a>
+                      <a class="ords-btn-com toPayBtn">去付款</a>
                       <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
                   </div>
               </div>
@@ -241,7 +240,7 @@
                       </div>
                       <!--//详细信息-->
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <div class="clear mg-t-10">
                               <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
                               <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
@@ -278,7 +277,7 @@
                       </div>
                       <!--//详细信息-->
                       <div class="weui-media-box__bd">
-                          <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
                           <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
 
                           <div class="clear mg-t-10">
@@ -308,41 +307,41 @@
       <!--待评价-->
       <div id="tab5" class="weui-tab__bd-item">
         <!--//订单列表-->
-        <div class="weui-panel weui-panel_access" th:each="COV : ${OM.NotCommentOrder}">
-          <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">交易成功</span></div>
-          <div class="weui-media-box__bd  pd-10">
-            <!--//商品列表-->
-            <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
-              <!--//图片-->
-              <div class="weui-media-box__hd">
-                <a th:href="'/mall/pro_info?id='+${co.C_id}">
-                  <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}" alt="">
-                </a>
+          <div class="weui-panel weui-panel_access" th:each="COV : ${OM.NotCommentOrder}">
+              <div class="weui-panel__hd"><span>单号：</span><span th:text="${COV.orderEntity.O_id}"></span><span class="ord-status-txt-ts fr">交易成功</span></div>
+              <div class="weui-media-box__bd  pd-10">
+                  <!--//商品列表-->
+                  <div class="weui-media-box_appmsg ord-pro-list" th:each="co : ${COV.commodities}">
+                      <!--//图片-->
+                      <div class="weui-media-box__hd">
+                          <a th:href="'/mall/pro_info?id='+${co.C_id}">
+                              <img class="weui-media-box__thumb" th:attr="src='/mall/goods/' + ${co.image}" alt="">
+                          </a>
+                      </div>
+                      <!--//详细信息-->
+                      <div class="weui-media-box__bd">
+                          <h1 class="weui-media-box__desc"><a th:href="'/mall/pro_info?id='+${co.C_id}" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+                          <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
+                          <div class="clear mg-t-10">
+                              <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
+                              <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
+                          </div>
+                      </div>
+                  </div>
               </div>
-              <!--//详细信息-->
-              <div class="weui-media-box__bd">
-                <h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link" th:text="${co.name}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
-                <!--<p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p>-->
-                <div class="clear mg-t-10">
-                  <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${co.price}">296.00</em></div>
-                  <div class="pro-amount fr"><span class="font-13">数量×<em class="name" th:text="${co.number}">1</em></span></div>
-                </div>
+              <div class="ord-statistics">
+                  <!--<span>共<em class="num">1</em>件商品，</span>-->
+                  <span class="wy-pro-pri">总金额：¥<em class="num font-15" th:text="${COV.orderEntity.price}">296.00</em></span>
+                  <span>(含运费<b>￥0.00</b>)</span>
               </div>
-            </div>
+              <div class="weui-panel__ft">
+                  <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
+                      <a href="javascript:;" class="ords-btn-dele delOrderBtn">删除订单</a>
+                      <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
+                      <!--<a href="comment.html" class="ords-btn-com">评价</a>-->
+                  </div>
+              </div>
           </div>
-          <div class="ord-statistics">
-            <!--<span>共<em class="num">1</em>件商品，</span>-->
-            <span class="wy-pro-pri">总金额：¥<em class="num font-15" th:text="${COV.orderEntity.price}">296.00</em></span>
-            <span>(含运费<b>￥0.00</b>)</span>
-          </div>
-          <div class="weui-panel__ft">
-            <div class="weui-cell weui-cell_access weui-cell_link oder-opt-btnbox">
-              <a href="javascript:;" class="ords-btn-dele delOrderBtn">删除订单</a>
-                <input type="hidden" th:value="${COV.orderEntity.O_id}"/>
-              <!--<a href="comment.html" class="ords-btn-com">评价</a>-->
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
