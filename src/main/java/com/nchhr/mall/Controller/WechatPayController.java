@@ -127,6 +127,7 @@ public class WechatPayController {
 
             return paySignMap;
         } catch (Exception e) {
+            e.printStackTrace();
             Map<String, String> paySignMap = new HashMap<>();
             paySignMap.put("error","handle error");
             return paySignMap;
