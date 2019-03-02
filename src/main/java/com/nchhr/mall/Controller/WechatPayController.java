@@ -53,6 +53,7 @@ public class WechatPayController {
             // 重定向到微信
             String redirect_path = "/mall/wechat/pay/redirect";
             String state = httpSession.getId();
+            System.out.println("}}}}}}}}}}}}}}"+state);
             return "redirect:" + wechatUserService.getWeChatRequestURL(redirect_path, state);
         }
         //重定向到支付错误页
@@ -62,6 +63,7 @@ public class WechatPayController {
 
     @RequestMapping("/redirect")//请求openid后微信回调于此，在此获取并保存openid
     public String redirect(HttpSession httpSession, String code, String state) {
+        System.out.println("}}}}}}}}}}}}}}-"+state);
         httpSession = httpSession.getSessionContext().getSession(state);
         String openid = wechatUserService.getOpenID(code, state);
         System.out.println("------ openid: " + openid);
