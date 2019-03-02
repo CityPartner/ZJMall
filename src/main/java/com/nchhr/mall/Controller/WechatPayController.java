@@ -99,6 +99,7 @@ public class WechatPayController {
             signMap.put("total_fee", total_fee);
             signMap.put("openid", openid);
             //通过以上信息获取签名
+            System.out.println(signMap.toString());
             sign = WXPayUtil.generateSignature(signMap, WechatConfig.APIKey);
             System.out.println("sign: " + sign);
             signMap.put("sign", sign);
