@@ -99,7 +99,9 @@ public class WechatPayController {
             signMap.put("total_fee", total_fee);
             signMap.put("openid", openid);
             //通过以上信息获取签名
+            System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
             System.out.println(signMap.toString());
+            System.out.println(openid);
             sign = WXPayUtil.generateSignature(signMap, WechatConfig.APIKey);
             System.out.println("sign: " + sign);
             signMap.put("sign", sign);
@@ -125,6 +127,7 @@ public class WechatPayController {
             paySignMap.put("signType", signType);
             paySign = WXPayUtil.generateSignature(paySignMap, WechatConfig.APIKey);
             paySignMap.put("paySign", paySign);
+            System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 
             return paySignMap;
         } catch (Exception e) {
