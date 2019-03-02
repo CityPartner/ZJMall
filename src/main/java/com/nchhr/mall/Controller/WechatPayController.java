@@ -44,6 +44,7 @@ public class WechatPayController {
     @RequestMapping("")
     public String pay(HttpSession httpSession) {
         System.out.println("---------------------------开始支付---------------------");
+        System.out.println("))))))))))))))"+httpSession.getAttribute("orderId"));
         if (httpSession.getAttribute("orderId") != null) {//
             if (httpSession.getAttribute("openid") != null) {
                 //重定向到支付加载页
@@ -64,6 +65,7 @@ public class WechatPayController {
         String openid = wechatUserService.getOpenID(code, state);
         System.out.println("------ openid: " + openid);
         httpSession.setAttribute("openid", openid);
+        System.out.println("新拿openid:"+openid);
         //重定向到支付加载页
         String redirect_path = "/wechat/pay/loading";
         return "redirect:" + redirect_path;//支付加载页
