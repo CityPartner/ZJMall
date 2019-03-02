@@ -97,7 +97,7 @@ public class WeChatUserService {
     }
 
     //获取微信验证请求路径
-    public String getWeChatRequestURL(String redirect_path) {
+    public String getWeChatRequestURL(String redirect_path, String state) {
         //确定回调页面路径
         String wechat_redirect_uri = "http://"+ WechatConfig.ADN + redirect_path;
         //生成授权请求路径
