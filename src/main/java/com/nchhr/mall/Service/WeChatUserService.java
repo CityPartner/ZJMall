@@ -107,7 +107,7 @@ public class WeChatUserService {
                     + "&redirect_uri="+ URLEncoder.encode(wechat_redirect_uri, "UTF-8")
                     + "&response_type=code"
                     + "&scope=snsapi_base" //通过snsapi_userinfo必须显式授权，此处snsapi_base为隐式授权
-                    + "&state=STATE#wechat_redirect";
+                    + "&state=" + state + "#wechat_redirect";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
